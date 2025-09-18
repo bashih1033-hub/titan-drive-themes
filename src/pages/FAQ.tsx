@@ -53,7 +53,7 @@ const FAQ = () => {
         },
         {
           question: "Does financial aid cover CDL training?",
-          answer: "Yes, CDL training at Titan Trucking School is eligible for federal financial aid including Pell Grants and student loans. We also work with Minnesota nonprofits like Avivo and CareerForce that can cover CDL tuition for qualified individuals. These nonprofit partnerships provide additional funding opportunities to help students achieve their career goals.",
+          answer: "Yes, CDL training at Titan Trucking School offers multiple financing options. We have flexible in-house payment plans to make training affordable. We also work with Minnesota nonprofits like Avivo and CareerForce that can cover CDL tuition for qualified individuals. These nonprofit partnerships provide additional funding opportunities to help students achieve their career goals.",
           keywords: "CDL training financial aid, Pell Grant CDL school, FAFSA CDL training, federal aid trucking school"
         },
         {
