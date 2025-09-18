@@ -75,18 +75,18 @@ const EnrollmentJourney = ({ variant = "full" }: { variant?: "full" | "compact" 
     },
     {
       id: 3, 
-      title: "Medical Clearance & Permits",
-      description: "Get DOT medical certificate and CDL learner's permit",
+      title: "DOT Medical, Permits & ELDT Theory",
+      description: "Complete medical certification, obtain permits, and pass ELDT theory requirements",
       duration: "1-2 weeks",
       icon: <FileText className="h-6 w-6" />,
       details: [
-        "Complete DOT medical examination with certified examiner",
-        "Study CDL manual and pass written knowledge tests",
-        "Obtain CDL learner's permit from DMV",
-        "Submit all required documentation to school",
-        "Confirm your training start date and schedule"
+        "Complete DOT medical examination with certified medical examiner",
+        "Study for and pass CDL written knowledge tests at DMV",
+        "Obtain your CDL learner's permit (CLP) for hands-on training",
+        "Complete ELDT (Entry-Level Driver Training) theory requirements",
+        "Submit all required documentation and confirm training start date"
       ],
-      nextAction: "We guide you through every step of the medical and permit process",
+      nextAction: "We guide you through the DOT medical, permit, and ELDT theory process step-by-step",
       ctaText: "Learn About Requirements",
       ctaLink: "/faq"
     },
