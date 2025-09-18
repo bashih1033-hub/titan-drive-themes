@@ -3,6 +3,7 @@ import SEOHead from '@/components/SEOHead';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Calendar, Clock, User, ArrowLeft, Share2 } from 'lucide-react';
+import { useScrollToTop } from '@/hooks/useScrollToTop';
 
 interface BlogPost {
   id: string;
@@ -18,6 +19,9 @@ interface BlogPost {
 
 const BlogArticle = () => {
   const { slug } = useParams<{ slug: string }>();
+  
+  // Scroll to top when slug changes
+  useScrollToTop(slug);
 
   const blogPosts: Record<string, BlogPost> = {
     "how-to-get-cdl-minnesota": {
