@@ -132,11 +132,6 @@ const Programs = () => {
 
   const financingOptions = [
     {
-      title: "Federal Financial Aid",
-      description: "Pell Grants and student loans available for qualified students",
-      icon: <GraduationCap className="h-6 w-6" />
-    },
-    {
       title: "Payment Plans",
       description: "Flexible payment options to spread costs over training period",
       icon: <Calendar className="h-6 w-6" />
@@ -317,7 +312,7 @@ const Programs = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {financingOptions.map((option, index) => (
               <Card key={index} className="p-6 text-center border-border/50 hover:shadow-strong transition-all">
                 <div className="mb-4 mx-auto bg-primary/10 p-3 rounded-full w-fit">
