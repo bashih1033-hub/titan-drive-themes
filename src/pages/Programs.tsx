@@ -12,7 +12,8 @@ import {
   GraduationCap,
   Shield,
   Calendar,
-  Award
+  Award,
+  Phone
 } from 'lucide-react';
 import classACDL from '@/assets/class-a-cdl.jpg';
 
@@ -279,9 +280,12 @@ const Programs = () => {
                           Enroll Now
                         </Button>
                       </Link>
-                      <Button variant="outline" size="lg" className="flex-1">
-                        Get More Info
-                      </Button>
+                      <a href="tel:6126991403" className="flex-1">
+                        <Button variant="outline" size="lg" className="w-full">
+                          <Phone className="mr-2 h-4 w-4" />
+                          Call for Info: (612) 699-1403
+                        </Button>
+                      </a>
                     </div>
                   </div>
                 </div>
