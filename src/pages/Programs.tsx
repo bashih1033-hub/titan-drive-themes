@@ -16,6 +16,8 @@ import {
   Phone
 } from 'lucide-react';
 import classACDL from '@/assets/class-a-cdl.jpg';
+import classBDumpTruck from '@/assets/class-b-dump-truck.jpg';
+import cdlRefresherHighway from '@/assets/cdl-refresher-highway.jpg';
 
 const Programs = () => {
   const programs = [
@@ -26,6 +28,7 @@ const Programs = () => {
       hours: "160 Hours",
       price: "$4,995",
       image: classACDL,
+      altText: "Class A semi-truck tractor-trailer for CDL training at Titan Trucking School",
       description: "Complete training for tractor-trailer operation. Our most popular program for those seeking high-paying OTR careers.",
       features: [
         "Pre-trip inspection training",
@@ -51,7 +54,8 @@ const Programs = () => {
       duration: "2-3 Weeks",
       hours: "120 Hours",
       price: "$3,995",
-      image: classACDL,
+      image: classBDumpTruck,
+      altText: "Class B dump truck and straight truck vehicles for CDL training at Titan Trucking School",
       description: "Training for straight trucks, buses, and delivery vehicles. Perfect for local driving careers.",
       features: [
         "Straight truck operation",
@@ -77,7 +81,8 @@ const Programs = () => {
       duration: "1-2 Weeks", 
       hours: "40-80 Hours",
       price: "$1,995",
-      image: classACDL,
+      image: cdlRefresherHighway,
+      altText: "Multiple commercial trucks on highway for CDL refresher course training at Titan Trucking School",
       description: "Perfect for drivers returning to trucking or upgrading skills. Customized training based on individual needs.",
       features: [
         "Skills assessment and customized training",
@@ -102,6 +107,7 @@ const Programs = () => {
       hours: "Custom",
       price: "Contact for Quote",
       image: classACDL,
+      altText: "Professional semi-truck for employer CDL training programs at Titan Trucking School",
       description: "Customized CDL training programs for companies needing certified drivers. Group discounts and on-site options available.",
       features: [
         "On-site training available",
@@ -212,7 +218,7 @@ const Programs = () => {
                   <div className="relative h-64 lg:h-auto">
                     <img
                       src={program.image}
-                      alt={`${program.title} training at Titan Trucking School`}
+                      alt={program.altText || `${program.title} training at Titan Trucking School`}
                       className="w-full h-full object-cover"
                       loading="lazy"
                     />
