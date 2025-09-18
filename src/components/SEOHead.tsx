@@ -186,8 +186,8 @@ const SEOHead = ({
       "Doubles/Triples Endorsement"
     ],
     "openingHours": [
-      "Mo-Fr 08:00-18:00",
-      "Sa 09:00-15:00"
+      "Mo-Fr 09:00-17:00",
+      "Sa 10:00-14:00"
     ],
     "priceRange": "$$",
     "aggregateRating": reviewData ? {

@@ -28,7 +28,7 @@ const Header = () => {
           <div className="flex justify-between items-center text-sm">
             <div className="flex items-center space-x-4">
               <span>📍 St. Paul, Minnesota</span>
-              <span>⏰ Mon-Fri: 8AM-6PM</span>
+              <span>⏰ Mon-Fri: 9AM-5PM, Sat: 10AM-2PM</span>
             </div>
             <div className="flex items-center space-x-4">
               <a href="tel:6126991403" className="flex items-center space-x-1 hover:text-secondary transition-colors">

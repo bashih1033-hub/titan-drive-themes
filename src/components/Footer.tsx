@@ -68,9 +68,9 @@ const Footer = () => {
             </div>
             <div className="mt-4">
               <h5 className="font-medium mb-2">Business Hours</h5>
-              <p className="text-sm opacity-90">Monday - Friday: 8:00 AM - 6:00 PM</p>
-              <p className="text-sm opacity-90">Saturday: 9:00 AM - 3:00 PM</p>
-              <p className="text-sm opacity-90">Sunday: Closed</p>
+              <p className="text-sm opacity-90">Monday - Friday: 9:00 AM - 5:00 PM</p>
+              <p className="text-sm opacity-90">Saturday: 10:00 AM - 2:00 PM</p>
+              <p className="text-sm opacity-90">Sunday: Office Closed (Training Available)</p>
             </div>
           </div>
 
