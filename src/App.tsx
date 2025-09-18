@@ -9,6 +9,7 @@ import Footer from "./components/Footer";
 import BlogArticle from "./components/BlogArticle";
 import ScrollToTop from "./components/ScrollToTop";
 import RouterWithScrollControl from "./components/RouterWithScrollControl";
+import Breadcrumb from "./components/Breadcrumb";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Programs from "./pages/Programs";
@@ -16,6 +17,8 @@ import Endorsements from "./pages/Endorsements";
 import Blog from "./pages/Blog";
 import Contact from "./pages/Contact";
 import Minneapolis from "./pages/Minneapolis";
+import StPaul from "./pages/StPaul";
+import FAQ from "./pages/FAQ";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -31,6 +34,7 @@ const App = () => (
           <RouterWithScrollControl>
             <div className="min-h-screen flex flex-col">
             <Header />
+            <Breadcrumb />
             <main className="flex-1">
               <Routes>
                 <Route path="/" element={<Index />} />
@@ -41,6 +45,8 @@ const App = () => (
                 <Route path="/blog/:slug" element={<BlogArticle />} />
                 <Route path="/contact" element={<Contact />} />
                 <Route path="/minneapolis" element={<Minneapolis />} />
+                <Route path="/st-paul" element={<StPaul />} />
+                <Route path="/faq" element={<FAQ />} />
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                 <Route path="*" element={<NotFound />} />
               </Routes>

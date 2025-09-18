@@ -26,6 +26,12 @@ interface SEOHeadProps {
     }>;
   };
   localArea?: string;
+  faqData?: {
+    questions: Array<{
+      question: string;
+      answer: string;
+    }>;
+  };
 }
 
 const SEOHead = ({ 
@@ -37,7 +43,8 @@ const SEOHead = ({
   type = "website",
   courseData,
   reviewData,
-  localArea
+  localArea,
+  faqData
 }: SEOHeadProps) => {
   
   // Enhanced local keywords based on area
@@ -328,11 +335,18 @@ const SEOHead = ({
     }))
   } : null;
 
-  // FAQ Schema for common questions
+  // FAQ Schema - use provided FAQ data or default questions
   const faqSchema = {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    "mainEntity": [
+    "mainEntity": faqData?.questions ? faqData.questions.map(faq => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer
+      }
+    })) : [
       {
         "@type": "Question",
         "name": "How long does CDL training take at Titan Trucking School?",
