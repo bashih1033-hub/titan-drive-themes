@@ -86,10 +86,10 @@ const Minneapolis = () => {
                     Enroll Today
                   </Button>
                 </Link>
-                <a href="tel:6515551234">
+                <a href="tel:6126991403">
                   <Button size="lg" variant="outline" className="px-8 py-4 bg-white/10 border-white/30 text-white hover:bg-white/20">
                     <Phone className="mr-2 h-5 w-5" />
-                    Call (651) 555-1234
+                    Call (612) 699-1403
                   </Button>
                 </a>
               </div>
@@ -217,7 +217,7 @@ const Minneapolis = () => {
                 </div>
                 <div className="mt-4 pt-4 border-t border-border">
                   <p className="text-sm text-muted-foreground mb-3">
-                    <strong>Address:</strong> 123 Training Center Blvd, St. Paul, MN 55101
+                    <strong>Address:</strong> 1821 University Ave W ste 464-1, St. Paul, MN 55104
                   </p>
                   <Button variant="outline" className="w-full">
                     <MapPin className="mr-2 h-4 w-4" />

@@ -23,14 +23,14 @@ const SEOHead = ({
     "name": "Titan Trucking School",
     "description": "Professional CDL training school in St. Paul, Minnesota",
     "url": url,
-    "telephone": "(651) 555-1234",
+    "telephone": "(612) 699-1403",
     "email": "info@titantruckingschool.com",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "123 Training Center Blvd",
+      "streetAddress": "1821 University Ave W ste 464-1",
       "addressLocality": "St. Paul",
       "addressRegion": "MN",
-      "postalCode": "55101",
+      "postalCode": "55104",
       "addressCountry": "US"
     },
     "geo": {

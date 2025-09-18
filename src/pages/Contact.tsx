@@ -21,8 +21,8 @@ const Contact = () => {
     {
       icon: <Phone className="h-6 w-6" />,
       title: "Phone",
-      details: ["(651) 555-1234", "Call for immediate assistance"],
-      action: "tel:6515551234"
+      details: ["(612) 699-1403", "Call for immediate assistance"],
+      action: "tel:6126991403"
     },
     {
       icon: <Mail className="h-6 w-6" />,
@@ -33,7 +33,7 @@ const Contact = () => {
     {
       icon: <MapPin className="h-6 w-6" />,
       title: "Location",
-      details: ["123 Training Center Blvd", "St. Paul, MN 55101"],
+      details: ["1821 University Ave W ste 464-1", "St. Paul, MN 55104"],
       action: "https://maps.google.com"
     },
     {
@@ -67,7 +67,7 @@ const Contact = () => {
     <>
       <SEOHead 
         title="Contact Titan Trucking School - CDL Training in St. Paul, MN"
-        description="Contact Titan Trucking School for CDL training information. Call (651) 555-1234 or visit our St. Paul location. Free consultations and financing available."
+        description="Contact Titan Trucking School for CDL training information. Call (612) 699-1403 or visit our St. Paul location. Free consultations and financing available."
         keywords="contact Titan Trucking School, CDL training St. Paul, trucking school contact, CDL school phone number, trucking school address Minnesota"
       />
 
@@ -86,7 +86,7 @@ const Contact = () => {
               Our admissions team is here to help you take the next step in your trucking career.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="tel:6515551234">
+              <a href="tel:6126991403">
                 <Button size="lg" variant="secondary" className="px-8 py-4">
                   <Phone className="mr-2 h-5 w-5" />
                   Call Now
@@ -175,7 +175,7 @@ const Contact = () => {
                       <label htmlFor="phone" className="block text-sm font-medium text-foreground mb-2">
                         Phone Number *
                       </label>
-                      <Input id="phone" type="tel" placeholder="(651) 555-0123" required />
+                      <Input id="phone" type="tel" placeholder="(612) 699-1403" required />
                     </div>
                   </div>
 
@@ -326,7 +326,7 @@ const Contact = () => {
                   <div className="text-center">
                     <Truck className="h-12 w-12 text-primary mx-auto mb-2" />
                     <p className="text-muted-foreground">Interactive Map</p>
-                    <p className="text-sm text-muted-foreground">123 Training Center Blvd, St. Paul, MN</p>
+                    <p className="text-sm text-muted-foreground">1821 University Ave W ste 464-1, St. Paul, MN</p>
                   </div>
                 </div>
                 <Button variant="outline" className="w-full">

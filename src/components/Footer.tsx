@@ -47,14 +47,14 @@ const Footer = () => {
               <div className="flex items-start space-x-3">
                 <MapPin className="h-5 w-5 mt-0.5 text-secondary" />
                 <div>
-                  <p className="text-sm">123 Training Center Blvd</p>
-                  <p className="text-sm">St. Paul, MN 55101</p>
+                  <p className="text-sm">1821 University Ave W ste 464-1</p>
+                  <p className="text-sm">St. Paul, MN 55104</p>
                 </div>
               </div>
               <div className="flex items-center space-x-3">
                 <Phone className="h-5 w-5 text-secondary" />
-                <a href="tel:6515551234" className="text-sm hover:text-secondary transition-colors">
-                  (651) 555-1234
+                <a href="tel:6126991403" className="text-sm hover:text-secondary transition-colors">
+                  (612) 699-1403
                 </a>
               </div>
               <div className="flex items-center space-x-3">

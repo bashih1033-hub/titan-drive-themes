@@ -173,7 +173,7 @@ Ready to start your CDL journey? Here's what to do:
 
 ---
 
-*Ready to get started? Contact Titan Trucking School at (651) 555-1234 or visit our St. Paul campus for a free consultation.*
+*Ready to get started? Contact Titan Trucking School at (612) 699-1403 or visit our St. Paul campus for a free consultation.*
       `
     },
     "cdl-permit-minnesota": {
@@ -377,7 +377,7 @@ While you can study independently, professional CDL training offers advantages:
 
 ---
 
-*Ready to get your CLP? Contact Titan Trucking School at (651) 555-1234 for CLP preparation assistance and professional CDL training programs.*
+*Ready to get your CLP? Contact Titan Trucking School at (612) 699-1403 for CLP preparation assistance and professional CDL training programs.*
       `
     },
     "dot-medical-card-guide": {
@@ -625,7 +625,7 @@ Available for certain disqualifying conditions:
 
 ---
 
-*Need help with your DOT physical or have questions about medical requirements? Contact Titan Trucking School at (651) 555-1234 for guidance and referrals to qualified DOT medical examiners.*
+*Need help with your DOT physical or have questions about medical requirements? Contact Titan Trucking School at (612) 699-1403 for guidance and referrals to qualified DOT medical examiners.*
       `
     },
     "hazmat-endorsement-process": {
@@ -923,7 +923,7 @@ Temporary disqualifications (7 years) include:
 
 ---
 
-*Ready to add the valuable HazMat endorsement to your CDL? Contact Titan Trucking School at (651) 555-1234 for preparation courses and guidance through the application process.*
+*Ready to add the valuable HazMat endorsement to your CDL? Contact Titan Trucking School at (612) 699-1403 for preparation courses and guidance through the application process.*
       `
     },
     "class-a-vs-class-b-cdl": {
@@ -1256,7 +1256,7 @@ Remember, you can always start with a Class B and upgrade to Class A later as yo
 
 ---
 
-*Ready to start your CDL training journey? Contact Titan Trucking School at (651) 555-1234 to discuss which CDL class is right for your career goals and explore our comprehensive training programs.*
+*Ready to start your CDL training journey? Contact Titan Trucking School at (612) 699-1403 to discuss which CDL class is right for your career goals and explore our comprehensive training programs.*
       `
     }
   };

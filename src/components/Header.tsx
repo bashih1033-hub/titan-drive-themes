@@ -29,9 +29,9 @@ const Header = () => {
               <span>⏰ Mon-Fri: 8AM-6PM</span>
             </div>
             <div className="flex items-center space-x-4">
-              <a href="tel:6515551234" className="flex items-center space-x-1 hover:text-secondary transition-colors">
+              <a href="tel:6126991403" className="flex items-center space-x-1 hover:text-secondary transition-colors">
                 <Phone className="h-4 w-4" />
-                <span>(651) 555-1234</span>
+                <span>(612) 699-1403</span>
               </a>
               <span className="hidden sm:inline">Call for Free Consultation</span>
             </div>

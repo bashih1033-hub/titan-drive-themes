@@ -127,7 +127,7 @@ const Index = () => {
               </Button>
               <Button size="lg" variant="outline" className="text-lg px-8 py-4 bg-white/10 border-white/30 text-white hover:bg-white/20">
                 <Phone className="mr-2 h-5 w-5" />
-                Call (651) 555-1234
+                Call (612) 699-1403
               </Button>
             </div>
             <div className="flex items-center mt-8 space-x-8 text-sm">
@@ -345,8 +345,8 @@ const Index = () => {
                   </div>
                   <div>
                     <div className="font-semibold text-foreground">Call Us Today</div>
-                    <a href="tel:6515551234" className="text-primary hover:underline">
-                      (651) 555-1234
+                    <a href="tel:6126991403" className="text-primary hover:underline">
+                      (612) 699-1403
                     </a>
                   </div>
                 </div>
@@ -357,7 +357,7 @@ const Index = () => {
                   </div>
                   <div>
                     <div className="font-semibold text-foreground">Visit Our Campus</div>
-                    <div className="text-muted-foreground">123 Training Center Blvd, St. Paul, MN 55101</div>
+                    <div className="text-muted-foreground">1821 University Ave W ste 464-1, St. Paul, MN 55104</div>
                   </div>
                 </div>
                 
@@ -404,7 +404,7 @@ const Index = () => {
                     <label htmlFor="phone" className="block text-sm font-medium text-foreground mb-1">
                       Phone
                     </label>
-                    <Input id="phone" type="tel" placeholder="(651) 555-0123" />
+                    <Input id="phone" type="tel" placeholder="(612) 699-1403" />
                   </div>
                   <div>
                     <label htmlFor="program" className="block text-sm font-medium text-foreground mb-1">

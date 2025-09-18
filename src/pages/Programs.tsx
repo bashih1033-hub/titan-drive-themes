@@ -303,9 +303,9 @@ const Programs = () => {
                 Enroll Today
               </Button>
             </Link>
-            <a href="tel:6515551234">
+            <a href="tel:6126991403">
               <Button size="lg" variant="outline" className="px-8 py-4 bg-white/10 border-white/30 text-white hover:bg-white/20">
-                Call (651) 555-1234
+                Call (612) 699-1403
               </Button>
             </a>
           </div>
