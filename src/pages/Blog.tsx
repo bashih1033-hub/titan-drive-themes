@@ -156,7 +156,9 @@ const Blog = () => {
                 <div className="relative bg-gradient-to-br from-primary to-primary-dark h-64 lg:h-auto flex items-center justify-center overflow-hidden">
                   {/* Background pattern */}
                   <div className="absolute inset-0 opacity-10">
-                    <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.1"%3E%3Cpath d="M50 50c0-5.5 4.5-10 10-10s10 4.5 10 10-4.5 10-10 10-10-4.5-10-10zm-20 0c0-5.5 4.5-10 10-10s10 4.5 10 10-4.5 10-10 10-10-4.5-10-10zm-20 0c0-5.5 4.5-10 10-10s10 4.5 10 10-4.5 10-10 10-10-4.5-10-10z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]"></div>
+                    <div className="absolute inset-0" style={{
+                      backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M50 50c0-5.5 4.5-10 10-10s10 4.5 10 10-4.5 10-10 10-10-4.5-10-10zm-20 0c0-5.5 4.5-10 10-10s10 4.5 10 10-4.5 10-10 10-10-4.5-10-10zm-20 0c0-5.5 4.5-10 10-10s10 4.5 10 10-4.5 10-10 10-10-4.5-10-10z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
+                    }}></div>
                   </div>
                   
                   <div className="relative text-center p-8 z-10">
@@ -334,59 +336,61 @@ const Blog = () => {
               const categoryVisual = getCategoryVisual(post.category);
               
               return (
-              <Card key={post.id} className="group hover:shadow-strong transition-all duration-300 hover:-translate-y-1 border-border/50 overflow-hidden">
-                <div className={`relative h-48 ${categoryVisual.gradient} flex items-center justify-center border-b border-border`}>
-                  {/* Background pattern overlay */}
-                  <div className="absolute inset-0 opacity-10">
-                    <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.1"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-20"></div>
-                  </div>
-                  
-                  {/* Content */}
-                  <div className="relative text-center z-10">
-                    <Badge className="mb-4 bg-white/20 text-white border-white/30 backdrop-blur-sm">
-                      {post.category}
-                    </Badge>
-                    <div className="flex justify-center mb-2">
-                      {categoryVisual.icon}
+                <Card key={post.id} className="group hover:shadow-strong transition-all duration-300 hover:-translate-y-1 border-border/50 overflow-hidden">
+                  <div className={`relative h-48 ${categoryVisual.gradient} flex items-center justify-center border-b border-border`}>
+                    {/* Background pattern overlay */}
+                    <div className="absolute inset-0 opacity-10">
+                      <div className="absolute inset-0 opacity-20" style={{
+                        backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
+                      }}></div>
                     </div>
-                    <p className="text-white/80 text-xs font-medium px-4">
-                      {categoryVisual.description}
-                    </p>
-                  </div>
-                  
-                  {/* Hover animation overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </div>
-                
-                <CardHeader>
-                  <CardTitle className="text-lg line-clamp-2 group-hover:text-primary transition-colors">
-                    {post.title}
-                  </CardTitle>
-                  <CardDescription className="line-clamp-3">
-                    {post.excerpt}
-                  </CardDescription>
-                </CardHeader>
-                
-                <CardContent>
-                  <div className="flex items-center justify-between text-xs text-muted-foreground mb-4">
-                    <div className="flex items-center space-x-2">
-                      <span>{post.author}</span>
-                      <span>•</span>
-                      <span>{post.date}</span>
+                    
+                    {/* Content */}
+                    <div className="relative text-center z-10">
+                      <Badge className="mb-4 bg-white/20 text-white border-white/30 backdrop-blur-sm">
+                        {post.category}
+                      </Badge>
+                      <div className="flex justify-center mb-2">
+                        {categoryVisual.icon}
+                      </div>
+                      <p className="text-white/80 text-xs font-medium px-4">
+                        {categoryVisual.description}
+                      </p>
                     </div>
-                    <span>{post.readTime}</span>
+                    
+                    {/* Hover animation overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   </div>
                   
-                  <Link to={`/blog/${post.id}`}>
-                    <Button variant="outline" className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-                      Read Article
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                  </Link>
-                </CardContent>
-              </Card>
+                  <CardHeader>
+                    <CardTitle className="text-lg line-clamp-2 group-hover:text-primary transition-colors">
+                      {post.title}
+                    </CardTitle>
+                    <CardDescription className="line-clamp-3">
+                      {post.excerpt}
+                    </CardDescription>
+                  </CardHeader>
+                  
+                  <CardContent>
+                    <div className="flex items-center justify-between text-xs text-muted-foreground mb-4">
+                      <div className="flex items-center space-x-2">
+                        <span>{post.author}</span>
+                        <span>•</span>
+                        <span>{post.date}</span>
+                      </div>
+                      <span>{post.readTime}</span>
+                    </div>
+                    
+                    <Link to={`/blog/${post.id}`}>
+                      <Button variant="outline" className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
+                        Read Article
+                        <ArrowRight className="ml-2 h-4 w-4" />
+                      </Button>
+                    </Link>
+                  </CardContent>
+                </Card>
               );
-            })
+            })}
           </div>
         </div>
       </section>
