@@ -1,0 +1,343 @@
+/*
+Theme Name: Titan Trucking School
+Theme URI: https://titantruck.school
+Description: Professional CDL training school theme for WordPress featuring a modern design system, mobile optimization, and conversion-focused layout. Built for Titan Trucking School with integrated contact forms, program showcase, and student success stories.
+Author: Titan Trucking School
+Version: 1.0.0
+License: GPL v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: titan-trucking
+Tags: education, training, business, responsive, custom-header, custom-menu, featured-images, threaded-comments, translation-ready
+Requires at least: 5.0
+Tested up to: 6.4
+Requires PHP: 7.4
+*/
+
+/* Professional Trucking School Design System - Titan Trucking School */
+
+:root {
+  /* Core Brand Colors */
+  --background: 0 0% 100%;
+  --foreground: 210 11% 15%; /* Dark charcoal for text */
+
+  --card: 0 0% 100%;
+  --card-foreground: 210 11% 15%;
+
+  --popover: 0 0% 100%;
+  --popover-foreground: 210 11% 15%;
+
+  /* Professional Blue - Trust & Reliability */
+  --primary: 214 84% 45%; /* Strong professional blue */
+  --primary-foreground: 0 0% 98%;
+  --primary-dark: 214 84% 35%;
+  --primary-light: 214 84% 55%;
+
+  /* Safety Orange - Action & Visibility */
+  --secondary: 25 95% 53%; /* High-visibility orange */
+  --secondary-foreground: 0 0% 98%;
+  --secondary-dark: 25 95% 43%;
+  --secondary-light: 25 95% 63%;
+
+  /* Neutral Grays */
+  --muted: 210 17% 95%;
+  --muted-foreground: 210 11% 46%;
+  --muted-dark: 210 17% 85%;
+
+  /* Success Green */
+  --accent: 120 60% 45%; /* Success/certification green */
+  --accent-foreground: 0 0% 98%;
+
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 98%;
+
+  --border: 210 17% 88%;
+  --input: 210 17% 93%;
+  --ring: 214 84% 45%;
+
+  /* Professional Gradients */
+  --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-dark)));
+  --gradient-hero: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary-dark)) 50%, hsl(210 30% 25%) 100%);
+  --gradient-secondary: linear-gradient(135deg, hsl(var(--secondary)), hsl(var(--secondary-dark)));
+  --gradient-subtle: linear-gradient(180deg, hsl(var(--background)) 0%, hsl(var(--muted)) 100%);
+
+  /* Shadows for depth */
+  --shadow-soft: 0 2px 20px -2px hsl(var(--primary) / 0.1);
+  --shadow-strong: 0 10px 40px -10px hsl(var(--primary) / 0.2);
+  --shadow-glow: 0 0 30px -5px hsl(var(--secondary) / 0.3);
+
+  /* Smooth transitions */
+  --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-fast: all 0.15s ease-out;
+
+  --radius: 0.5rem;
+}
+
+/* Base Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  line-height: 1.6;
+  color: hsl(var(--foreground));
+  background-color: hsl(var(--background));
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Utility Classes */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  border-radius: var(--radius);
+  font-weight: 600;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.btn-primary {
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+}
+
+.btn-primary:hover {
+  background: hsl(var(--primary-dark));
+}
+
+.btn-secondary {
+  background: hsl(var(--secondary));
+  color: hsl(var(--secondary-foreground));
+}
+
+.btn-secondary:hover {
+  background: hsl(var(--secondary-dark));
+}
+
+.btn-outline {
+  border: 2px solid hsl(var(--primary));
+  color: hsl(var(--primary));
+  background: transparent;
+}
+
+.btn-outline:hover {
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+}
+
+.card {
+  background: hsl(var(--card));
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+}
+
+.card-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid hsl(var(--border));
+}
+
+.card-content {
+  padding: 1.5rem;
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+}
+
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+h1 { font-size: 3rem; }
+h2 { font-size: 2.5rem; }
+h3 { font-size: 2rem; }
+h4 { font-size: 1.5rem; }
+h5 { font-size: 1.25rem; }
+h6 { font-size: 1rem; }
+
+p { margin-bottom: 1rem; }
+
+/* Grid System */
+.grid {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.grid-cols-1 { grid-template-columns: 1fr; }
+.grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+.grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+
+@media (min-width: 768px) {
+  .md\\:grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .md\\:grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (min-width: 1024px) {
+  .lg\\:grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+  .lg\\:grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+  .lg\\:grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
+}
+
+/* Spacing */
+.py-16 { padding: 4rem 0; }
+.py-24 { padding: 6rem 0; }
+.mb-8 { margin-bottom: 2rem; }
+.mb-12 { margin-bottom: 3rem; }
+.mb-16 { margin-bottom: 4rem; }
+
+/* Text Alignment */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-right { text-align: right; }
+
+/* Responsive Text Sizes */
+.text-xl { font-size: 1.25rem; }
+.text-2xl { font-size: 1.5rem; }
+.text-3xl { font-size: 1.875rem; }
+.text-4xl { font-size: 2.25rem; }
+.text-5xl { font-size: 3rem; }
+
+@media (min-width: 1024px) {
+  .lg\\:text-4xl { font-size: 2.25rem; }
+  .lg\\:text-5xl { font-size: 3rem; }
+  .lg\\:text-6xl { font-size: 3.75rem; }
+  .lg\\:text-7xl { font-size: 4.5rem; }
+}
+
+/* Hero Section */
+.hero {
+  background: var(--gradient-hero);
+  color: hsl(var(--primary-foreground));
+  padding: 5rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="80" r="3" fill="rgba(255,255,255,0.05)"/></svg>');
+  opacity: 0.3;
+}
+
+/* Header */
+.site-header {
+  background: hsl(var(--background));
+  box-shadow: var(--shadow-soft);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-contact {
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  padding: 0.5rem 0;
+  font-size: 0.875rem;
+}
+
+.main-nav {
+  padding: 1rem 0;
+}
+
+.nav-menu {
+  display: flex;
+  list-style: none;
+  gap: 2rem;
+  align-items: center;
+}
+
+.nav-menu a {
+  text-decoration: none;
+  color: hsl(var(--foreground));
+  font-weight: 500;
+  transition: var(--transition-fast);
+}
+
+.nav-menu a:hover {
+  color: hsl(var(--primary));
+}
+
+/* Footer */
+.site-footer {
+  background: hsl(var(--muted-dark));
+  padding: 3rem 0 1rem;
+  color: hsl(var(--muted-foreground));
+}
+
+.footer-content {
+  display: grid;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+@media (min-width: 768px) {
+  .footer-content {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* WordPress Specific */
+.wp-block-image {
+  margin-bottom: 1rem;
+}
+
+.wp-block-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--radius);
+}
+
+.wp-block-quote {
+  border-left: 4px solid hsl(var(--primary));
+  padding-left: 1rem;
+  margin: 1.5rem 0;
+  font-style: italic;
+}
+
+/* Accessibility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Print Styles */
+@media print {
+  .site-header,
+  .site-footer,
+  .btn {
+    display: none !important;
+  }
+}
