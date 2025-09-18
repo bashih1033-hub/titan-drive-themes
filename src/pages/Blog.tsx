@@ -153,14 +153,35 @@ const Blog = () => {
             
             <Card className="overflow-hidden shadow-strong hover:shadow-glow transition-all">
               <div className="grid grid-cols-1 lg:grid-cols-2">
-                <div className="bg-gradient-subtle h-64 lg:h-auto flex items-center justify-center">
-                  <div className="text-center p-8">
-                    <Badge className="mb-4 bg-secondary text-secondary-foreground">
+                <div className="relative bg-gradient-to-br from-primary to-primary-dark h-64 lg:h-auto flex items-center justify-center overflow-hidden">
+                  {/* Background pattern */}
+                  <div className="absolute inset-0 opacity-10">
+                    <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.1"%3E%3Cpath d="M50 50c0-5.5 4.5-10 10-10s10 4.5 10 10-4.5 10-10 10-10-4.5-10-10zm-20 0c0-5.5 4.5-10 10-10s10 4.5 10 10-4.5 10-10 10-10-4.5-10-10zm-20 0c0-5.5 4.5-10 10-10s10 4.5 10 10-4.5 10-10 10-10-4.5-10-10z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')]"></div>
+                  </div>
+                  
+                  <div className="relative text-center p-8 z-10">
+                    <Badge className="mb-4 bg-secondary text-secondary-foreground shadow-lg">
                       {featuredPost.category}
                     </Badge>
-                    <div className="text-6xl mb-4">📖</div>
-                    <p className="text-muted-foreground">Featured Guide</p>
+                    
+                    {/* Professional featured icon */}
+                    <div className="mb-4">
+                      <svg className="w-20 h-20 mx-auto text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                      </svg>
+                    </div>
+                    
+                    <p className="text-white/90 font-medium">Featured Training Guide</p>
+                    <div className="mt-2 flex items-center justify-center space-x-2">
+                      <div className="w-2 h-2 bg-secondary rounded-full animate-pulse"></div>
+                      <span className="text-white/70 text-sm">Must Read</span>
+                      <div className="w-2 h-2 bg-secondary rounded-full animate-pulse"></div>
+                    </div>
                   </div>
+                  
+                  {/* Decorative elements */}
+                  <div className="absolute top-4 right-4 w-8 h-8 border-2 border-white/30 rounded-full"></div>
+                  <div className="absolute bottom-4 left-4 w-6 h-6 border-2 border-white/20 rounded-full"></div>
                 </div>
                 <div className="p-8">
                   <CardHeader className="p-0 mb-4">
@@ -213,24 +234,128 @@ const Blog = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {regularPosts.map((post, index) => (
-              <Card key={post.id} className="group hover:shadow-strong transition-all duration-300 hover:-translate-y-1 border-border/50">
-                <div className="bg-gradient-subtle h-48 flex items-center justify-center border-b border-border">
-                  <div className="text-center">
-                    <Badge className="mb-2 bg-primary/10 text-primary border-primary/20">
+            {regularPosts.map((post, index) => {
+              // Professional visual elements for each category
+              const getCategoryVisual = (category: string) => {
+                switch (category) {
+                  case "Getting Started":
+                    return {
+                      gradient: "bg-gradient-to-br from-blue-500 to-blue-600",
+                      icon: (
+                        <svg className="w-16 h-16 text-white" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                        </svg>
+                      ),
+                      description: "Start your CDL journey"
+                    };
+                  case "Permits & Licensing":
+                    return {
+                      gradient: "bg-gradient-to-br from-green-500 to-green-600", 
+                      icon: (
+                        <svg className="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                      ),
+                      description: "Official documentation"
+                    };
+                  case "Training":
+                    return {
+                      gradient: "bg-gradient-to-br from-purple-500 to-purple-600",
+                      icon: (
+                        <svg className="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                        </svg>
+                      ),
+                      description: "Professional education"
+                    };
+                  case "Testing & Exams":
+                    return {
+                      gradient: "bg-gradient-to-br from-orange-500 to-orange-600",
+                      icon: (
+                        <svg className="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+                        </svg>
+                      ),
+                      description: "Road test preparation"
+                    };
+                  case "Endorsements":
+                    return {
+                      gradient: "bg-gradient-to-br from-yellow-500 to-yellow-600",
+                      icon: (
+                        <svg className="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                        </svg>
+                      ),
+                      description: "Specialized certifications"
+                    };
+                  case "Health & Safety":
+                    return {
+                      gradient: "bg-gradient-to-br from-red-500 to-red-600",
+                      icon: (
+                        <svg className="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                        </svg>
+                      ),
+                      description: "Medical & safety requirements"
+                    };
+                  case "Career & Jobs":
+                    return {
+                      gradient: "bg-gradient-to-br from-indigo-500 to-indigo-600",
+                      icon: (
+                        <svg className="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0V6a2 2 0 012 2v6a2 2 0 01-2 2H8a2 2 0 01-2-2V8a2 2 0 012-2V6" />
+                        </svg>
+                      ),
+                      description: "Professional opportunities"
+                    };
+                  case "CDL Types":
+                    return {
+                      gradient: "bg-gradient-to-br from-gray-600 to-gray-700",
+                      icon: (
+                        <svg className="w-16 h-16 text-white" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+                        </svg>
+                      ),
+                      description: "License classifications"
+                    };
+                  default:
+                    return {
+                      gradient: "bg-gradient-to-br from-gray-500 to-gray-600",
+                      icon: (
+                        <svg className="w-16 h-16 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                      ),
+                      description: "General information"
+                    };
+                }
+              };
+              
+              const categoryVisual = getCategoryVisual(post.category);
+              
+              return (
+              <Card key={post.id} className="group hover:shadow-strong transition-all duration-300 hover:-translate-y-1 border-border/50 overflow-hidden">
+                <div className={`relative h-48 ${categoryVisual.gradient} flex items-center justify-center border-b border-border`}>
+                  {/* Background pattern overlay */}
+                  <div className="absolute inset-0 opacity-10">
+                    <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.1"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-20"></div>
+                  </div>
+                  
+                  {/* Content */}
+                  <div className="relative text-center z-10">
+                    <Badge className="mb-4 bg-white/20 text-white border-white/30 backdrop-blur-sm">
                       {post.category}
                     </Badge>
-                    <div className="text-4xl">
-                      {post.category === "Getting Started" && "🚀"}
-                      {post.category === "Permits & Licensing" && "📄"}
-                      {post.category === "Training" && "🎓"}
-                      {post.category === "Testing & Exams" && "📝"}
-                      {post.category === "Endorsements" && "⭐"}
-                      {post.category === "Health & Safety" && "🏥"}
-                      {post.category === "Career & Jobs" && "💼"}
-                      {post.category === "CDL Types" && "🚛"}
+                    <div className="flex justify-center mb-2">
+                      {categoryVisual.icon}
                     </div>
+                    <p className="text-white/80 text-xs font-medium px-4">
+                      {categoryVisual.description}
+                    </p>
                   </div>
+                  
+                  {/* Hover animation overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 </div>
                 
                 <CardHeader>
@@ -260,7 +385,8 @@ const Blog = () => {
                   </Link>
                 </CardContent>
               </Card>
-            ))}
+              );
+            })
           </div>
         </div>
       </section>

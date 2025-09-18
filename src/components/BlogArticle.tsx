@@ -4,6 +4,8 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Calendar, Clock, User, ArrowLeft, Share2 } from 'lucide-react';
 import { useScrollToTop } from '@/hooks/useScrollToTop';
+import BlogImagePlaceholder from '@/components/BlogImagePlaceholder';
+import ArticleContentRenderer from '@/components/ArticleContentRenderer';
 
 interface BlogPost {
   id: string;
@@ -2065,6 +2067,15 @@ Minnesota offers excellent opportunities for CDL drivers with strong job growth,
             </ol>
           </nav>
 
+          {/* Hero Image */}
+          <div className="mb-12">
+            <BlogImagePlaceholder 
+              category={post.category}
+              title={post.title}
+              className="h-64 md:h-80 lg:h-96"
+            />
+          </div>
+
           {/* Article Meta */}
           <div className="mb-8">
             <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">
@@ -2104,24 +2115,10 @@ Minnesota offers excellent opportunities for CDL drivers with strong job growth,
           </div>
 
           {/* Article Content */}
-          <div className="prose prose-lg max-w-none">
-            <div 
-              className="article-content"
-              dangerouslySetInnerHTML={{ 
-                __html: post.content
-                  .replace(/\n/g, '<br>')
-                  .replace(/# (.*?)<br>/g, '<h1>$1</h1>')
-                  .replace(/## (.*?)<br>/g, '<h2>$1</h2>')
-                  .replace(/### (.*?)<br>/g, '<h3>$1</h3>')
-                  .replace(/#### (.*?)<br>/g, '<h4>$1</h4>')
-                  .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-                  .replace(/\*(.*?)\*/g, '<em>$1</em>')
-                  .replace(/<br><br>/g, '</p><p>')
-                  .replace(/^/, '<p>')
-                  .replace(/$/, '</p>')
-              }} 
-            />
-          </div>
+          <ArticleContentRenderer 
+            content={post.content}
+            category={post.category}
+          />
 
           {/* Article Footer */}
           <div className="mt-12 pt-8 border-t border-border">
