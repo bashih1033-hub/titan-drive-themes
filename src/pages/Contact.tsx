@@ -66,9 +66,10 @@ const Contact = () => {
   return (
     <>
       <SEOHead 
-        title="Contact Titan Trucking School - CDL Training in St. Paul, MN"
-        description="Contact Titan Trucking School for CDL training information. Call (612) 699-1403 or visit our St. Paul location. Free consultations and financing available."
-        keywords="contact Titan Trucking School, CDL training St. Paul, trucking school contact, CDL school phone number, trucking school address Minnesota"
+        title="Contact Titan Trucking School Near Me - CDL Training St. Paul, Minneapolis MN | (612) 699-1403"
+        description="Contact Minnesota's premier CDL training school. Located in St. Paul serving Minneapolis, Bloomington, Richfield. Call (612) 699-1403 for free consultation. Financing available."
+        keywords="contact Titan Trucking School, CDL training St. Paul, trucking school contact, CDL school phone number, trucking school address Minnesota, CDL training near me contact"
+        localArea="Minneapolis-St. Paul Metro"
       />
 
       {/* Hero Section */}

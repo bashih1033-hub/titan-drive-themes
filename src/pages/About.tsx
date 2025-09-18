@@ -56,9 +56,10 @@ const About = () => {
   return (
     <>
       <SEOHead 
-        title="About Titan Trucking School - 25+ Years of Excellence in CDL Training"
-        description="Learn about Minnesota's premier CDL training school. 25+ years experience, 98% pass rate, 10,000+ graduates. FMCSA certified ELDT provider in St. Paul, MN."
+        title="About Titan Trucking School Near Me - 25+ Years CDL Training Excellence Minneapolis, St. Paul MN"
+        description="Minnesota's trusted CDL school since 1998. 25+ years experience, 98% pass rate, 10,000+ graduates. FMCSA certified ELDT provider serving Twin Cities metro area."
         keywords="about Titan Trucking School, CDL school Minnesota, FMCSA certified, ELDT provider, trucking school history, CDL instructors"
+        localArea="Twin Cities"
       />
 
       {/* Hero Section */}

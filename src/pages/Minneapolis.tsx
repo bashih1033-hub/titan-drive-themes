@@ -60,9 +60,17 @@ const Minneapolis = () => {
   return (
     <>
       <SEOHead 
-        title="CDL Training Minneapolis MN - Titan Trucking School Serves Minneapolis Area"
-        description="Professional CDL training serving Minneapolis, Bloomington, Richfield, and surrounding areas. Get your commercial driver's license with Minnesota's premier trucking school."
+        title="CDL Training Near Minneapolis MN - Truck Driving School Serving Minneapolis, Bloomington, Richfield | (612) 699-1403"
+        description="Professional CDL training near Minneapolis. Serving Bloomington, Richfield, Edina, Hopkins. 98% pass rate, job placement assistance. Class A & Class B CDL programs. Call (612) 699-1403"
         keywords="CDL training Minneapolis, truck driving school Minneapolis, CDL classes Minneapolis MN, commercial drivers license Minneapolis, trucking school Bloomington Richfield"
+        localArea="Minneapolis Metro"
+        courseData={{
+          name: "CDL Training for Minneapolis Area Residents",
+          description: "Convenient CDL training programs for Minneapolis metro area residents including Bloomington, Richfield, Edina, and surrounding communities",
+          provider: "Titan Trucking School",
+          duration: "P3W",
+          category: "Local CDL Training"
+        }}
       />
 
       {/* Hero Section */}

@@ -96,9 +96,14 @@ const Index = () => {
   return (
     <>
       <SEOHead 
-        title="Titan Trucking School - Professional CDL Training in St. Paul, MN"
-        description="Get your CDL license at Minnesota's premier trucking school. Expert instruction, modern equipment, job placement assistance. Class A, Class B, and endorsement training available."
+        title="CDL Training Near Me - Titan Trucking School St. Paul, Minneapolis MN | (612) 699-1403"
+        description="Minnesota's #1 CDL training school near Minneapolis & St. Paul. 98% pass rate, 95% job placement. Class A, Class B training. Expert instruction, modern equipment. Call (612) 699-1403"
         keywords="CDL training, trucking school, Minnesota, St. Paul, Class A CDL, Class B CDL, commercial drivers license, truck driving school, CDL classes"
+        localArea="Minneapolis-St. Paul"
+        reviewData={{
+          rating: 4.8,
+          reviewCount: 127
+        }}
       />
 
       {/* Hero Section */}

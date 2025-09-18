@@ -100,9 +100,10 @@ const Blog = () => {
   return (
     <>
       <SEOHead 
-        title="CDL Training Blog - Tips, Guides & Resources | Titan Trucking School"
-        description="Expert CDL training advice, guides, and resources from Minnesota's premier trucking school. Learn about CDL requirements, testing, endorsements, and career opportunities."
+        title="CDL Training Blog Near Me - Tips, Guides & Resources Minneapolis St. Paul MN | Titan Trucking School"
+        description="Expert CDL training advice for Minneapolis & St. Paul area drivers. Learn about CDL requirements, testing, endorsements, Minnesota trucking jobs. Free resources from local experts."
         keywords="CDL training blog, truck driving tips, CDL requirements Minnesota, trucking career advice, CDL test preparation, trucking school resources"
+        localArea="Minneapolis-St. Paul"
       />
 
       {/* Hero Section */}
