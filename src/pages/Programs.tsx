@@ -3,6 +3,9 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Link } from 'react-router-dom';
+import SuccessStories from '@/components/SuccessStories';
+import EnrollmentJourney from '@/components/EnrollmentJourney';
+import MobileOptimizedContactForm from '@/components/MobileOptimizedContactForm';
 import { 
   Truck, 
   Clock, 
@@ -328,29 +331,25 @@ const Programs = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-16 lg:py-24 bg-gradient-primary text-primary-foreground">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl lg:text-4xl font-bold mb-6">
-            Ready to Start Your CDL Training?
-          </h2>
-          <p className="text-xl mb-8 max-w-2xl mx-auto text-primary-foreground/90">
-            Join thousands of successful graduates who started their trucking careers at Titan. 
-            Classes start every week - don't wait to begin your new career.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link to="/contact">
-              <Button size="lg" variant="secondary" className="px-8 py-4">
-                <GraduationCap className="mr-2 h-5 w-5" />
-                Enroll Today
-              </Button>
-            </Link>
-            <a href="tel:6126991403">
-              <Button size="lg" variant="outline" className="px-8 py-4 bg-white/10 border-white/30 text-white hover:bg-white/20">
-                Call (612) 699-1403
-              </Button>
-            </a>
+      {/* Success Stories */}
+      <SuccessStories variant="compact" />
+
+      {/* Enrollment Journey */}
+      <EnrollmentJourney variant="compact" />
+
+      {/* Mobile-Optimized Contact Form */}
+      <section className="py-16 lg:py-24 bg-gradient-subtle">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-6">
+              Ready to Start Your CDL Training?
+            </h2>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
+              Join thousands of successful graduates who started their trucking careers at Titan. 
+              Classes start every week - don't wait to begin your new career.
+            </p>
           </div>
+          <MobileOptimizedContactForm variant="compact" />
         </div>
       </section>
     </>

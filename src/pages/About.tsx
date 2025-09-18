@@ -3,6 +3,9 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Link } from 'react-router-dom';
+import WhyTitan from '@/components/WhyTitan';
+import SuccessStories from '@/components/SuccessStories';
+import EnrollmentJourney from '@/components/EnrollmentJourney';
 import { 
   Award, 
   Users, 
@@ -217,6 +220,15 @@ const About = () => {
           </div>
         </div>
       </section>
+
+      {/* Why Choose Titan */}
+      <WhyTitan variant="compact" />
+
+      {/* Success Stories */}
+      <SuccessStories variant="compact" />
+
+      {/* Enrollment Journey */}
+      <EnrollmentJourney variant="compact" />
 
       {/* CTA Section */}
       <section className="py-16 lg:py-24 bg-gradient-primary text-primary-foreground">

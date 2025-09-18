@@ -4,6 +4,9 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
+import SuccessStories from '@/components/SuccessStories';
+import EnrollmentJourney from '@/components/EnrollmentJourney';
+import MobileOptimizedContactForm from '@/components/MobileOptimizedContactForm';
 import { 
   Phone, 
   Mail, 
@@ -139,124 +142,10 @@ const Contact = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             
-            {/* Contact Form */}
-            <Card className="shadow-strong">
-              <CardHeader>
-                <CardTitle className="text-2xl">Send Us a Message</CardTitle>
-                <CardDescription>
-                  Fill out the form below and we'll get back to you within 24 hours with information 
-                  about our CDL training programs.
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <form className="space-y-6">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label htmlFor="firstName" className="block text-sm font-medium text-foreground mb-2">
-                        First Name *
-                      </label>
-                      <Input id="firstName" placeholder="John" required />
-                    </div>
-                    <div>
-                      <label htmlFor="lastName" className="block text-sm font-medium text-foreground mb-2">
-                        Last Name *
-                      </label>
-                      <Input id="lastName" placeholder="Doe" required />
-                    </div>
-                  </div>
-                  
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-foreground mb-2">
-                        Email Address *
-                      </label>
-                      <Input id="email" type="email" placeholder="john@example.com" required />
-                    </div>
-                    <div>
-                      <label htmlFor="phone" className="block text-sm font-medium text-foreground mb-2">
-                        Phone Number *
-                      </label>
-                      <Input id="phone" type="tel" placeholder="(612) 699-1403" required />
-                    </div>
-                  </div>
-
-                  <div>
-                    <label htmlFor="program" className="block text-sm font-medium text-foreground mb-2">
-                      Program Interest
-                    </label>
-                    <select 
-                      id="program" 
-                      className="w-full px-3 py-2 border border-input rounded-md bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
-                    >
-                      <option value="">Select a program...</option>
-                      <option value="class-a">Class A CDL Training</option>
-                      <option value="class-b">Class B CDL Training</option>
-                      <option value="refresher">CDL Refresher Course</option>
-                      <option value="hazmat">HazMat Endorsement</option>
-                      <option value="passenger">Passenger Endorsement</option>
-                      <option value="school-bus">School Bus Endorsement</option>
-                      <option value="multiple">Multiple Programs</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label htmlFor="experience" className="block text-sm font-medium text-foreground mb-2">
-                      Driving Experience
-                    </label>
-                    <select 
-                      id="experience" 
-                      className="w-full px-3 py-2 border border-input rounded-md bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
-                    >
-                      <option value="">Select your experience level...</option>
-                      <option value="beginner">New to trucking</option>
-                      <option value="some">Some driving experience</option>
-                      <option value="expired">Expired CDL</option>
-                      <option value="current">Current CDL holder</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label htmlFor="timeline" className="block text-sm font-medium text-foreground mb-2">
-                      When do you want to start training?
-                    </label>
-                    <select 
-                      id="timeline" 
-                      className="w-full px-3 py-2 border border-input rounded-md bg-background text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
-                    >
-                      <option value="">Select timeline...</option>
-                      <option value="asap">As soon as possible</option>
-                      <option value="1-month">Within 1 month</option>
-                      <option value="3-months">Within 3 months</option>
-                      <option value="6-months">Within 6 months</option>
-                      <option value="just-looking">Just gathering information</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-foreground mb-2">
-                      Message
-                    </label>
-                    <Textarea 
-                      id="message" 
-                      placeholder="Tell us about your goals, any questions you have, or additional information that would help us assist you..."
-                      className="min-h-[100px]"
-                    />
-                  </div>
-
-                  <div className="flex items-start space-x-2">
-                    <input type="checkbox" id="newsletter" className="mt-1" />
-                    <label htmlFor="newsletter" className="text-sm text-muted-foreground">
-                      I'd like to receive updates about new programs, industry news, and job opportunities via email.
-                    </label>
-                  </div>
-
-                  <Button type="submit" className="w-full" size="lg">
-                    <Send className="mr-2 h-5 w-5" />
-                    Send Message
-                  </Button>
-                </form>
-              </CardContent>
-            </Card>
+            {/* Mobile-Optimized Contact Form */}
+            <div className="lg:col-span-1">
+              <MobileOptimizedContactForm variant="full" />
+            </div>
 
             {/* Additional Info */}
             <div className="space-y-8">
@@ -339,6 +228,12 @@ const Contact = () => {
           </div>
         </div>
       </section>
+
+      {/* Success Stories */}
+      <SuccessStories variant="compact" />
+
+      {/* Enrollment Journey */}
+      <EnrollmentJourney variant="compact" />
     </>
   );
 };

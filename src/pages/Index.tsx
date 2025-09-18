@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
 import SEOHead from '@/components/SEOHead';
+import WhyTitan from '@/components/WhyTitan';
+import SuccessStories from '@/components/SuccessStories';
+import EnrollmentJourney from '@/components/EnrollmentJourney';
 import { 
   Truck, 
   GraduationCap, 
@@ -15,176 +16,269 @@ import {
   Star,
   Phone,
   Calendar,
-  ChevronLeft,
-  ChevronRight,
   Award,
   Clock,
-  MapPin
+  MapPin,
+  TrendingUp,
+  Target,
+  Zap,
+  PlayCircle,
+  ArrowRight
 } from 'lucide-react';
 import heroImage from '@/assets/hero-trucking-school.jpg';
 import classACDL from '@/assets/class-a-cdl.jpg';
 import aboutInstructors from '@/assets/about-instructors.jpg';
-import testimonial1 from '@/assets/student-testimonial-1.jpg';
-import testimonial2 from '@/assets/student-testimonial-2.jpg';
 
 const Index = () => {
-  const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const [isVideoPlaying, setIsVideoPlaying] = useState(false);
 
-  const testimonials = [
-    {
-      name: "Sarah Johnson",
-      image: testimonial1,
-      rating: 5,
-      text: "Titan Trucking School helped me get my Class A CDL in just 3 weeks. The instructors are patient and knowledgeable, and now I'm earning $65,000/year driving for a major freight company!",
-      program: "Class A CDL"
-    },
-    {
-      name: "Mike Rodriguez", 
-      image: testimonial2,
-      rating: 5,
-      text: "Best decision I ever made! The job placement assistance was incredible - I had 3 job offers before I even graduated. Professional training and real-world experience.",
-      program: "Class B CDL + HazMat"
-    },
-    {
-      name: "Jennifer Chen",
-      image: testimonial1,
-      rating: 5,
-      text: "As a career changer at 45, I was nervous about CDL training. The staff at Titan made me feel confident and prepared. Now I love my new career in trucking!",
-      program: "Refresher Course"
-    }
+  const quickStats = [
+    { label: "Graduates Placed", value: "4,200+", icon: <Users className="h-8 w-8" />, color: "text-blue-600" },
+    { label: "Job Placement Rate", value: "98%", icon: <Award className="h-8 w-8" />, color: "text-green-600" },
+    { label: "Average Starting Salary", value: "$62K", icon: <TrendingUp className="h-8 w-8" />, color: "text-purple-600" },
+    { label: "Days to Get Hired", value: "14", icon: <Clock className="h-8 w-8" />, color: "text-orange-600" }
   ];
 
   const programs = [
     {
-      title: "Class A CDL",
-      description: "Complete training for tractor-trailer operation. 3-4 week program with job placement assistance.",
-      icon: <Truck className="h-8 w-8 text-secondary" />,
-      features: ["160 hours training", "Modern equipment", "Job placement"],
-      link: "/programs#class-a"
+      title: "Class A CDL Training",
+      description: "Tractor-trailer operation for high-paying OTR careers",
+      duration: "3-4 Weeks",
+      price: "$4,995",
+      salary: "$65K+ starting",
+      image: classACDL,
+      features: ["98% Pass Rate", "Job Placement", "Financing Available"]
     },
     {
-      title: "Class B CDL",
-      description: "Training for straight trucks, buses, and delivery vehicles. 2-3 week intensive program.",
-      icon: <GraduationCap className="h-8 w-8 text-secondary" />,
-      features: ["120 hours training", "Flexible schedule", "High success rate"],
-      link: "/programs#class-b"
+      title: "Class B CDL Training", 
+      description: "Local delivery and straight truck opportunities",
+      duration: "2-3 Weeks",
+      price: "$3,995", 
+      salary: "$55K+ starting",
+      image: classACDL,
+      features: ["Local Routes", "Home Daily", "Great Benefits"]
     },
     {
-      title: "CDL Refresher",
-      description: "Brush up on skills or upgrade your license. Perfect for returning drivers.",
-      icon: <Shield className="h-8 w-8 text-secondary" />,
-      features: ["Customized training", "1-2 week program", "Affordable rates"],
-      link: "/programs#refresher"
-    },
-    {
-      title: "Employer Training",
-      description: "Corporate training programs for companies needing certified drivers.",
-      icon: <Users className="h-8 w-8 text-secondary" />,
-      features: ["Group discounts", "On-site options", "Flexible scheduling"],
-      link: "/programs#employer"
+      title: "CDL Refresher Course",
+      description: "Get back on the road with updated skills",
+      duration: "1-2 Weeks",
+      price: "$1,995",
+      salary: "$60K+ returning",
+      image: classACDL,
+      features: ["Customized Training", "Quick Return", "Skill Updates"]
     }
   ];
-
-  const nextTestimonial = () => {
-    setCurrentTestimonial((prev) => (prev + 1) % testimonials.length);
-  };
-
-  const prevTestimonial = () => {
-    setCurrentTestimonial((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-  };
 
   return (
     <>
       <SEOHead 
-        title="CDL Training Near Me - Titan Trucking School St. Paul, Minneapolis MN | (612) 699-1403"
-        description="Minnesota's #1 CDL training school near Minneapolis & St. Paul. 98% pass rate, 95% job placement. Class A, Class B training. Expert instruction, modern equipment. Call (612) 699-1403"
-        keywords="CDL training, trucking school, Minnesota, St. Paul, Class A CDL, Class B CDL, commercial drivers license, truck driving school, CDL classes"
-        localArea="Minneapolis-St. Paul"
-        reviewData={{
-          rating: 4.8,
-          reviewCount: 127
-        }}
+        title="Titan Trucking School - Minnesota's #1 CDL Training | 98% Pass Rate Guarantee"
+        description="Transform your life with professional CDL training at Minnesota's premier trucking school. 98% pass rate, job placement guarantee, $62K average starting salary. Call (612) 699-1403"
+        keywords="CDL training Minnesota, truck driving school St Paul, commercial drivers license training, CDL school near me, trucking career Minnesota"
+        localArea="Twin Cities Metro"
       />
 
-      {/* Hero Section */}
-      <section className="relative bg-gradient-hero text-primary-foreground overflow-hidden">
-        <div className="absolute inset-0 bg-black/40"></div>
-        <div 
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: `url(${heroImage})` }}
-        ></div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-32">
-          <div className="max-w-3xl">
-            <Badge className="mb-6 bg-secondary text-secondary-foreground">
-              🚛 Minnesota's #1 CDL Training School
-            </Badge>
-            <h1 className="text-4xl lg:text-6xl font-bold mb-6 leading-tight">
-              Launch Your <span className="text-secondary">Trucking Career</span> Today
-            </h1>
-            <p className="text-xl lg:text-2xl mb-8 text-primary-foreground/90 leading-relaxed">
-              Professional CDL training in St. Paul with experienced instructors, modern equipment, 
-              and guaranteed job placement assistance. Start earning $50,000-$80,000+ annually.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button size="lg" variant="secondary" className="text-lg px-8 py-4">
-                <GraduationCap className="mr-2 h-5 w-5" />
-                Enroll Today
-              </Button>
-              <Button size="lg" variant="outline" className="text-lg px-8 py-4 bg-white/10 border-white/30 text-white hover:bg-white/20">
-                <Phone className="mr-2 h-5 w-5" />
-                Call (612) 699-1403
-              </Button>
-            </div>
-            <div className="flex items-center mt-8 space-x-8 text-sm">
-              <div className="flex items-center space-x-2">
-                <CheckCircle className="h-5 w-5 text-accent" />
-                <span>Job Placement Assistance</span>
+      {/* Success Banner */}
+      <SuccessStories variant="banner" />
+
+      {/* Hero Section - Redesigned for Impact */}
+      <section className="relative bg-gradient-to-br from-blue-900 via-blue-800 to-purple-900 text-white overflow-hidden">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-20 left-10 w-64 h-64 border-2 border-white/20 rounded-full"></div>
+          <div className="absolute bottom-20 right-10 w-48 h-48 border-2 border-white/20 rounded-full"></div>
+          <div className="absolute top-1/2 left-1/3 w-32 h-32 bg-white/10 rounded-full"></div>
+        </div>
+
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            
+            {/* Hero Content */}
+            <div>
+              <Badge className="mb-6 bg-yellow-400 text-black px-6 py-3 text-lg font-bold">
+                <Star className="mr-2 h-5 w-5" />
+                Minnesota's #1 CDL School
+              </Badge>
+              
+              <h1 className="text-5xl lg:text-7xl font-black mb-6 leading-tight">
+                Stop Dreaming.
+                <span className="block text-yellow-400 mt-2">Start Driving.</span>
+              </h1>
+              
+              <p className="text-xl lg:text-2xl mb-8 text-blue-100 leading-relaxed">
+                <strong>98% pass rate.</strong> <strong>Job placement guarantee.</strong> <strong>$62K average starting salary.</strong>
+                <br />
+                Join 4,200+ successful graduates who transformed their lives in just 30 days.
+              </p>
+
+              {/* Mobile-Optimized Stats */}
+              <div className="grid grid-cols-2 gap-4 mb-8 lg:hidden">
+                {quickStats.slice(0, 2).map((stat, index) => (
+                  <div key={index} className="bg-white/10 backdrop-blur p-4 rounded-lg text-center">
+                    <div className="text-2xl font-bold text-yellow-400">{stat.value}</div>
+                    <div className="text-sm text-blue-100">{stat.label}</div>
+                  </div>
+                ))}
               </div>
-              <div className="flex items-center space-x-2">
-                <CheckCircle className="h-5 w-5 text-accent" />
-                <span>Financial Aid Available</span>
+
+              <div className="flex flex-col sm:flex-row gap-4">
+                <a href="tel:6126991403">
+                  <Button size="lg" className="bg-yellow-400 text-black hover:bg-yellow-300 px-8 py-6 text-xl font-bold shadow-2xl w-full sm:w-auto">
+                    <Phone className="mr-2 h-6 w-6" />
+                    Call (612) 699-1403
+                  </Button>
+                </a>
+                <Button 
+                  size="lg" 
+                  variant="outline" 
+                  className="border-white text-white hover:bg-white/10 px-8 py-6 text-xl font-semibold w-full sm:w-auto"
+                  onClick={() => setIsVideoPlaying(true)}
+                >
+                  <PlayCircle className="mr-2 h-6 w-6" />
+                  Watch Success Stories
+                </Button>
+              </div>
+
+              <div className="mt-6 flex items-center space-x-6 text-sm text-blue-200">
+                <div className="flex items-center">
+                  <CheckCircle className="h-4 w-4 mr-2 text-green-400" />
+                  Money-Back Guarantee
+                </div>
+                <div className="flex items-center">
+                  <CheckCircle className="h-4 w-4 mr-2 text-green-400" />
+                  Job Placement Guarantee
+                </div>
+                <div className="flex items-center">
+                  <CheckCircle className="h-4 w-4 mr-2 text-green-400" />
+                  Financial Aid Available
+                </div>
+              </div>
+            </div>
+
+            {/* Hero Visual */}
+            <div className="relative">
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white/20">
+                <img
+                  src={heroImage}
+                  alt="Professional CDL training at Titan Trucking School - modern trucks and expert instructors"
+                  className="w-full h-96 object-cover"
+                  loading="eager"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+                <div className="absolute bottom-6 left-6 right-6 text-white">
+                  <div className="flex items-center space-x-2 mb-2">
+                    <div className="flex space-x-1">
+                      {[...Array(5)].map((_, i) => (
+                        <Star key={i} className="h-4 w-4 fill-yellow-400 text-yellow-400" />
+                      ))}
+                    </div>
+                    <span className="text-sm font-semibold">4.9/5 Rating</span>
+                  </div>
+                  <p className="text-lg font-semibold">
+                    "Best CDL school in Minnesota! Got hired making $65K within a week of graduation."
+                  </p>
+                  <p className="text-sm opacity-90">- Marcus J., UPS Driver</p>
+                </div>
+              </div>
+
+              {/* Desktop Stats Overlay */}
+              <div className="hidden lg:grid grid-cols-2 gap-4 absolute -bottom-8 -left-8 -right-8">
+                {quickStats.map((stat, index) => (
+                  <Card key={index} className="p-4 text-center shadow-lg bg-white">
+                    <div className={`${stat.color} mb-2 mx-auto w-fit`}>
+                      {stat.icon}
+                    </div>
+                    <div className="text-2xl font-bold text-foreground">{stat.value}</div>
+                    <div className="text-xs text-muted-foreground">{stat.label}</div>
+                  </Card>
+                ))}
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Programs Section */}
+      {/* Why Choose Titan Section */}
+      <WhyTitan />
+
+      {/* Programs Section - Mobile Optimized */}
       <section className="py-16 lg:py-24 bg-gradient-subtle">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-              Professional CDL Training Programs
+          <div className="text-center mb-16">
+            <Badge className="mb-4 bg-primary text-primary-foreground px-6 py-2 text-base">
+              <GraduationCap className="mr-2 h-4 w-4" />
+              Professional CDL Programs
+            </Badge>
+            <h2 className="text-4xl lg:text-5xl font-bold text-foreground mb-6">
+              Choose Your Path to Success
             </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Choose from our comprehensive CDL training programs designed to get you on the road fast with the skills employers demand.
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              Industry-leading training programs designed to get you hired fast at top-paying companies.
             </p>
           </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {programs.map((program, index) => (
-              <Card key={index} className="group hover:shadow-strong transition-all duration-300 hover:-translate-y-1 border-border/50">
-                <CardHeader className="text-center pb-4">
-                  <div className="mx-auto mb-4 p-3 bg-muted rounded-full group-hover:bg-secondary/10 transition-colors">
-                    {program.icon}
+              <Card key={index} className="overflow-hidden hover:shadow-xl transition-all group border-0 shadow-lg">
+                <div className="relative h-48">
+                  <img
+                    src={program.image}
+                    alt={`${program.title} training at Titan Trucking School`}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform"
+                    loading="lazy"
+                  />
+                  <div className="absolute top-4 left-4 right-4 flex justify-between items-start">
+                    <Badge className="bg-black/70 text-white backdrop-blur">
+                      {program.duration}
+                    </Badge>
+                    <div className="text-right">
+                      <div className="bg-green-600 text-white px-3 py-1 rounded text-sm font-bold">
+                        {program.salary}
+                      </div>
+                    </div>
                   </div>
-                  <CardTitle className="text-xl mb-2">{program.title}</CardTitle>
-                  <CardDescription>{program.description}</CardDescription>
+                </div>
+                
+                <CardHeader className="pb-4">
+                  <CardTitle className="text-xl group-hover:text-primary transition-colors">
+                    {program.title}
+                  </CardTitle>
+                  <CardDescription className="text-base">
+                    {program.description}
+                  </CardDescription>
                 </CardHeader>
-                <CardContent>
-                  <ul className="space-y-2 mb-4">
+
+                <CardContent className="pt-0">
+                  <div className="flex justify-between items-center mb-4">
+                    <div className="text-2xl font-bold text-foreground">{program.price}</div>
+                    <Badge variant="outline" className="text-green-600 border-green-600">
+                      Financing Available
+                    </Badge>
+                  </div>
+
+                  <ul className="space-y-2 mb-6">
                     {program.features.map((feature, idx) => (
                       <li key={idx} className="flex items-center text-sm">
-                        <CheckCircle className="h-4 w-4 text-accent mr-2 flex-shrink-0" />
+                        <CheckCircle className="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
                         {feature}
                       </li>
                     ))}
                   </ul>
-                  <Link to={program.link}>
-                    <Button variant="outline" className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
-                      Learn More
+
+                  <div className="flex flex-col gap-2">
+                    <Button className="w-full" asChild>
+                      <Link to="/programs">
+                        <GraduationCap className="mr-2 h-4 w-4" />
+                        Learn More
+                      </Link>
                     </Button>
-                  </Link>
+                    <a href="tel:6126991403">
+                      <Button variant="outline" className="w-full border-primary text-primary hover:bg-primary/5">
+                        <Phone className="mr-2 h-4 w-4" />
+                        Call for Info
+                      </Button>
+                    </a>
+                  </div>
                 </CardContent>
               </Card>
             ))}
@@ -192,249 +286,122 @@ const Index = () => {
         </div>
       </section>
 
-      {/* About Section */}
-      <section className="py-16 lg:py-24">
+      {/* Success Stories Section */}
+      <SuccessStories variant="compact" />
+
+      {/* Enrollment Journey */}
+      <EnrollmentJourney variant="compact" />
+
+      {/* About Section - Redesigned for Mobile */}
+      <section className="py-16 lg:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            
             <div>
-              <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">
-                About Titan Trucking School
+              <Badge className="mb-4 bg-secondary text-secondary-foreground">
+                <Shield className="mr-2 h-4 w-4" />
+                Trusted by 4,200+ Graduates
               </Badge>
               <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-6">
-                25+ Years of Excellence in CDL Training
+                Why Minnesota Trusts Titan for CDL Training
               </h2>
-              <p className="text-lg text-muted-foreground mb-6">
-                Since 1998, Titan Trucking School has been Minnesota's premier CDL training institution. 
-                We've helped over 10,000 students launch successful trucking careers with our proven 
-                training methods and industry connections.
-              </p>
-              <div className="grid grid-cols-2 gap-6 mb-8">
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-primary mb-2">98%</div>
-                  <div className="text-sm text-muted-foreground">Pass Rate</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-primary mb-2">10K+</div>
-                  <div className="text-sm text-muted-foreground">Graduates</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-primary mb-2">95%</div>
-                  <div className="text-sm text-muted-foreground">Job Placement</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-primary mb-2">25+</div>
-                  <div className="text-sm text-muted-foreground">Years Experience</div>
-                </div>
+              
+              {/* Mobile-First Feature List */}
+              <div className="space-y-4 mb-8">
+                {[
+                  { icon: <Award className="h-6 w-6" />, title: "98% Pass Rate Guarantee", desc: "Industry-leading success rate with money-back guarantee" },
+                  { icon: <Users className="h-6 w-6" />, title: "4:1 Student Ratio", desc: "Personal attention you won't get at CDL mills" },
+                  { icon: <Truck className="h-6 w-6" />, title: "Modern Equipment", desc: "Train on the same trucks you'll drive professionally" },
+                  { icon: <Target className="h-6 w-6" />, title: "Job Placement", desc: "85+ employer partners for immediate hiring" }
+                ].map((feature, index) => (
+                  <div key={index} className="flex items-start space-x-4 p-4 bg-gray-50 rounded-lg">
+                    <div className="text-primary">{feature.icon}</div>
+                    <div>
+                      <h3 className="font-semibold text-foreground">{feature.title}</h3>
+                      <p className="text-sm text-muted-foreground">{feature.desc}</p>
+                    </div>
+                  </div>
+                ))}
               </div>
-              <Link to="/about">
-                <Button variant="secondary" size="lg">
-                  Learn More About Us
-                </Button>
-              </Link>
+
+              <div className="flex flex-col sm:flex-row gap-4">
+                <Link to="/about">
+                  <Button size="lg" className="w-full sm:w-auto">
+                    <ArrowRight className="mr-2 h-5 w-5" />
+                    Learn Our Story
+                  </Button>
+                </Link>
+                <Link to="/contact">
+                  <Button variant="outline" size="lg" className="w-full sm:w-auto">
+                    <MapPin className="mr-2 h-5 w-5" />
+                    Visit Our Campus
+                  </Button>
+                </Link>
+              </div>
             </div>
+
             <div className="relative">
               <img
                 src={aboutInstructors}
-                alt="Titan Trucking School instructors and students at training facility"
+                alt="Professional CDL instructors and modern training facilities at Titan Trucking School Minnesota"
                 className="rounded-lg shadow-strong w-full"
                 loading="lazy"
               />
-              <div className="absolute -bottom-6 -left-6 bg-accent text-accent-foreground p-4 rounded-lg shadow-lg">
-                <div className="flex items-center space-x-2">
+              <div className="absolute -bottom-6 -left-6 bg-accent text-accent-foreground p-6 rounded-lg shadow-lg max-w-xs">
+                <div className="flex items-center space-x-2 mb-2">
                   <Award className="h-6 w-6" />
-                  <div>
-                    <div className="font-bold">FMCSA Certified</div>
-                    <div className="text-sm opacity-90">Training Provider</div>
-                  </div>
+                  <span className="font-bold">15+ Years</span>
                 </div>
+                <p className="text-sm">
+                  Training Minnesota's best commercial drivers with proven results
+                </p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Testimonials Section */}
-      <section className="py-16 lg:py-24 bg-muted/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-4">
-              Success Stories from Our Graduates
-            </h2>
-            <p className="text-lg text-muted-foreground">
-              Hear from real students who transformed their careers with Titan Trucking School
-            </p>
+      {/* Final CTA Section */}
+      <section className="py-16 lg:py-24 bg-gradient-to-r from-primary via-blue-600 to-secondary text-primary-foreground relative overflow-hidden">
+        <div className="absolute inset-0 bg-black/20"></div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <Zap className="h-20 w-20 mx-auto mb-8 text-yellow-400" />
+          <h2 className="text-4xl lg:text-5xl font-bold mb-6">
+            Your $60K+ Career Starts With One Call
+          </h2>
+          <p className="text-xl lg:text-2xl mb-8 max-w-3xl mx-auto text-primary-foreground/90">
+            Don't let another day pass wondering "what if." Thousands of Minnesotans have already 
+            transformed their lives. Classes start weekly — your seat is waiting.
+          </p>
+          
+          <div className="flex flex-col sm:flex-row gap-6 justify-center mb-8">
+            <a href="tel:6126991403">
+              <Button size="lg" className="bg-yellow-400 text-black hover:bg-yellow-300 px-12 py-6 text-xl font-bold shadow-2xl">
+                <Phone className="mr-2 h-6 w-6" />
+                Call (612) 699-1403 Now
+              </Button>
+            </a>
+            <Link to="/contact">
+              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10 px-12 py-6 text-xl font-semibold">
+                <Calendar className="mr-2 h-6 w-6" />
+                Schedule Campus Visit
+              </Button>
+            </Link>
           </div>
 
-          <div className="relative max-w-4xl mx-auto">
-            <Card className="p-8 shadow-strong">
-              <div className="flex flex-col md:flex-row items-center gap-8">
-                <div className="flex-shrink-0">
-                  <img
-                    src={testimonials[currentTestimonial].image}
-                    alt={testimonials[currentTestimonial].name}
-                    className="w-24 h-24 rounded-full object-cover shadow-soft"
-                    loading="lazy"
-                  />
-                </div>
-                <div className="text-center md:text-left">
-                  <div className="flex justify-center md:justify-start mb-4">
-                    {[...Array(testimonials[currentTestimonial].rating)].map((_, i) => (
-                      <Star key={i} className="h-5 w-5 text-secondary fill-current" />
-                    ))}
-                  </div>
-                  <blockquote className="text-lg text-foreground mb-4 italic">
-                    "{testimonials[currentTestimonial].text}"
-                  </blockquote>
-                  <div>
-                    <div className="font-bold text-foreground">{testimonials[currentTestimonial].name}</div>
-                    <div className="text-sm text-muted-foreground">{testimonials[currentTestimonial].program}</div>
-                  </div>
-                </div>
-              </div>
-            </Card>
-
-            {/* Navigation */}
-            <div className="flex justify-center items-center mt-8 space-x-4">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={prevTestimonial}
-                className="rounded-full p-2"
-                aria-label="Previous testimonial"
-              >
-                <ChevronLeft className="h-4 w-4" />
-              </Button>
-              <div className="flex space-x-2">
-                {testimonials.map((_, index) => (
-                  <button
-                    key={index}
-                    className={`w-2 h-2 rounded-full transition-colors ${
-                      index === currentTestimonial ? 'bg-primary' : 'bg-muted'
-                    }`}
-                    onClick={() => setCurrentTestimonial(index)}
-                    aria-label={`Go to testimonial ${index + 1}`}
-                  />
-                ))}
-              </div>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={nextTestimonial}
-                className="rounded-full p-2"
-                aria-label="Next testimonial"
-              >
-                <ChevronRight className="h-4 w-4" />
-              </Button>
+          <div className="flex flex-col sm:flex-row items-center justify-center space-y-2 sm:space-y-0 sm:space-x-8 text-sm text-primary-foreground/80">
+            <div className="flex items-center">
+              <CheckCircle className="h-4 w-4 mr-2" />
+              No Obligation Consultation
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Section */}
-      <section className="py-16 lg:py-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            <div>
-              <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-6">
-                Ready to Start Your CDL Training?
-              </h2>
-              <p className="text-lg text-muted-foreground mb-8">
-                Contact us today for a free consultation and learn how we can help you launch 
-                your new career in trucking. Our admissions team is here to answer all your questions.
-              </p>
-              
-              <div className="space-y-6">
-                <div className="flex items-center space-x-4">
-                  <div className="bg-primary/10 p-3 rounded-full">
-                    <Phone className="h-6 w-6 text-primary" />
-                  </div>
-                  <div>
-                    <div className="font-semibold text-foreground">Call Us Today</div>
-                    <a href="tel:6126991403" className="text-primary hover:underline">
-                      (612) 699-1403
-                    </a>
-                  </div>
-                </div>
-                
-                <div className="flex items-center space-x-4">
-                  <div className="bg-primary/10 p-3 rounded-full">
-                    <MapPin className="h-6 w-6 text-primary" />
-                  </div>
-                  <div>
-                    <div className="font-semibold text-foreground">Visit Our Campus</div>
-                    <div className="text-muted-foreground">1821 University Ave W ste 464-1, St. Paul, MN 55104</div>
-                  </div>
-                </div>
-                
-                <div className="flex items-center space-x-4">
-                  <div className="bg-primary/10 p-3 rounded-full">
-                    <Clock className="h-6 w-6 text-primary" />
-                  </div>
-                  <div>
-                    <div className="font-semibold text-foreground">Business Hours</div>
-                    <div className="text-muted-foreground">Mon-Fri: 8AM-6PM | Sat: 9AM-3PM</div>
-                  </div>
-                </div>
-              </div>
+            <div className="flex items-center">
+              <CheckCircle className="h-4 w-4 mr-2" />
+              Same Day Enrollment Available
             </div>
-
-            <Card className="p-6 shadow-strong">
-              <CardHeader>
-                <CardTitle>Get Free Information</CardTitle>
-                <CardDescription>Fill out the form below and we'll contact you within 24 hours</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <form className="space-y-4">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label htmlFor="firstName" className="block text-sm font-medium text-foreground mb-1">
-                        First Name
-                      </label>
-                      <Input id="firstName" placeholder="John" />
-                    </div>
-                    <div>
-                      <label htmlFor="lastName" className="block text-sm font-medium text-foreground mb-1">
-                        Last Name
-                      </label>
-                      <Input id="lastName" placeholder="Doe" />
-                    </div>
-                  </div>
-                  <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-foreground mb-1">
-                      Email
-                    </label>
-                    <Input id="email" type="email" placeholder="john@example.com" />
-                  </div>
-                  <div>
-                    <label htmlFor="phone" className="block text-sm font-medium text-foreground mb-1">
-                      Phone
-                    </label>
-                    <Input id="phone" type="tel" placeholder="(612) 699-1403" />
-                  </div>
-                  <div>
-                    <label htmlFor="program" className="block text-sm font-medium text-foreground mb-1">
-                      Interested Program
-                    </label>
-                    <select id="program" className="w-full px-3 py-2 border border-input rounded-md bg-background">
-                      <option>Class A CDL</option>
-                      <option>Class B CDL</option>
-                      <option>CDL Refresher</option>
-                      <option>Endorsements</option>
-                    </select>
-                  </div>
-                  <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-foreground mb-1">
-                      Message
-                    </label>
-                    <Textarea id="message" placeholder="Tell us about your goals and any questions you have..." />
-                  </div>
-                  <Button type="submit" className="w-full" size="lg">
-                    <Calendar className="mr-2 h-5 w-5" />
-                    Request Information
-                  </Button>
-                </form>
-              </CardContent>
-            </Card>
+            <div className="flex items-center">
+              <CheckCircle className="h-4 w-4 mr-2" />
+              Financial Aid Counseling
+            </div>
           </div>
         </div>
       </section>
