@@ -53,7 +53,7 @@ const FAQ = () => {
         },
         {
           question: "Does financial aid cover CDL training?",
-          answer: "Yes, CDL training at Titan Trucking School is eligible for federal financial aid including Pell Grants and student loans. As an accredited institution, we help students apply for financial aid through FAFSA. Many students receive grants that significantly reduce or eliminate out-of-pocket costs for their CDL training.",
+          answer: "Yes, CDL training at Titan Trucking School is eligible for federal financial aid including Pell Grants and student loans. We also work with Minnesota nonprofits like Avivo and CareerForce that can cover CDL tuition for qualified individuals. These nonprofit partnerships provide additional funding opportunities to help students achieve their career goals.",
           keywords: "CDL training financial aid, Pell Grant CDL school, FAFSA CDL training, federal aid trucking school"
         },
         {
@@ -63,7 +63,7 @@ const FAQ = () => {
         },
         {
           question: "Can veterans use VA benefits for CDL training?",
-          answer: "Yes, veterans can use VA education benefits including the GI Bill for CDL training at Titan Trucking School. We're approved for VA education benefits and assist veterans through the application process. VA benefits can cover tuition, fees, and provide monthly housing allowances during training.",
+          answer: "Yes, veterans can use VA education benefits including the GI Bill for CDL training at Titan Trucking School. VA benefits can cover tuition and fees for qualified veterans seeking professional CDL training.",
           keywords: "VA benefits CDL training, GI Bill trucking school, veterans CDL training Minnesota"
         }
       ]
