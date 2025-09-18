@@ -121,36 +121,27 @@ const Index = () => {
                 ))}
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-4">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a href="tel:6126991403">
                   <Button size="lg" className="bg-yellow-400 text-black hover:bg-yellow-300 px-8 py-6 text-xl font-bold shadow-2xl w-full sm:w-auto">
                     <Phone className="mr-2 h-6 w-6" />
                     Call (612) 699-1403
                   </Button>
                 </a>
-                <Button 
-                  size="lg" 
-                  variant="outline" 
-                  className="border-white text-white hover:bg-white/10 px-8 py-6 text-xl font-semibold w-full sm:w-auto"
-                  onClick={() => setIsVideoPlaying(true)}
-                >
-                  <PlayCircle className="mr-2 h-6 w-6" />
-                  Watch Success Stories
-                </Button>
               </div>
 
               <div className="mt-6 flex items-center space-x-6 text-sm text-blue-200">
                 <div className="flex items-center">
                   <CheckCircle className="h-4 w-4 mr-2 text-green-400" />
-                  Money-Back Guarantee
+                  98% Pass Rate
                 </div>
                 <div className="flex items-center">
                   <CheckCircle className="h-4 w-4 mr-2 text-green-400" />
-                  Job Placement Guarantee
+                  Job Placement Assistance
                 </div>
                 <div className="flex items-center">
                   <CheckCircle className="h-4 w-4 mr-2 text-green-400" />
-                  Financial Aid Available
+                  Flexible Payment Plans
                 </div>
               </div>
             </div>

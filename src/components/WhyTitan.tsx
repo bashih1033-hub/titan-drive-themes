@@ -193,15 +193,15 @@ const WhyTitan = ({ variant = "full" }: { variant?: "full" | "compact" }) => {
             <div className="mt-8 flex items-center justify-center space-x-6 text-sm text-white/80">
               <div className="flex items-center">
                 <CheckCircle className="h-4 w-4 mr-1" />
-                Money-Back Guarantee
+                98% Pass Rate
               </div>
               <div className="flex items-center">
                 <CheckCircle className="h-4 w-4 mr-1" />
-                Job Placement Guarantee
+                Job Placement Assistance
               </div>
               <div className="flex items-center">
                 <CheckCircle className="h-4 w-4 mr-1" />
-                Premium Industry Connections
+                Flexible Payment Plans
               </div>
             </div>
           </div>
