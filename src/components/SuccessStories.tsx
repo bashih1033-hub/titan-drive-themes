@@ -15,7 +15,8 @@ import {
   ChevronRight,
   Play,
   Award,
-  Phone
+  Phone,
+  Users
 } from 'lucide-react';
 
 interface SuccessStory {
