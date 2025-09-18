@@ -87,6 +87,8 @@ const SEOHead = ({
     "name": "Titan Trucking School",
     "description": "Professional CDL training school in St. Paul, Minnesota",
     "url": url,
+    "logo": `${url}/favicon.png`,
+    "image": `${url}/favicon.png`,
     "telephone": "(612) 699-1403",
     "email": "info@titantruckingschool.com",
     "address": {

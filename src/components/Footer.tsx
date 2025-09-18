@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Phone, Mail, MapPin, Facebook, Twitter, Instagram, Linkedin } from 'lucide-react';
+import titanLogoCompact from '@/assets/titan-logo-compact.png';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -11,14 +12,15 @@ const Footer = () => {
           
           {/* Company Info */}
           <div>
-            <div className="flex items-center space-x-3 mb-6">
-              <div className="w-10 h-10 bg-secondary rounded-lg flex items-center justify-center">
-                <span className="text-secondary-foreground font-bold text-lg">T</span>
-              </div>
-              <div>
-                <h3 className="text-xl font-bold">Titan Trucking School</h3>
-                <p className="text-sm opacity-90">Professional CDL Training</p>
-              </div>
+            <div className="mb-6">
+              <Link to="/" className="inline-block">
+                <img 
+                  src={titanLogoCompact} 
+                  alt="Titan Trucking School - Professional CDL Training"
+                  className="h-16 w-auto object-contain filter brightness-110"
+                  loading="lazy"
+                />
+              </Link>
             </div>
             <p className="text-sm opacity-90 mb-4">
               Minnesota's premier CDL training school. Get your commercial driver's license 

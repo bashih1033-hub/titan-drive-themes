@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import titanLogoFull from '@/assets/titan-logo-full.png';
+import titanLogoCompact from '@/assets/titan-logo-compact.png';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -43,14 +45,21 @@ const Header = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center py-6">
           {/* Logo */}
-          <Link to="/" className="flex items-center space-x-3">
-            <div className="w-12 h-12 bg-gradient-primary rounded-lg flex items-center justify-center">
-              <span className="text-primary-foreground font-bold text-xl">T</span>
-            </div>
-            <div>
-              <h1 className="text-2xl font-bold text-foreground">Titan Trucking School</h1>
-              <p className="text-sm text-muted-foreground">Professional CDL Training</p>
-            </div>
+          <Link to="/" className="flex items-center">
+            {/* Desktop Logo */}
+            <img 
+              src={titanLogoFull} 
+              alt="Titan Trucking School - Professional CDL Training"
+              className="hidden sm:block h-16 w-auto max-w-[240px] object-contain"
+              loading="eager"
+            />
+            {/* Mobile Logo */}
+            <img 
+              src={titanLogoCompact} 
+              alt="Titan Trucking School"
+              className="sm:hidden h-12 w-auto object-contain"
+              loading="eager"
+            />
           </Link>
 
           {/* Desktop Navigation */}
