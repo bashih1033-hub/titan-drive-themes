@@ -293,7 +293,7 @@ const StPaul = () => {
                 <Phone className="mr-2 h-5 w-5" />
                 Call (612) 699-1403
               </Button>
-            </Link>
+            </a>
             <Link to="/faq">
               <Button size="lg" variant="outline" className="px-8 py-4 bg-white/10 border-white/30 text-white hover:bg-white/20">
                 <CheckCircle className="mr-2 h-5 w-5" />
