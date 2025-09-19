@@ -373,7 +373,7 @@ const Index = () => {
               </Button>
             </a>
             <Link to="/contact">
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10 px-12 py-6 text-xl font-semibold">
+              <Button size="lg" variant="outline" className="border-white text-white bg-white/20 hover:bg-white/30 px-12 py-6 text-xl font-semibold">
                 <Calendar className="mr-2 h-6 w-6" />
                 Schedule Campus Visit
               </Button>
