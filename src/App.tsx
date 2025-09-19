@@ -35,7 +35,7 @@ const App = () => (
             <div className="min-h-screen flex flex-col">
             <Header />
             <Breadcrumb />
-            <main className="flex-1 pt-32">
+            <main className="flex-1">
               <Routes>
                 <Route path="/" element={<Index />} />
                 <Route path="/about" element={<About />} />

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Menu, X, Phone } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -7,30 +7,7 @@ import titanLogoCompact from '@/assets/titan-logo-compact.png';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
   const location = useLocation();
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      
-      // Show header when scrolling up or at the top
-      if (currentScrollY < lastScrollY || currentScrollY < 50) {
-        setIsVisible(true);
-      } 
-      // Hide header when scrolling down (and not at the top)
-      else if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        setIsVisible(false);
-        setIsMenuOpen(false); // Close mobile menu when hiding
-      }
-      
-      setLastScrollY(currentScrollY);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollY]);
 
   const navigation = [
     { name: 'Home', href: '/' },
@@ -45,11 +22,9 @@ const Header = () => {
   const isActive = (href: string) => location.pathname === href;
 
   return (
-    <div className={`fixed top-0 left-0 right-0 z-50 transform transition-transform duration-300 ${
-      isVisible ? 'translate-y-0' : '-translate-y-full'
-    }`}>
-      {/* Contact Bar */}
-      <div className="bg-primary text-primary-foreground py-2">
+    <>
+      {/* Sticky Contact Bar */}
+      <div className="bg-primary text-primary-foreground py-2 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center text-sm">
             <div className="flex items-center space-x-4">
@@ -67,7 +42,7 @@ const Header = () => {
         </div>
       </div>
 
-      {/* Main Header */}
+      {/* Non-Sticky Header */}
       <header className="bg-background/95 backdrop-blur-sm border-b border-border">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-6">
@@ -147,7 +122,7 @@ const Header = () => {
           </div>
         )}
       </header>
-    </div>
+    </>
   );
 };
 
