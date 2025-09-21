@@ -81,7 +81,7 @@ const Index = () => {
       {/* Success Banner */}
       <SuccessStories variant="banner" />
 
-      {/* Hero Section - Redesigned for Impact */}
+      {/* Hero Section - Desktop Optimized */}
       <section className="relative bg-gradient-to-br from-blue-900 via-blue-800 to-purple-900 text-white overflow-hidden">
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-10">
@@ -91,16 +91,16 @@ const Index = () => {
         </div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-32">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center">
             
-            {/* Hero Content */}
-            <div>
+            {/* Hero Content - Wider on Desktop */}
+            <div className="lg:col-span-3">
               <Badge className="mb-6 bg-yellow-400 text-black px-6 py-3 text-lg font-bold">
                 <Star className="mr-2 h-5 w-5" />
                 Minnesota's #1 CDL School
               </Badge>
               
-              <h1 className="text-5xl lg:text-7xl font-black mb-6 leading-tight">
+              <h1 className="text-5xl lg:text-6xl xl:text-7xl font-black mb-6 leading-tight">
                 Stop Dreaming.
                 <span className="block text-yellow-400 mt-2">Start Driving.</span>
               </h1>
@@ -121,7 +121,7 @@ const Index = () => {
                 ))}
               </div>
 
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <div className="flex flex-col sm:flex-row gap-4 justify-start">
                 <a href="tel:6126991403">
                   <Button size="lg" className="bg-yellow-400 text-black hover:bg-yellow-300 px-8 py-6 text-xl font-bold shadow-2xl w-full sm:w-auto">
                     <Phone className="mr-2 h-6 w-6" />
@@ -146,13 +146,13 @@ const Index = () => {
               </div>
             </div>
 
-            {/* Hero Visual */}
-            <div className="relative">
+            {/* Hero Visual - Better Proportioned */}
+            <div className="lg:col-span-2">
               <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-white/20">
                 <img
                   src={heroImage}
                   alt="Professional CDL training at Titan Trucking School - modern trucks and expert instructors"
-                  className="w-full h-96 object-cover"
+                  className="w-full h-96 lg:h-[400px] xl:h-[500px] object-cover object-center"
                   loading="eager"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
@@ -171,20 +171,24 @@ const Index = () => {
                   <p className="text-sm opacity-90">- Marcus J., UPS Driver</p>
                 </div>
               </div>
-
-              {/* Desktop Stats Overlay */}
-              <div className="hidden lg:grid grid-cols-2 gap-4 absolute -bottom-8 -left-8 -right-8">
-                {quickStats.map((stat, index) => (
-                  <Card key={index} className="p-4 text-center shadow-lg bg-white">
-                    <div className={`${stat.color} mb-2 mx-auto w-fit`}>
-                      {stat.icon}
-                    </div>
-                    <div className="text-2xl font-bold text-foreground">{stat.value}</div>
-                    <div className="text-xs text-muted-foreground">{stat.label}</div>
-                  </Card>
-                ))}
-              </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Desktop Stats Section - Prevents Overlap */}
+      <section className="hidden lg:block bg-white py-12 -mt-1">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+            {quickStats.map((stat, index) => (
+              <Card key={index} className="p-6 text-center shadow-lg hover:shadow-xl transition-shadow">
+                <div className={`${stat.color} mb-3 mx-auto w-fit`}>
+                  {stat.icon}
+                </div>
+                <div className="text-3xl font-bold text-foreground mb-2">{stat.value}</div>
+                <div className="text-sm text-muted-foreground">{stat.label}</div>
+              </Card>
+            ))}
           </div>
         </div>
       </section>
@@ -283,22 +287,22 @@ const Index = () => {
       {/* Enrollment Journey */}
       <EnrollmentJourney variant="compact" />
 
-      {/* About Section - Redesigned for Mobile */}
+      {/* About Section - Desktop Optimized */}
       <section className="py-16 lg:py-24 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center">
             
-            <div>
+            <div className="lg:col-span-3">
               <Badge className="mb-4 bg-secondary text-secondary-foreground">
                 <Shield className="mr-2 h-4 w-4" />
                 Trusted by 4,200+ Graduates
               </Badge>
-              <h2 className="text-3xl lg:text-4xl font-bold text-foreground mb-6">
+              <h2 className="text-3xl lg:text-4xl xl:text-5xl font-bold text-foreground mb-6">
                 Why Minnesota Trusts Titan for CDL Training
               </h2>
               
-              {/* Mobile-First Feature List */}
-              <div className="space-y-4 mb-8">
+              {/* Feature List with Better Desktop Layout */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-8">
                 {[
                   { icon: <Award className="h-6 w-6" />, title: "98% Pass Rate Guarantee", desc: "Industry-leading success rate with money-back guarantee" },
                   { icon: <Users className="h-6 w-6" />, title: "4:1 Student Ratio", desc: "Personal attention you won't get at CDL mills" },
@@ -306,7 +310,7 @@ const Index = () => {
                   { icon: <Target className="h-6 w-6" />, title: "Job Placement", desc: "85+ employer partners for immediate hiring" }
                 ].map((feature, index) => (
                   <div key={index} className="flex items-start space-x-4 p-4 bg-gray-50 rounded-lg">
-                    <div className="text-primary">{feature.icon}</div>
+                    <div className="text-primary flex-shrink-0">{feature.icon}</div>
                     <div>
                       <h3 className="font-semibold text-foreground">{feature.title}</h3>
                       <p className="text-sm text-muted-foreground">{feature.desc}</p>
@@ -331,21 +335,24 @@ const Index = () => {
               </div>
             </div>
 
-            <div className="relative">
-              <img
-                src={aboutInstructors}
-                alt="Professional CDL instructors and modern training facilities at Titan Trucking School Minnesota"
-                className="rounded-lg shadow-strong w-full"
-                loading="lazy"
-              />
-              <div className="absolute -bottom-6 -left-6 bg-accent text-accent-foreground p-6 rounded-lg shadow-lg max-w-xs">
-                <div className="flex items-center space-x-2 mb-2">
-                  <Award className="h-6 w-6" />
-                  <span className="font-bold">15+ Years</span>
+            <div className="lg:col-span-2 relative">
+              <div className="relative">
+                <img
+                  src={aboutInstructors}
+                  alt="Professional CDL instructors and modern training facilities at Titan Trucking School Minnesota"
+                  className="rounded-lg shadow-strong w-full h-96 lg:h-[500px] object-cover object-center"
+                  loading="lazy"
+                />
+                {/* Fixed positioning to prevent overlap */}
+                <div className="mt-6 lg:absolute lg:-bottom-6 lg:-left-6 bg-accent text-accent-foreground p-6 rounded-lg shadow-lg max-w-xs">
+                  <div className="flex items-center space-x-2 mb-2">
+                    <Award className="h-6 w-6" />
+                    <span className="font-bold">15+ Years</span>
+                  </div>
+                  <p className="text-sm">
+                    Training Minnesota's best commercial drivers with proven results
+                  </p>
                 </div>
-                <p className="text-sm">
-                  Training Minnesota's best commercial drivers with proven results
-                </p>
               </div>
             </div>
           </div>
