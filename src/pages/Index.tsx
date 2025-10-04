@@ -7,6 +7,12 @@ import SEOHead from '@/components/SEOHead';
 import WhyTitan from '@/components/WhyTitan';
 import SuccessStories from '@/components/SuccessStories';
 import EnrollmentJourney from '@/components/EnrollmentJourney';
+import StickyFloatingCTA from '@/components/StickyFloatingCTA';
+import UrgencyNotification from '@/components/UrgencyNotification';
+import ComparisonTable from '@/components/ComparisonTable';
+import LeadMagnets from '@/components/LeadMagnets';
+import InstructorCredentials from '@/components/InstructorCredentials';
+import FinancingOptions from '@/components/FinancingOptions';
 import { 
   Truck, 
   GraduationCap, 
@@ -78,6 +84,9 @@ const Index = () => {
         localArea="Twin Cities Metro"
       />
 
+      {/* Sticky Floating CTA */}
+      <StickyFloatingCTA />
+
       {/* Success Banner */}
       <SuccessStories variant="banner" />
 
@@ -95,10 +104,13 @@ const Index = () => {
             
             {/* Hero Content - Wider on Desktop */}
             <div className="lg:col-span-3">
-              <Badge className="mb-6 bg-yellow-400 text-black px-6 py-3 text-lg font-bold">
-                <Star className="mr-2 h-5 w-5" />
-                Minnesota's #1 CDL School
-              </Badge>
+              <div className="flex flex-wrap gap-3 mb-6">
+                <Badge className="bg-yellow-400 text-black px-6 py-3 text-lg font-bold">
+                  <Star className="mr-2 h-5 w-5" />
+                  Minnesota's #1 CDL School
+                </Badge>
+                <UrgencyNotification variant="nextClass" />
+              </div>
               
               <h1 className="text-5xl lg:text-6xl xl:text-7xl font-black mb-6 leading-tight">
                 Stop Dreaming.
@@ -196,6 +208,12 @@ const Index = () => {
       {/* Why Choose Titan Section */}
       <WhyTitan />
 
+      {/* Lead Magnets */}
+      <LeadMagnets />
+
+      {/* Instructor Credentials */}
+      <InstructorCredentials />
+
       {/* Programs Section - Mobile Optimized */}
       <section className="py-16 lg:py-24 bg-gradient-subtle">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -283,6 +301,12 @@ const Index = () => {
 
       {/* Success Stories Section */}
       <SuccessStories variant="compact" />
+
+      {/* Comparison Table */}
+      <ComparisonTable />
+
+      {/* Financing Options */}
+      <FinancingOptions />
 
       {/* Enrollment Journey */}
       <EnrollmentJourney variant="compact" />

@@ -45,14 +45,18 @@ const StPaul = () => {
   ];
 
   const stPaulNeighborhoods = [
-    { name: "Downtown St. Paul", commute: "8 min", description: "State government and corporate headquarters" },
-    { name: "West Side St. Paul", commute: "5 min", description: "Industrial corridor with major distribution centers" },
-    { name: "Highland Park", commute: "12 min", description: "Former Ford plant area, growing logistics hub" },
-    { name: "Midway District", commute: "3 min", description: "Transportation hub between Minneapolis-St. Paul" },
-    { name: "East Side St. Paul", commute: "10 min", description: "Industrial area with rail and truck terminals" },
-    { name: "Roseville", commute: "15 min", description: "Suburban commercial and distribution center" },
-    { name: "Woodbury", commute: "18 min", description: "Growing eastern suburb with logistics companies" },
-    { name: "Maplewood", commute: "12 min", description: "Industrial suburb with 3M and manufacturing" }
+    { name: "Downtown St. Paul", commute: "8 min", description: "State Capitol area with government fleets and Wells Fargo campus", landmarks: "State Capitol, Rice Park, Xcel Center" },
+    { name: "West Side St. Paul", commute: "5 min", description: "Industrial corridor along Cesar Chavez St with major distribution centers", landmarks: "Cherokee Park, Robert Street Bridge" },
+    { name: "Highland Park", commute: "12 min", description: "Former Ford plant area on Ford Parkway, growing into logistics hub", landmarks: "Ford Pkwy, Highland Village" },
+    { name: "Midway District", commute: "3 min", description: "Major transportation hub along University Ave between two cities", landmarks: "Snelling Ave, University Ave, State Fair" },
+    { name: "East Side St. Paul", commute: "10 min", description: "Industrial area along Payne Ave with rail and truck terminals", landmarks: "Payne Ave, Johnson Pkwy, Indian Mounds" },
+    { name: "Roseville", commute: "15 min", description: "Suburban commercial center along I-35W with Rosedale Shopping Center", landmarks: "Rosedale Mall, HarMar Mall" },
+    { name: "Woodbury", commute: "18 min", description: "Fastest-growing eastern suburb along I-94 with major logistics companies", landmarks: "Woodbury Lakes, Tamarack Village" },
+    { name: "Maplewood", commute: "12 min", description: "Industrial suburb along I-694 home to 3M headquarters and manufacturing", landmarks: "3M Campus, Gladstone Shopping" },
+    { name: "Little Canada", commute: "14 min", description: "Industrial area along I-35E near Twin Cities Army Ammunition Plant", landmarks: "Rice St, Vadnais Heights" },
+    { name: "Shoreview", commute: "16 min", description: "Northern suburb along Hwy 96 with growing business parks", landmarks: "Snail Lake, Shoreview Community Center" },
+    { name: "White Bear Lake", commute: "20 min", description: "Eastern suburb with lakeside location and regional distribution", landmarks: "White Bear Lake, Hwy 61" },
+    { name: "South St. Paul", commute: "12 min", description: "Historic stockyards area now home to River Hills Mall and logistics", landmarks: "River Hills Mall, Concord St" }
   ];
 
   return (
@@ -210,7 +214,7 @@ const StPaul = () => {
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {stPaulNeighborhoods.map((area, index) => (
-                <Card key={index} className="p-6">
+                <Card key={index} className="p-6 hover:shadow-lg transition-shadow">
                   <CardHeader className="p-0 mb-4">
                     <CardTitle className="text-lg flex items-center justify-between">
                       <span>{area.name}</span>
@@ -218,7 +222,8 @@ const StPaul = () => {
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="p-0">
-                    <p className="text-sm text-muted-foreground">{area.description}</p>
+                    <p className="text-sm text-muted-foreground mb-2">{area.description}</p>
+                    <p className="text-xs text-primary font-medium">Near: {area.landmarks}</p>
                   </CardContent>
                 </Card>
               ))}

@@ -43,15 +43,19 @@ const Minneapolis = () => {
     "Republic Services"
   ];
 
-  const minneapolisNeighborhoods = [
-    { name: "Downtown Minneapolis", commute: "15 min", description: "Financial district with major corporate headquarters" },
-    { name: "Northeast Minneapolis", commute: "12 min", description: "Industrial area with many distribution centers" },
-    { name: "North Loop", commute: "18 min", description: "Warehouse district with logistics companies" },
-    { name: "Uptown Minneapolis", commute: "20 min", description: "Commercial district with retail distribution" },
-    { name: "Minneapolis-St. Paul Airport", commute: "25 min", description: "Major cargo hub and freight operations" },
-    { name: "Fridley", commute: "10 min", description: "Industrial suburb with trucking companies" },
-    { name: "Brooklyn Park", commute: "15 min", description: "Growing logistics and distribution hub" },
-    { name: "Plymouth", commute: "22 min", description: "Corporate headquarters and distribution centers" }
+const minneapolisNeighborhoods = [
+    { name: "Downtown Minneapolis", commute: "15 min", description: "Financial district near Target Center and US Bank Stadium with major corporate headquarters", landmarks: "Target HQ, IDS Tower" },
+    { name: "Northeast Minneapolis", commute: "12 min", description: "Industrial area along Broadway with distribution centers and arts district", landmarks: "Grain Belt Brewery, 13th Ave" },
+    { name: "North Loop", commute: "18 min", description: "Historic warehouse district near Target Field with logistics companies", landmarks: "Target Field, Warehouse District" },
+    { name: "Uptown Minneapolis", commute: "20 min", description: "Commercial district along Hennepin Ave with retail distribution near Lake Calhoun", landmarks: "Lake Calhoun, Hennepin Ave" },
+    { name: "Minneapolis-St. Paul Airport (MSP)", commute: "25 min", description: "Major international cargo hub near Mall of America with freight operations", landmarks: "MSP Airport, Mall of America" },
+    { name: "Fridley", commute: "10 min", description: "Industrial suburb along I-694 with trucking companies near Medtronic campus", landmarks: "Medtronic, Mississippi River" },
+    { name: "Brooklyn Park", commute: "15 min", description: "Growing logistics hub along I-94 and US-169 near Osseo", landmarks: "Edinburgh Golf Course" },
+    { name: "Plymouth", commute: "22 min", description: "Corporate headquarters along I-494 near Medicine Lake", landmarks: "Wayzata, Medicine Lake" },
+    { name: "Edina", commute: "20 min", description: "Affluent suburb with retail delivery needs near Southdale Center", landmarks: "Southdale Mall, 50th & France" },
+    { name: "Richfield", commute: "18 min", description: "Central suburb along I-494 near Best Buy headquarters", landmarks: "Best Buy HQ, Veterans Park" },
+    { name: "Bloomington", commute: "22 min", description: "Home to Mall of America and major distribution centers along I-494", landmarks: "MOA, MSP Airport" },
+    { name: "St. Louis Park", commute: "17 min", description: "Inner-ring suburb along I-394 with growing business district", landmarks: "West End, Wolfe Park" }
   ];
 
   return (
@@ -208,7 +212,7 @@ const Minneapolis = () => {
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {minneapolisNeighborhoods.map((area, index) => (
-                <Card key={index} className="p-6">
+                <Card key={index} className="p-6 hover:shadow-lg transition-shadow">
                   <CardHeader className="p-0 mb-4">
                     <CardTitle className="text-lg flex items-center justify-between">
                       <span>{area.name}</span>
@@ -216,7 +220,8 @@ const Minneapolis = () => {
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="p-0">
-                    <p className="text-sm text-muted-foreground">{area.description}</p>
+                    <p className="text-sm text-muted-foreground mb-2">{area.description}</p>
+                    <p className="text-xs text-primary font-medium">Near: {area.landmarks}</p>
                   </CardContent>
                 </Card>
               ))}

@@ -23,20 +23,25 @@ const Header = () => {
 
   return (
     <>
-      {/* Sticky Contact Bar */}
-      <div className="bg-primary text-primary-foreground py-2 sticky top-0 z-50">
+      {/* Sticky Contact Bar - Enhanced */}
+      <div className="bg-gradient-to-r from-primary via-blue-600 to-secondary text-primary-foreground py-3 sticky top-0 z-50 shadow-md">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center text-sm">
             <div className="flex items-center space-x-4">
-              <span>📍 St. Paul, Minnesota</span>
-              <span>⏰ Mon-Fri: 9AM-5PM, Sat: 10AM-2PM</span>
+              <span className="hidden md:inline">📍 St. Paul, Minnesota</span>
+              <span className="hidden lg:inline">⏰ Mon-Fri: 9AM-5PM, Sat: 10AM-2PM</span>
             </div>
-            <div className="flex items-center space-x-4">
-              <a href="tel:6126991403" className="flex items-center space-x-1 hover:text-secondary transition-colors">
-                <Phone className="h-4 w-4" />
+            <div className="flex items-center space-x-2 sm:space-x-4">
+              <a 
+                href="tel:6126991403" 
+                className="flex items-center space-x-2 hover:text-yellow-300 transition-colors font-bold text-base sm:text-lg bg-white/10 px-3 sm:px-4 py-2 rounded-lg hover:bg-white/20"
+              >
+                <Phone className="h-5 w-5 animate-pulse" />
                 <span>(612) 699-1403</span>
               </a>
-              <span className="hidden sm:inline">Call for Free Consultation</span>
+              <span className="hidden sm:inline text-xs sm:text-sm bg-yellow-400 text-black px-3 py-1 rounded font-semibold">
+                Free Consultation
+              </span>
             </div>
           </div>
         </div>

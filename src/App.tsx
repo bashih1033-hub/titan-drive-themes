@@ -10,6 +10,7 @@ import BlogArticle from "./components/BlogArticle";
 import ScrollToTop from "./components/ScrollToTop";
 import RouterWithScrollControl from "./components/RouterWithScrollControl";
 import Breadcrumb from "./components/Breadcrumb";
+import StickyFloatingCTA from "./components/StickyFloatingCTA";
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Programs from "./pages/Programs";
@@ -32,6 +33,7 @@ const App = () => (
         <BrowserRouter>
           <ScrollToTop />
           <RouterWithScrollControl>
+            <StickyFloatingCTA />
             <div className="min-h-screen flex flex-col">
             <Header />
             <Breadcrumb />
