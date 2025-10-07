@@ -233,26 +233,68 @@ export function StudentModuleProgress({ enrollment, onUpdate }: StudentModulePro
 
             {/* DMV Test Result (only show if DMV module is selected) */}
             {selectedModule === 'dmv_completed' && (
-              <div className="space-y-2">
-                <Label>DMV Test Result</Label>
-                <div className="grid grid-cols-2 gap-2">
+              <div className="space-y-3">
+                <div className="bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-900 rounded-lg p-3">
+                  <p className="text-sm font-medium text-blue-900 dark:text-blue-100 mb-1">
+                    📋 Record DMV Test Result
+                  </p>
+                  <p className="text-xs text-blue-700 dark:text-blue-300">
+                    Select whether the student passed or failed their DMV road test.
+                    {enrollment.dmv_test_attempts > 0 && (
+                      <span className="block mt-1 font-medium">
+                        ⚠️ Current attempts: {enrollment.dmv_test_attempts} 
+                        {enrollment.dmv_test_attempts >= 3 && " (DMV fee required for retake)"}
+                      </span>
+                    )}
+                  </p>
+                </div>
+                
+                <Label>DMV Test Result *</Label>
+                <div className="grid grid-cols-2 gap-3">
                   <Button
                     variant={dmvResult === 'passed' ? 'default' : 'outline'}
                     onClick={() => setDmvResult('passed')}
-                    className="w-full"
+                    className="w-full h-auto py-4 flex-col gap-2 hover:scale-105 transition-transform"
                   >
-                    <CheckCircle2 className="h-4 w-4 mr-2" />
-                    Passed
+                    <CheckCircle2 className="h-6 w-6" />
+                    <div className="text-center">
+                      <div className="font-semibold">Passed</div>
+                      <div className="text-xs opacity-80">Status → Completed</div>
+                    </div>
                   </Button>
                   <Button
                     variant={dmvResult === 'failed' ? 'destructive' : 'outline'}
                     onClick={() => setDmvResult('failed')}
-                    className="w-full"
+                    className="w-full h-auto py-4 flex-col gap-2 hover:scale-105 transition-transform"
                   >
-                    <XCircle className="h-4 w-4 mr-2" />
-                    Failed
+                    <XCircle className="h-6 w-6" />
+                    <div className="text-center">
+                      <div className="font-semibold">Failed</div>
+                      <div className="text-xs opacity-80">Attempts +1</div>
+                    </div>
                   </Button>
                 </div>
+                
+                {dmvResult === 'failed' && (
+                  <div className="bg-orange-50 dark:bg-orange-950/20 border border-orange-200 dark:border-orange-900 rounded-lg p-3">
+                    <p className="text-sm font-medium text-orange-900 dark:text-orange-100">
+                      🔄 This will increment DMV test attempts to: {(enrollment.dmv_test_attempts || 0) + 1}
+                    </p>
+                    {(enrollment.dmv_test_attempts || 0) + 1 >= 3 && (
+                      <p className="text-xs text-orange-700 dark:text-orange-300 mt-1">
+                        💰 Student will need to pay DMV retest fee before next attempt
+                      </p>
+                    )}
+                  </div>
+                )}
+                
+                {dmvResult === 'passed' && (
+                  <div className="bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-900 rounded-lg p-3">
+                    <p className="text-sm font-medium text-green-900 dark:text-green-100">
+                      🎉 Student will be marked as COMPLETED (100% progress)
+                    </p>
+                  </div>
+                )}
               </div>
             )}
 

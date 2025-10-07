@@ -145,26 +145,57 @@ export function BulkProgressUpdate({ selectedEnrollments, open, onOpenChange, on
 
           {/* DMV Result (if DMV module selected) */}
           {targetModule === 'dmv_completed' && (
-            <div className="space-y-2">
-              <Label>DMV Test Result (applies to all)</Label>
-              <div className="grid grid-cols-2 gap-2">
+            <div className="space-y-3">
+              <div className="bg-blue-50 dark:bg-blue-950/20 border border-blue-200 dark:border-blue-900 rounded-lg p-3">
+                <p className="text-sm font-medium text-blue-900 dark:text-blue-100 mb-1">
+                  📋 Bulk DMV Test Result
+                </p>
+                <p className="text-xs text-blue-700 dark:text-blue-300">
+                  This result will be applied to all {selectedEnrollments.length} selected students.
+                </p>
+              </div>
+              
+              <Label>DMV Test Result (applies to all) *</Label>
+              <div className="grid grid-cols-2 gap-3">
                 <Button
                   variant={dmvResult === 'passed' ? 'default' : 'outline'}
                   onClick={() => setDmvResult('passed')}
-                  className="w-full"
+                  className="w-full h-auto py-4 flex-col gap-2 hover:scale-105 transition-transform"
                 >
-                  <CheckCircle2 className="h-4 w-4 mr-2" />
-                  Passed
+                  <CheckCircle2 className="h-6 w-6" />
+                  <div className="text-center">
+                    <div className="font-semibold">All Passed</div>
+                    <div className="text-xs opacity-80">Status → Completed</div>
+                  </div>
                 </Button>
                 <Button
                   variant={dmvResult === 'failed' ? 'destructive' : 'outline'}
                   onClick={() => setDmvResult('failed')}
-                  className="w-full"
+                  className="w-full h-auto py-4 flex-col gap-2 hover:scale-105 transition-transform"
                 >
-                  <XCircle className="h-4 w-4 mr-2" />
-                  Failed
+                  <XCircle className="h-6 w-6" />
+                  <div className="text-center">
+                    <div className="font-semibold">All Failed</div>
+                    <div className="text-xs opacity-80">Attempts +1 each</div>
+                  </div>
                 </Button>
               </div>
+              
+              {dmvResult === 'failed' && (
+                <div className="bg-orange-50 dark:bg-orange-950/20 border border-orange-200 dark:border-orange-900 rounded-lg p-3">
+                  <p className="text-sm font-medium text-orange-900 dark:text-orange-100">
+                    🔄 This will increment DMV test attempts by 1 for all selected students
+                  </p>
+                </div>
+              )}
+              
+              {dmvResult === 'passed' && (
+                <div className="bg-green-50 dark:bg-green-950/20 border border-green-200 dark:border-green-900 rounded-lg p-3">
+                  <p className="text-sm font-medium text-green-900 dark:text-green-100">
+                    🎉 All {selectedEnrollments.length} students will be marked as COMPLETED
+                  </p>
+                </div>
+              )}
             </div>
           )}
 
