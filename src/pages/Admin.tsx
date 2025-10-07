@@ -7,6 +7,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Loader2, Users, GraduationCap, MessageSquare, Calendar, TrendingUp, ArrowRight } from 'lucide-react';
 import PortalHeader from '@/components/PortalHeader';
 import { User } from '@supabase/supabase-js';
+import { DashboardReminders } from '@/components/admin/DashboardReminders';
 
 export default function Admin() {
   const navigate = useNavigate();
@@ -143,6 +144,9 @@ export default function Admin() {
           <h1 className="text-3xl font-bold">Welcome back, {profile?.first_name || 'Admin'}!</h1>
           <p className="text-muted-foreground">Here's what's happening with your trucking school</p>
         </div>
+
+        {/* Dashboard Reminders */}
+        <DashboardReminders enrollments={enrollments} />
 
         {/* Summary Cards */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">

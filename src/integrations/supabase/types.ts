@@ -176,11 +176,21 @@ export type Database = {
           class_id: string
           completion_date: string | null
           created_at: string | null
+          current_module: Database["public"]["Enums"]["course_module"] | null
+          dmv_completed_at: string | null
+          dmv_scheduled_at: string | null
+          dmv_test_attempts: number | null
+          dmv_test_status: string | null
+          eldt_theory_completed_at: string | null
           enrollment_date: string | null
           id: string
           notes: string | null
+          parking_completed_at: string | null
           payment_status: string | null
+          permit_prep_completed_at: string | null
+          pre_trip_completed_at: string | null
           progress_percentage: number | null
+          road_completed_at: string | null
           status: string | null
           stripe_payment_intent_id: string | null
           student_id: string
@@ -192,11 +202,21 @@ export type Database = {
           class_id: string
           completion_date?: string | null
           created_at?: string | null
+          current_module?: Database["public"]["Enums"]["course_module"] | null
+          dmv_completed_at?: string | null
+          dmv_scheduled_at?: string | null
+          dmv_test_attempts?: number | null
+          dmv_test_status?: string | null
+          eldt_theory_completed_at?: string | null
           enrollment_date?: string | null
           id?: string
           notes?: string | null
+          parking_completed_at?: string | null
           payment_status?: string | null
+          permit_prep_completed_at?: string | null
+          pre_trip_completed_at?: string | null
           progress_percentage?: number | null
+          road_completed_at?: string | null
           status?: string | null
           stripe_payment_intent_id?: string | null
           student_id: string
@@ -208,11 +228,21 @@ export type Database = {
           class_id?: string
           completion_date?: string | null
           created_at?: string | null
+          current_module?: Database["public"]["Enums"]["course_module"] | null
+          dmv_completed_at?: string | null
+          dmv_scheduled_at?: string | null
+          dmv_test_attempts?: number | null
+          dmv_test_status?: string | null
+          eldt_theory_completed_at?: string | null
           enrollment_date?: string | null
           id?: string
           notes?: string | null
+          parking_completed_at?: string | null
           payment_status?: string | null
+          permit_prep_completed_at?: string | null
+          pre_trip_completed_at?: string | null
           progress_percentage?: number | null
+          road_completed_at?: string | null
           status?: string | null
           stripe_payment_intent_id?: string | null
           student_id?: string
@@ -413,6 +443,13 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      calculate_module_progress: {
+        Args: {
+          dmv_status: string
+          module: Database["public"]["Enums"]["course_module"]
+        }
+        Returns: number
+      }
       generate_class_schedule: {
         Args: Record<PropertyKey, never>
         Returns: undefined
@@ -427,6 +464,14 @@ export type Database = {
     }
     Enums: {
       app_role: "admin" | "student" | "lead"
+      course_module:
+        | "permit_prep"
+        | "eldt_theory"
+        | "pre_trip_inspection"
+        | "behind_wheel_parking"
+        | "behind_wheel_road"
+        | "dmv_scheduled"
+        | "dmv_completed"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -555,6 +600,15 @@ export const Constants = {
   public: {
     Enums: {
       app_role: ["admin", "student", "lead"],
+      course_module: [
+        "permit_prep",
+        "eldt_theory",
+        "pre_trip_inspection",
+        "behind_wheel_parking",
+        "behind_wheel_road",
+        "dmv_scheduled",
+        "dmv_completed",
+      ],
     },
   },
 } as const

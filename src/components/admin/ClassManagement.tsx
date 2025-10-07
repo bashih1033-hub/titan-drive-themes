@@ -10,6 +10,7 @@ import { useToast } from '@/hooks/use-toast';
 import { Calendar, Users, DollarSign, UserPlus, BookOpen, TrendingUp } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
+import { StudentModuleProgress } from './StudentModuleProgress';
 
 interface ClassManagementProps {
   classes: any[];
@@ -173,32 +174,38 @@ export function ClassManagement({ classes, enrollments, students, leads, onUpdat
                       <BookOpen className="h-4 w-4" />
                       <span>Enrolled Students</span>
                     </div>
-                    <div className="space-y-1 max-h-32 overflow-y-auto">
+                    <div className="space-y-2 max-h-48 overflow-y-auto">
                       {classEnrollments.map((enrollment) => (
                         <div
                           key={enrollment.id}
-                          className="flex items-center justify-between text-xs bg-muted/50 rounded p-2"
+                          className="space-y-2 bg-muted/50 rounded p-3"
                         >
-                          <span>
-                            {enrollment.profiles.first_name} {enrollment.profiles.last_name}
-                          </span>
-                          <div className="flex items-center gap-2">
-                            <Badge variant="outline" className="text-xs">
-                              {enrollment.progress_percentage}%
-                            </Badge>
-                            <Badge
-                              variant={
-                                enrollment.payment_status === 'paid'
-                                  ? 'default'
-                                  : enrollment.payment_status === 'partial'
-                                  ? 'secondary'
-                                  : 'destructive'
-                              }
-                              className="text-xs"
-                            >
-                              {enrollment.payment_status}
-                            </Badge>
+                          <div className="flex items-center justify-between text-xs">
+                            <span className="font-medium">
+                              {enrollment.profiles.first_name} {enrollment.profiles.last_name}
+                            </span>
+                            <div className="flex items-center gap-2">
+                              <Badge variant="outline" className="text-xs">
+                                {enrollment.progress_percentage}%
+                              </Badge>
+                              <Badge
+                                variant={
+                                  enrollment.payment_status === 'paid'
+                                    ? 'default'
+                                    : enrollment.payment_status === 'partial'
+                                    ? 'secondary'
+                                    : 'destructive'
+                                }
+                                className="text-xs"
+                              >
+                                {enrollment.payment_status}
+                              </Badge>
+                            </div>
                           </div>
+                          <StudentModuleProgress
+                            enrollment={enrollment}
+                            onUpdate={onUpdate}
+                          />
                         </div>
                       ))}
                     </div>

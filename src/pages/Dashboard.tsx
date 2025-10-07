@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2, GraduationCap, Calendar, FileText, Star } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
 import PortalHeader from '@/components/PortalHeader';
 
 export default function Dashboard() {
@@ -166,18 +167,46 @@ export default function Dashboard() {
               <div className="space-y-4">
                 {enrollments.map((enrollment) => (
                   <div key={enrollment.id} className="border rounded-lg p-4">
-                    <div className="flex justify-between items-start">
-                      <div>
+                    <div className="flex justify-between items-start mb-3">
+                      <div className="flex-1">
                         <h3 className="font-semibold capitalize">{enrollment.classes.program_type.replace('-', ' ')}</h3>
                         <p className="text-sm text-muted-foreground">
                           Start Date: {new Date(enrollment.classes.start_date).toLocaleDateString()}
                         </p>
-                        <p className="text-sm">Status: <span className="capitalize">{enrollment.status}</span></p>
-                        <p className="text-sm">Payment: <span className="capitalize">{enrollment.payment_status}</span></p>
                       </div>
                       <div className="text-right">
                         <div className="text-2xl font-bold">{enrollment.progress_percentage}%</div>
                         <p className="text-sm text-muted-foreground">Complete</p>
+                      </div>
+                    </div>
+                    
+                    {/* Current Module Display */}
+                    {enrollment.current_module && (
+                      <div className="mb-3 p-3 bg-primary/5 rounded-md border">
+                        <p className="text-xs font-medium text-muted-foreground mb-1">Current Module:</p>
+                        <p className="text-sm font-semibold capitalize">
+                          {enrollment.current_module.replace(/_/g, ' ').replace('dmv', 'DMV')}
+                        </p>
+                        {enrollment.dmv_test_attempts > 0 && (
+                          <Badge variant="destructive" className="mt-2">
+                            DMV Test Attempts: {enrollment.dmv_test_attempts}
+                          </Badge>
+                        )}
+                      </div>
+                    )}
+                    
+                    <div className="flex gap-4 text-sm">
+                      <div className="flex items-center gap-2">
+                        <span className="text-muted-foreground">Status:</span>
+                        <Badge variant={enrollment.status === 'completed' ? 'default' : 'secondary'}>
+                          {enrollment.status}
+                        </Badge>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-muted-foreground">Payment:</span>
+                        <Badge variant={enrollment.payment_status === 'paid' ? 'default' : enrollment.payment_status === 'partial' ? 'secondary' : 'destructive'}>
+                          {enrollment.payment_status}
+                        </Badge>
                       </div>
                     </div>
                   </div>
