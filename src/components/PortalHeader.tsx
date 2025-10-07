@@ -21,9 +21,9 @@ const PortalHeader = ({ userRole, userName, userEmail }: PortalHeaderProps) => {
 
   const adminNavigation = [
     { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
-    { name: 'CRM', href: '/admin?tab=crm', icon: User },
-    { name: 'Classes', href: '/admin?tab=classes', icon: Calendar },
-    { name: 'Students', href: '/admin?tab=students', icon: GraduationCap },
+    { name: 'CRM', href: '/admin/crm', icon: User },
+    { name: 'Classes', href: '/admin/classes', icon: Calendar },
+    { name: 'Students', href: '/admin/students', icon: GraduationCap },
   ];
 
   const studentNavigation = [

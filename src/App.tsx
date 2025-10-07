@@ -53,8 +53,11 @@ const App = () => (
                 <Route path="/st-paul" element={<StPaul />} />
                 <Route path="/faq" element={<FAQ />} />
                 <Route path="/auth" element={<Auth />} />
-                <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/admin" element={<Admin />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/admin/crm" element={<lazy(() => import('./pages/admin/CRM'))} />
+          <Route path="/admin/classes" element={<lazy(() => import('./pages/admin/Classes'))} />
+          <Route path="/admin/students" element={<lazy(() => import('./pages/admin/Students'))} />
                 {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                 <Route path="*" element={<NotFound />} />
               </Routes>
