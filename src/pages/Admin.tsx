@@ -1,21 +1,17 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, Users, GraduationCap, MessageSquare, Calendar, LayoutDashboard } from 'lucide-react';
+import { Loader2, Users, GraduationCap, MessageSquare, Calendar, TrendingUp, ArrowRight } from 'lucide-react';
 import PortalHeader from '@/components/PortalHeader';
-import { LeadCRM } from '@/components/admin/LeadCRM';
-import { ClassManagement } from '@/components/admin/ClassManagement';
 import { User } from '@supabase/supabase-js';
 
 export default function Admin() {
   const navigate = useNavigate();
   const { toast } = useToast();
   const [loading, setLoading] = useState(true);
-  const [isAdmin, setIsAdmin] = useState(false);
   const [leads, setLeads] = useState<any[]>([]);
   const [students, setStudents] = useState<any[]>([]);
   const [classes, setClasses] = useState<any[]>([]);
@@ -37,15 +33,17 @@ export default function Admin() {
         return;
       }
 
+      setUser(session.user);
+
       // Check if admin
       const { data: roleData } = await supabase
         .from('user_roles')
         .select('role')
-        .eq('user_id', session.user.id)
-        .eq('role', 'admin')
-        .single();
+        .eq('user_id', session.user.id);
 
-      if (!roleData) {
+      const hasAdminRole = roleData?.some(r => r.role === 'admin');
+
+      if (!hasAdminRole) {
         toast({
           title: 'Access Denied',
           description: 'You do not have admin privileges',
@@ -55,10 +53,7 @@ export default function Admin() {
         return;
       }
 
-      setIsAdmin(true);
-      setUser(session.user);
-
-      // Fetch admin profile
+      // Fetch profile
       const { data: profileData } = await supabase
         .from('profiles')
         .select('*')
@@ -92,7 +87,6 @@ export default function Admin() {
       setLoading(false);
     }
   };
-
 
   const handleApproveReview = async (reviewId: string) => {
     try {
@@ -132,6 +126,11 @@ export default function Admin() {
     );
   }
 
+  const newLeads = leads.filter(l => l.status === 'new');
+  const activeEnrollments = enrollments.filter(e => e.status === 'in-progress');
+  const scheduledClasses = classes.filter(c => c.status === 'scheduled');
+  const pendingReviews = reviews.filter(r => r.status === 'pending');
+
   return (
     <div className="min-h-screen flex flex-col bg-muted/30">
       <PortalHeader 
@@ -142,46 +141,62 @@ export default function Admin() {
       <main className="flex-1 container mx-auto px-4 py-8">
         <div className="mb-8">
           <h1 className="text-3xl font-bold">Welcome back, {profile?.first_name || 'Admin'}!</h1>
-          <p className="text-muted-foreground">Manage your trucking school operations</p>
+          <p className="text-muted-foreground">Here's what's happening with your trucking school</p>
         </div>
 
+        {/* Summary Cards */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <Card>
+          <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => navigate('/admin/crm')}>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Total Leads</CardTitle>
               <Users className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{leads.length}</div>
-              <p className="text-xs text-muted-foreground">
-                {leads.filter(l => l.status === 'new').length} new
+              <p className="text-xs text-muted-foreground mt-1">
+                {newLeads.length} new leads
               </p>
+              <Button variant="link" className="px-0 mt-2 h-auto text-xs" asChild>
+                <Link to="/admin/crm">
+                  View CRM <ArrowRight className="h-3 w-3 ml-1" />
+                </Link>
+              </Button>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => navigate('/admin/students')}>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Total Students</CardTitle>
               <GraduationCap className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{students.length}</div>
-              <p className="text-xs text-muted-foreground">
-                {enrollments.filter(e => e.status === 'in-progress').length} active
+              <p className="text-xs text-muted-foreground mt-1">
+                {activeEnrollments.length} active enrollments
               </p>
+              <Button variant="link" className="px-0 mt-2 h-auto text-xs" asChild>
+                <Link to="/admin/students">
+                  View Students <ArrowRight className="h-3 w-3 ml-1" />
+                </Link>
+              </Button>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => navigate('/admin/classes')}>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium">Classes</CardTitle>
               <Calendar className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">{classes.length}</div>
-              <p className="text-xs text-muted-foreground">
-                {classes.filter(c => c.status === 'scheduled').length} scheduled
+              <p className="text-xs text-muted-foreground mt-1">
+                {scheduledClasses.length} scheduled
               </p>
+              <Button variant="link" className="px-0 mt-2 h-auto text-xs" asChild>
+                <Link to="/admin/classes">
+                  Manage Classes <ArrowRight className="h-3 w-3 ml-1" />
+                </Link>
+              </Button>
             </CardContent>
           </Card>
 
@@ -191,167 +206,115 @@ export default function Admin() {
               <MessageSquare className="h-4 w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">
-                {reviews.filter(r => r.status === 'pending').length}
+              <div className="text-2xl font-bold">{pendingReviews.length}</div>
+              <p className="text-xs text-muted-foreground mt-1">
+                Awaiting approval
+              </p>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Quick Actions */}
+        <div className="grid md:grid-cols-3 gap-6 mb-8">
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-lg">Quick Actions</CardTitle>
+              <CardDescription>Common administrative tasks</CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-2">
+              <Button className="w-full justify-start" variant="outline" asChild>
+                <Link to="/admin/crm">
+                  <Users className="h-4 w-4 mr-2" />
+                  Manage Leads
+                </Link>
+              </Button>
+              <Button className="w-full justify-start" variant="outline" asChild>
+                <Link to="/admin/classes">
+                  <Calendar className="h-4 w-4 mr-2" />
+                  Schedule Classes
+                </Link>
+              </Button>
+              <Button className="w-full justify-start" variant="outline" asChild>
+                <Link to="/admin/students">
+                  <GraduationCap className="h-4 w-4 mr-2" />
+                  View Students
+                </Link>
+              </Button>
+            </CardContent>
+          </Card>
+
+          {/* Recent Activity */}
+          <Card className="md:col-span-2">
+            <CardHeader>
+              <CardTitle className="text-lg">Recent Enrollments</CardTitle>
+              <CardDescription>Latest student enrollments</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                {enrollments.slice(0, 5).map((enrollment) => (
+                  <div key={enrollment.id} className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
+                    <div className="flex items-center gap-3">
+                      <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center">
+                        <GraduationCap className="h-5 w-5 text-primary" />
+                      </div>
+                      <div>
+                        <p className="font-medium text-sm">
+                          {enrollment.profiles.first_name} {enrollment.profiles.last_name}
+                        </p>
+                        <p className="text-xs text-muted-foreground capitalize">
+                          {enrollment.classes.program_type.replace('-', ' ')}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-xs font-medium capitalize">{enrollment.status}</p>
+                      <p className="text-xs text-muted-foreground">
+                        {new Date(enrollment.created_at).toLocaleDateString()}
+                      </p>
+                    </div>
+                  </div>
+                ))}
               </div>
             </CardContent>
           </Card>
         </div>
 
-        <Tabs defaultValue="crm" className="space-y-4">
-          <TabsList>
-            <TabsTrigger value="crm">
-              <LayoutDashboard className="h-4 w-4 mr-2" />
-              CRM
-            </TabsTrigger>
-            <TabsTrigger value="classes">Classes</TabsTrigger>
-            <TabsTrigger value="students">Students</TabsTrigger>
-            <TabsTrigger value="enrollments">Enrollments</TabsTrigger>
-            <TabsTrigger value="reviews">Reviews</TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="crm" className="space-y-4">
-            <Card>
-              <CardHeader>
-                <CardTitle>Lead Pipeline</CardTitle>
-                <CardDescription>Drag and drop leads between stages to manage your sales pipeline</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <LeadCRM 
-                  leads={leads} 
-                  onLeadsUpdate={checkAdminAndLoadData}
-                  students={students}
-                />
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="students" className="space-y-4">
-            <Card>
-              <CardHeader>
-                <CardTitle>Student Directory</CardTitle>
-                <CardDescription>All registered students</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-2">
-                  {students.map((student) => (
-                    <div key={student.id} className="border rounded-lg p-4 flex justify-between">
-                      <div>
-                        <h3 className="font-semibold">{student.first_name} {student.last_name}</h3>
-                        <p className="text-sm text-muted-foreground">{student.email}</p>
-                      </div>
-                      <p className="text-xs text-muted-foreground">
-                        Joined {new Date(student.created_at).toLocaleDateString()}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="classes" className="space-y-4">
-            <Card>
-              <CardHeader>
-                <CardTitle>Class Management</CardTitle>
-                <CardDescription>Manage class schedules and enroll students</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ClassManagement
-                  classes={classes}
-                  enrollments={enrollments}
-                  students={students}
-                  leads={leads}
-                  onUpdate={checkAdminAndLoadData}
-                />
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="enrollments" className="space-y-4">
-            <Card>
-              <CardHeader>
-                <CardTitle>Enrollment Management</CardTitle>
-                <CardDescription>Track student enrollments</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-2">
-                  {enrollments.map((enrollment) => (
-                    <div key={enrollment.id} className="border rounded-lg p-4">
-                      <div className="flex justify-between">
-                        <div>
+        {/* Pending Reviews Section */}
+        {pendingReviews.length > 0 && (
+          <Card>
+            <CardHeader>
+              <CardTitle>Pending Reviews</CardTitle>
+              <CardDescription>Reviews awaiting your approval</CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {pendingReviews.map((review) => (
+                  <div key={review.id} className="border rounded-lg p-4">
+                    <div className="flex justify-between items-start">
+                      <div className="flex-1">
+                        <div className="flex items-center gap-2 mb-2">
                           <h3 className="font-semibold">
-                            {enrollment.profiles.first_name} {enrollment.profiles.last_name}
+                            {review.profiles.first_name} {review.profiles.last_name}
                           </h3>
-                          <p className="text-sm text-muted-foreground capitalize">
-                            {enrollment.classes.program_type.replace('-', ' ')}
-                          </p>
-                          <p className="text-sm">
-                            Status: <span className="capitalize">{enrollment.status}</span>
-                          </p>
-                        </div>
-                        <div className="text-right">
-                          <p className="text-sm capitalize">{enrollment.payment_status}</p>
-                          <p className="text-sm font-semibold">${enrollment.amount_paid}</p>
-                          <p className="text-xs text-muted-foreground mt-2">
-                            Progress: {enrollment.progress_percentage}%
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="reviews" className="space-y-4">
-            <Card>
-              <CardHeader>
-                <CardTitle>Review Management</CardTitle>
-                <CardDescription>Approve or reject student reviews</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {reviews.map((review) => (
-                    <div key={review.id} className="border rounded-lg p-4">
-                      <div className="flex justify-between items-start">
-                        <div className="flex-1">
-                          <div className="flex items-center gap-2 mb-2">
-                            <h3 className="font-semibold">
-                              {review.profiles.first_name} {review.profiles.last_name}
-                            </h3>
-                            <div className="flex">
-                              {[...Array(review.rating)].map((_, i) => (
-                                <span key={i} className="text-yellow-500">★</span>
-                              ))}
-                            </div>
+                          <div className="flex">
+                            {[...Array(review.rating)].map((_, i) => (
+                              <span key={i} className="text-yellow-500">★</span>
+                            ))}
                           </div>
-                          <h4 className="font-medium">{review.title}</h4>
-                          <p className="text-sm text-muted-foreground mt-1">{review.content}</p>
                         </div>
-                        <div className="flex flex-col items-end gap-2">
-                          <span className={`text-xs px-2 py-1 rounded-full capitalize ${
-                            review.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
-                            review.status === 'approved' ? 'bg-green-100 text-green-800' :
-                            'bg-red-100 text-red-800'
-                          }`}>
-                            {review.status}
-                          </span>
-                          {review.status === 'pending' && (
-                            <Button size="sm" onClick={() => handleApproveReview(review.id)}>
-                              Approve
-                            </Button>
-                          )}
-                        </div>
+                        <h4 className="font-medium">{review.title}</h4>
+                        <p className="text-sm text-muted-foreground mt-1">{review.content}</p>
                       </div>
+                      <Button size="sm" onClick={() => handleApproveReview(review.id)}>
+                        Approve
+                      </Button>
                     </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-        </Tabs>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        )}
       </main>
     </div>
   );

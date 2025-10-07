@@ -2,7 +2,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { HelmetProvider } from 'react-helmet-async';
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -23,9 +23,53 @@ import FAQ from "./pages/FAQ";
 import Auth from "./pages/Auth";
 import Dashboard from "./pages/Dashboard";
 import Admin from "./pages/Admin";
+import AdminCRM from "./pages/admin/CRM";
+import AdminClasses from "./pages/admin/Classes";
+import AdminStudents from "./pages/admin/Students";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
+
+const AppContent = () => {
+  const location = useLocation();
+  const isPortalRoute = location.pathname.startsWith('/admin') || 
+                        location.pathname.startsWith('/dashboard') || 
+                        location.pathname === '/auth';
+
+  return (
+    <>
+      <ScrollToTop />
+      {!isPortalRoute && <StickyFloatingCTA />}
+      <div className="min-h-screen flex flex-col">
+        {!isPortalRoute && <Header />}
+        {!isPortalRoute && <Breadcrumb />}
+        <main className="flex-1">
+          <Routes>
+            <Route path="/" element={<Index />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/programs" element={<Programs />} />
+            <Route path="/endorsements" element={<Endorsements />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:slug" element={<BlogArticle />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/minneapolis" element={<Minneapolis />} />
+            <Route path="/st-paul" element={<StPaul />} />
+            <Route path="/faq" element={<FAQ />} />
+            <Route path="/auth" element={<Auth />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/admin" element={<Admin />} />
+            <Route path="/admin/crm" element={<AdminCRM />} />
+            <Route path="/admin/classes" element={<AdminClasses />} />
+            <Route path="/admin/students" element={<AdminStudents />} />
+            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </main>
+        {!isPortalRoute && <Footer />}
+      </div>
+    </>
+  );
+};
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -34,36 +78,8 @@ const App = () => (
         <Toaster />
         <Sonner />
         <BrowserRouter>
-          <ScrollToTop />
           <RouterWithScrollControl>
-            <StickyFloatingCTA />
-            <div className="min-h-screen flex flex-col">
-            <Header />
-            <Breadcrumb />
-            <main className="flex-1">
-              <Routes>
-                <Route path="/" element={<Index />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/programs" element={<Programs />} />
-                <Route path="/endorsements" element={<Endorsements />} />
-                <Route path="/blog" element={<Blog />} />
-                <Route path="/blog/:slug" element={<BlogArticle />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="/minneapolis" element={<Minneapolis />} />
-                <Route path="/st-paul" element={<StPaul />} />
-                <Route path="/faq" element={<FAQ />} />
-                <Route path="/auth" element={<Auth />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/admin" element={<Admin />} />
-          <Route path="/admin/crm" element={<lazy(() => import('./pages/admin/CRM'))} />
-          <Route path="/admin/classes" element={<lazy(() => import('./pages/admin/Classes'))} />
-          <Route path="/admin/students" element={<lazy(() => import('./pages/admin/Students'))} />
-                {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-                <Route path="*" element={<NotFound />} />
-              </Routes>
-            </main>
-            <Footer />
-            </div>
+            <AppContent />
           </RouterWithScrollControl>
         </BrowserRouter>
       </TooltipProvider>
