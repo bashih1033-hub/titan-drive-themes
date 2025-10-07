@@ -5,9 +5,11 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, LogOut, Users, GraduationCap, MessageSquare, Calendar } from 'lucide-react';
+import { Loader2, LogOut, Users, GraduationCap, MessageSquare, Calendar, LayoutDashboard } from 'lucide-react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
+import { LeadCRM } from '@/components/admin/LeadCRM';
+import { ClassManagement } from '@/components/admin/ClassManagement';
 
 export default function Admin() {
   const navigate = useNavigate();
@@ -190,44 +192,30 @@ export default function Admin() {
           </Card>
         </div>
 
-        <Tabs defaultValue="leads" className="space-y-4">
+        <Tabs defaultValue="crm" className="space-y-4">
           <TabsList>
-            <TabsTrigger value="leads">Leads</TabsTrigger>
-            <TabsTrigger value="students">Students</TabsTrigger>
+            <TabsTrigger value="crm">
+              <LayoutDashboard className="h-4 w-4 mr-2" />
+              CRM
+            </TabsTrigger>
             <TabsTrigger value="classes">Classes</TabsTrigger>
+            <TabsTrigger value="students">Students</TabsTrigger>
             <TabsTrigger value="enrollments">Enrollments</TabsTrigger>
             <TabsTrigger value="reviews">Reviews</TabsTrigger>
           </TabsList>
 
-          <TabsContent value="leads" className="space-y-4">
+          <TabsContent value="crm" className="space-y-4">
             <Card>
               <CardHeader>
-                <CardTitle>Lead Management</CardTitle>
-                <CardDescription>Contact form submissions and inquiries</CardDescription>
+                <CardTitle>Lead Pipeline</CardTitle>
+                <CardDescription>Drag and drop leads between stages to manage your sales pipeline</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="space-y-4">
-                  {leads.map((lead) => (
-                    <div key={lead.id} className="border rounded-lg p-4">
-                      <div className="flex justify-between">
-                        <div>
-                          <h3 className="font-semibold">{lead.first_name} {lead.last_name}</h3>
-                          <p className="text-sm text-muted-foreground">{lead.email}</p>
-                          <p className="text-sm text-muted-foreground">{lead.phone}</p>
-                          <p className="text-sm mt-2">{lead.message}</p>
-                        </div>
-                        <div className="text-right">
-                          <span className="text-xs px-2 py-1 rounded-full bg-primary/10 capitalize">
-                            {lead.status}
-                          </span>
-                          <p className="text-xs text-muted-foreground mt-2">
-                            {new Date(lead.created_at).toLocaleDateString()}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                <LeadCRM 
+                  leads={leads} 
+                  onLeadsUpdate={checkAdminAndLoadData}
+                  students={students}
+                />
               </CardContent>
             </Card>
           </TabsContent>
@@ -259,33 +247,17 @@ export default function Admin() {
           <TabsContent value="classes" className="space-y-4">
             <Card>
               <CardHeader>
-                <CardTitle>Class Schedule</CardTitle>
-                <CardDescription>All scheduled classes</CardDescription>
+                <CardTitle>Class Management</CardTitle>
+                <CardDescription>Manage class schedules and enroll students</CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="space-y-2">
-                  {classes.map((cls) => (
-                    <div key={cls.id} className="border rounded-lg p-4">
-                      <div className="flex justify-between">
-                        <div>
-                          <h3 className="font-semibold capitalize">{cls.program_type.replace('-', ' ')}</h3>
-                          <p className="text-sm text-muted-foreground">
-                            Start: {new Date(cls.start_date).toLocaleDateString()}
-                          </p>
-                          <p className="text-sm text-muted-foreground">
-                            Enrolled: {cls.enrolled_count}/{cls.capacity}
-                          </p>
-                        </div>
-                        <div className="text-right">
-                          <span className="text-xs px-2 py-1 rounded-full bg-primary/10 capitalize">
-                            {cls.status}
-                          </span>
-                          <p className="text-lg font-bold mt-2">${cls.price}</p>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                <ClassManagement
+                  classes={classes}
+                  enrollments={enrollments}
+                  students={students}
+                  leads={leads}
+                  onUpdate={checkAdminAndLoadData}
+                />
               </CardContent>
             </Card>
           </TabsContent>

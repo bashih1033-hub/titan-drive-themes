@@ -238,12 +238,15 @@ export type Database = {
       leads: {
         Row: {
           assigned_to: string | null
+          converted_to_student_id: string | null
           created_at: string | null
           email: string
           first_name: string
           id: string
+          last_contact_date: string | null
           last_name: string
           message: string | null
+          notes: string | null
           phone: string
           program_interest: string | null
           source: string | null
@@ -252,12 +255,15 @@ export type Database = {
         }
         Insert: {
           assigned_to?: string | null
+          converted_to_student_id?: string | null
           created_at?: string | null
           email: string
           first_name: string
           id?: string
+          last_contact_date?: string | null
           last_name: string
           message?: string | null
+          notes?: string | null
           phone: string
           program_interest?: string | null
           source?: string | null
@@ -266,12 +272,15 @@ export type Database = {
         }
         Update: {
           assigned_to?: string | null
+          converted_to_student_id?: string | null
           created_at?: string | null
           email?: string
           first_name?: string
           id?: string
+          last_contact_date?: string | null
           last_name?: string
           message?: string | null
+          notes?: string | null
           phone?: string
           program_interest?: string | null
           source?: string | null
