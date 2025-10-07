@@ -37,13 +37,28 @@ export function BulkProgressUpdate({ selectedEnrollments, open, onOpenChange, on
     setUpdating(true);
     try {
       const now = new Date().toISOString();
-      const completionField = `${targetModule}_completed_at`;
+      
+      // Map module names to correct database column names
+      const moduleFieldMap: Record<string, string> = {
+        'permit_prep': 'permit_prep_completed_at',
+        'eldt_theory': 'eldt_theory_completed_at',
+        'pre_trip_inspection': 'pre_trip_completed_at',
+        'behind_wheel_parking': 'parking_completed_at',
+        'behind_wheel_road': 'road_completed_at',
+        'dmv_scheduled': 'dmv_scheduled_at',
+        'dmv_completed': 'dmv_completed_at'
+      };
+      
+      const completionField = moduleFieldMap[targetModule];
       
       const updates = selectedEnrollments.map(async (enrollment) => {
         const updateData: any = {
           current_module: targetModule,
-          [completionField]: now,
         };
+        
+        if (completionField) {
+          updateData[completionField] = now;
+        }
 
         // Handle DMV completion
         if (targetModule === 'dmv_completed' && dmvResult) {

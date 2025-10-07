@@ -50,9 +50,21 @@ export function StudentModuleProgress({ enrollment, onUpdate }: StudentModulePro
 
       // Set completion timestamp for the module
       const now = new Date().toISOString();
-      const completionField = `${selectedModule}_completed_at`;
       
-      if (selectedModule !== enrollment.current_module) {
+      // Map module names to correct database column names
+      const moduleFieldMap: Record<string, string> = {
+        'permit_prep': 'permit_prep_completed_at',
+        'eldt_theory': 'eldt_theory_completed_at',
+        'pre_trip_inspection': 'pre_trip_completed_at',
+        'behind_wheel_parking': 'parking_completed_at',
+        'behind_wheel_road': 'road_completed_at',
+        'dmv_scheduled': 'dmv_scheduled_at',
+        'dmv_completed': 'dmv_completed_at'
+      };
+      
+      const completionField = moduleFieldMap[selectedModule];
+      
+      if (selectedModule !== enrollment.current_module && completionField) {
         updates[completionField] = now;
       }
 
@@ -147,7 +159,19 @@ export function StudentModuleProgress({ enrollment, onUpdate }: StudentModulePro
               <div className="space-y-2">
                 {MODULE_ORDER.map((module, index) => {
                   const status = getModuleStatus(module);
-                  const completionField = `${module}_completed_at`;
+                  
+                  // Map module names to correct database column names
+                  const moduleFieldMap: Record<string, string> = {
+                    'permit_prep': 'permit_prep_completed_at',
+                    'eldt_theory': 'eldt_theory_completed_at',
+                    'pre_trip_inspection': 'pre_trip_completed_at',
+                    'behind_wheel_parking': 'parking_completed_at',
+                    'behind_wheel_road': 'road_completed_at',
+                    'dmv_scheduled': 'dmv_scheduled_at',
+                    'dmv_completed': 'dmv_completed_at'
+                  };
+                  
+                  const completionField = moduleFieldMap[module];
                   const completedAt = enrollment[completionField];
 
                   return (
