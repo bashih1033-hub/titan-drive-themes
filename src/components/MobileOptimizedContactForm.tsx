@@ -4,6 +4,8 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
+import { useToast } from '@/hooks/use-toast';
+import { supabase } from '@/integrations/supabase/client';
 import { 
   Phone, 
   Mail, 
@@ -29,6 +31,7 @@ interface FormData {
 }
 
 const MobileOptimizedContactForm = ({ variant = "full" }: { variant?: "full" | "compact" | "inline" }) => {
+  const { toast } = useToast();
   const [formData, setFormData] = useState<FormData>({
     name: '',
     phone: '',
@@ -73,15 +76,62 @@ const MobileOptimizedContactForm = ({ variant = "full" }: { variant?: "full" | "
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    // In real implementation, submit to your backend
-    console.log('Form submitted:', formData);
-    setIsSubmitting(false);
-    
-    // Show success or redirect
-    alert('Thank you! We\'ll contact you within 2 hours during business hours.');
+    try {
+      // Split name into first and last
+      const nameParts = formData.name.trim().split(' ');
+      const firstName = nameParts[0] || '';
+      const lastName = nameParts.slice(1).join(' ') || nameParts[0] || '';
+      
+      // Prepare full message with all context
+      const fullMessage = `
+Program Interest: ${formData.program || 'Not specified'}
+Timeframe: ${formData.timeframe || 'Not specified'}
+Experience Level: ${formData.experience || 'Not specified'}
+Message: ${formData.message || 'None'}
+      `.trim();
+
+      // Insert lead into database
+      const { error } = await supabase
+        .from('leads')
+        .insert({
+          first_name: firstName,
+          last_name: lastName,
+          email: formData.email || '',
+          phone: formData.phone,
+          message: fullMessage,
+          program_interest: formData.program,
+          status: 'new',
+          source: 'website'
+        });
+
+      if (error) throw error;
+
+      toast({
+        title: 'Success!',
+        description: "Thank you! We'll contact you within 2 hours during business hours.",
+      });
+
+      // Reset form
+      setFormData({
+        name: '',
+        phone: '',
+        email: '',
+        program: '',
+        message: '',
+        timeframe: '',
+        experience: ''
+      });
+      setCurrentStep(1);
+    } catch (error: any) {
+      console.error('Error submitting form:', error);
+      toast({
+        title: 'Error',
+        description: error.message || 'Failed to submit form. Please try again.',
+        variant: 'destructive',
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const nextStep = () => {
