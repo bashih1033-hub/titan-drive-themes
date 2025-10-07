@@ -163,26 +163,26 @@ export default function Students() {
     return (
       <div className="space-y-4">
         <div className="flex items-center justify-between gap-4 flex-wrap">
-          <div className="flex items-center gap-2">
-            <Users className="h-5 w-5 text-muted-foreground" />
-            <span className="font-medium">
-              {enrollmentsList.length} {programType === 'class-a' ? 'Class A' : 'Class B'} Students
-            </span>
+          <div className="flex items-center gap-3">
             {selectedIds.size > 0 && (
-              <Badge variant="secondary">
+              <Badge variant="secondary" className="px-3 py-1 text-sm font-semibold">
                 {getSelectedEnrollments().length} selected
               </Badge>
             )}
           </div>
           
           {selectedIds.size > 0 && (
-            <Button onClick={() => setBulkUpdateOpen(true)}>
+            <Button 
+              onClick={() => setBulkUpdateOpen(true)}
+              className="hover:scale-105 transition-transform shadow-md"
+            >
+              <CheckSquare className="h-4 w-4 mr-2" />
               Update {selectedIds.size} Selected
             </Button>
           )}
         </div>
 
-        <div className="border rounded-lg">
+        <div className="border rounded-xl overflow-hidden shadow-sm">
           <Table>
             <TableHeader>
               <TableRow>
@@ -210,13 +210,20 @@ export default function Students() {
             <TableBody>
               {enrollmentsList.length === 0 ? (
                 <TableRow>
-                  <TableCell colSpan={8} className="text-center py-8 text-muted-foreground">
-                    No students found matching filters
+                  <TableCell colSpan={8} className="text-center py-12">
+                    <div className="flex flex-col items-center gap-3">
+                      <Users className="h-12 w-12 text-muted-foreground opacity-50" />
+                      <p className="text-muted-foreground">No students found matching filters</p>
+                    </div>
                   </TableCell>
                 </TableRow>
               ) : (
-                enrollmentsList.map((enrollment) => (
-                  <TableRow key={enrollment.id}>
+                enrollmentsList.map((enrollment, index) => (
+                  <TableRow 
+                    key={enrollment.id}
+                    className="hover:bg-muted/30 transition-colors"
+                    style={{ animationDelay: `${index * 30}ms` }}
+                  >
                     <TableCell>
                       <Checkbox
                         checked={selectedIds.has(enrollment.id)}
@@ -233,23 +240,26 @@ export default function Students() {
                       </div>
                     </TableCell>
                     <TableCell>
-                      <Badge variant="outline" className="capitalize">
+                      <Badge variant="outline" className="capitalize font-medium">
                         {MODULE_LABELS[enrollment.current_module] || 'Not Set'}
                       </Badge>
                     </TableCell>
                     <TableCell>
-                      <div className="flex items-center gap-2">
-                        <div className="w-20 bg-muted rounded-full h-2">
+                      <div className="flex items-center gap-3">
+                        <div className="w-24 bg-muted rounded-full h-2.5 overflow-hidden">
                           <div 
-                            className="bg-primary h-2 rounded-full transition-all"
+                            className="bg-gradient-to-r from-primary to-primary/80 h-2.5 rounded-full transition-all duration-500"
                             style={{ width: `${enrollment.progress_percentage}%` }}
                           />
                         </div>
-                        <span className="text-sm font-medium">{enrollment.progress_percentage}%</span>
+                        <span className="text-sm font-semibold min-w-[3rem]">{enrollment.progress_percentage}%</span>
                       </div>
                     </TableCell>
                     <TableCell>
-                      <Badge variant={enrollment.status === 'completed' ? 'default' : 'secondary'}>
+                      <Badge 
+                        variant={enrollment.status === 'completed' ? 'default' : 'secondary'}
+                        className="capitalize font-medium"
+                      >
                         {enrollment.status}
                       </Badge>
                     </TableCell>
@@ -260,15 +270,18 @@ export default function Students() {
                           enrollment.payment_status === 'partial' ? 'secondary' : 
                           'destructive'
                         }
+                        className="capitalize font-medium"
                       >
                         {enrollment.payment_status}
                       </Badge>
                     </TableCell>
                     <TableCell>
                       {enrollment.dmv_test_attempts > 0 ? (
-                        <Badge variant="destructive">{enrollment.dmv_test_attempts}</Badge>
+                        <Badge variant="destructive" className="font-semibold">
+                          {enrollment.dmv_test_attempts}× Failed
+                        </Badge>
                       ) : (
-                        <span className="text-muted-foreground">-</span>
+                        <span className="text-muted-foreground text-sm">No attempts</span>
                       )}
                     </TableCell>
                     <TableCell>
@@ -295,26 +308,30 @@ export default function Students() {
     );
   }
 
+  const [activeTab, setActiveTab] = useState('class-a');
+  const filteredStudents = activeTab === 'class-a' ? classAEnrollments : classBEnrollments;
+
   return (
-    <div className="min-h-screen flex flex-col bg-muted/30">
+    <div className="min-h-screen flex flex-col bg-gradient-to-br from-muted/30 via-background to-muted/20">
       <PortalHeader 
         userRole="admin"
         userName={profile ? `${profile.first_name} ${profile.last_name}` : undefined}
         userEmail={user?.email}
       />
-      <main className="flex-1 container mx-auto px-4 py-8">
-        <div className="mb-6">
-          <h1 className="text-3xl font-bold">Student Progress Management</h1>
-          <p className="text-muted-foreground">Track and update student progress by program type</p>
+      <main className="flex-1 container mx-auto px-4 py-8 space-y-6">
+        <div className="space-y-2 animate-fade-in">
+          <h1 className="text-4xl font-bold tracking-tight">Student Management 🎓</h1>
+          <p className="text-lg text-muted-foreground">Track progress and manage student enrollments</p>
         </div>
 
         {/* Filters */}
-        <Card className="mb-6">
-          <CardHeader>
+        <Card className="shadow-lg border-border/50 hover:shadow-xl transition-shadow">
+          <CardHeader className="pb-4">
             <CardTitle className="text-lg flex items-center gap-2">
-              <Filter className="h-5 w-5" />
-              Filters
+              <Filter className="h-5 w-5 text-primary" />
+              Filters & Search
             </CardTitle>
+            <CardDescription>Narrow down your student list</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid md:grid-cols-3 gap-4">
@@ -365,24 +382,45 @@ export default function Students() {
         </Card>
 
         {/* Tabs for Class A and Class B */}
-        <Tabs defaultValue="class-a" className="w-full">
-          <TabsList className="grid w-full max-w-md grid-cols-2">
-            <TabsTrigger value="class-a" className="flex items-center gap-2">
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+          <TabsList className="grid w-full max-w-md grid-cols-2 bg-muted/50 p-1">
+            <TabsTrigger 
+              value="class-a" 
+              className="data-[state=active]:bg-background data-[state=active]:shadow-sm transition-all flex items-center gap-2"
+            >
               <Users className="h-4 w-4" />
-              Class A CDL ({classAEnrollments.length})
+              Class A ({classAEnrollments.length})
             </TabsTrigger>
-            <TabsTrigger value="class-b" className="flex items-center gap-2">
+            <TabsTrigger 
+              value="class-b"
+              className="data-[state=active]:bg-background data-[state=active]:shadow-sm transition-all flex items-center gap-2"
+            >
               <Users className="h-4 w-4" />
-              Class B CDL ({classBEnrollments.length})
+              Class B ({classBEnrollments.length})
             </TabsTrigger>
           </TabsList>
           
-          <TabsContent value="class-a" className="mt-6">
-            <EnrollmentTable enrollmentsList={classAEnrollments} programType="class-a" />
-          </TabsContent>
-          
-          <TabsContent value="class-b" className="mt-6">
-            <EnrollmentTable enrollmentsList={classBEnrollments} programType="class-b" />
+          <TabsContent value={activeTab} className="mt-6 animate-fade-in">
+            <Card className="shadow-lg border-border/50">
+              <CardHeader className="pb-4">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <CardTitle className="text-2xl">
+                      {activeTab === 'class-a' ? 'Class A' : 'Class B'} Students
+                    </CardTitle>
+                    <CardDescription className="mt-1">
+                      Manage and track progress for {activeTab === 'class-a' ? 'Class A' : 'Class B'} students
+                    </CardDescription>
+                  </div>
+                  <div className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-semibold">
+                    {filteredStudents.length} students
+                  </div>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <EnrollmentTable enrollmentsList={filteredStudents} programType={activeTab} />
+              </CardContent>
+            </Card>
           </TabsContent>
         </Tabs>
       </main>

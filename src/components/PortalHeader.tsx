@@ -61,9 +61,9 @@ const PortalHeader = ({ userRole, userName, userEmail }: PortalHeaderProps) => {
     : userEmail?.substring(0, 2).toUpperCase() || 'U';
 
   return (
-    <header className="bg-background border-b border-border sticky top-0 z-50 backdrop-blur-sm bg-background/95">
+    <header className="bg-background/80 border-b border-border/50 sticky top-0 z-50 backdrop-blur-xl supports-[backdrop-filter]:bg-background/60">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center py-4">
+        <div className="flex justify-between items-center py-3">
           {/* Logo & Title */}
           <div className="flex items-center gap-4">
             <Link to={userRole === 'admin' ? '/admin' : '/dashboard'} className="flex items-center gap-3">
@@ -106,14 +106,14 @@ const PortalHeader = ({ userRole, userName, userEmail }: PortalHeaderProps) => {
 
           {/* User Menu */}
           <div className="hidden lg:flex items-center gap-3">
-            <div className="flex items-center gap-3 px-3 py-2 bg-muted rounded-lg">
-              <Avatar className="h-8 w-8">
-                <AvatarFallback className="bg-primary text-primary-foreground text-xs">
+            <div className="flex items-center gap-3 px-3 py-2 bg-gradient-to-br from-muted/80 to-muted/40 rounded-xl border border-border/50 hover:border-primary/20 transition-all">
+              <Avatar className="h-9 w-9 ring-2 ring-primary/10">
+                <AvatarFallback className="bg-gradient-to-br from-primary to-primary/80 text-primary-foreground text-xs font-semibold">
                   {initials}
                 </AvatarFallback>
               </Avatar>
               <div className="text-sm">
-                <p className="font-medium leading-none">{userName || 'User'}</p>
+                <p className="font-semibold leading-none">{userName || 'User'}</p>
                 <p className="text-xs text-muted-foreground mt-0.5">{userEmail}</p>
               </div>
             </div>
@@ -121,6 +121,7 @@ const PortalHeader = ({ userRole, userName, userEmail }: PortalHeaderProps) => {
               variant="outline"
               size="sm"
               onClick={handleSignOut}
+              className="hover:bg-destructive hover:text-destructive-foreground transition-all"
             >
               <LogOut className="h-4 w-4 mr-2" />
               Sign Out

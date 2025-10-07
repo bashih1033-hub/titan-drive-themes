@@ -4,10 +4,11 @@ import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, Users, GraduationCap, MessageSquare, Calendar, TrendingUp, ArrowRight } from 'lucide-react';
+import { Loader2, Users, GraduationCap, MessageSquare, Calendar, TrendingUp, ArrowRight, CheckCircle2, Clock } from 'lucide-react';
 import PortalHeader from '@/components/PortalHeader';
 import { User } from '@supabase/supabase-js';
 import { DashboardReminders } from '@/components/admin/DashboardReminders';
+import { StatsCard } from '@/components/admin/StatsCard';
 
 export default function Admin() {
   const navigate = useNavigate();
@@ -132,184 +133,223 @@ export default function Admin() {
   const scheduledClasses = classes.filter(c => c.status === 'scheduled');
   const pendingReviews = reviews.filter(r => r.status === 'pending');
 
+  const completedEnrollments = enrollments.filter(e => e.status === 'completed');
+  const conversionRate = leads.length > 0 
+    ? Math.round((students.length / leads.length) * 100) 
+    : 0;
+
   return (
-    <div className="min-h-screen flex flex-col bg-muted/30">
+    <div className="min-h-screen flex flex-col bg-gradient-to-br from-muted/30 via-background to-muted/20">
       <PortalHeader 
         userRole="admin"
         userName={profile ? `${profile.first_name} ${profile.last_name}` : undefined}
         userEmail={user?.email}
       />
-      <main className="flex-1 container mx-auto px-4 py-8">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold">Welcome back, {profile?.first_name || 'Admin'}!</h1>
-          <p className="text-muted-foreground">Here's what's happening with your trucking school</p>
+      <main className="flex-1 container mx-auto px-4 py-8 space-y-8">
+        {/* Hero Section */}
+        <div className="space-y-2 animate-fade-in">
+          <h1 className="text-4xl font-bold tracking-tight">
+            Welcome back, {profile?.first_name || 'Admin'}! 👋
+          </h1>
+          <p className="text-lg text-muted-foreground">
+            Here's what's happening with your trucking school today
+          </p>
         </div>
 
         {/* Dashboard Reminders */}
         <DashboardReminders enrollments={enrollments} />
 
         {/* Summary Cards */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => navigate('/admin/crm')}>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Leads</CardTitle>
-              <Users className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{leads.length}</div>
-              <p className="text-xs text-muted-foreground mt-1">
-                {newLeads.length} new leads
-              </p>
-              <Button variant="link" className="px-0 mt-2 h-auto text-xs" asChild>
-                <Link to="/admin/crm">
-                  View CRM <ArrowRight className="h-3 w-3 ml-1" />
-                </Link>
-              </Button>
-            </CardContent>
-          </Card>
-
-          <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => navigate('/admin/students')}>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Students</CardTitle>
-              <GraduationCap className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{students.length}</div>
-              <p className="text-xs text-muted-foreground mt-1">
-                {activeEnrollments.length} active enrollments
-              </p>
-              <Button variant="link" className="px-0 mt-2 h-auto text-xs" asChild>
-                <Link to="/admin/students">
-                  View Students <ArrowRight className="h-3 w-3 ml-1" />
-                </Link>
-              </Button>
-            </CardContent>
-          </Card>
-
-          <Card className="hover:shadow-lg transition-shadow cursor-pointer" onClick={() => navigate('/admin/classes')}>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Classes</CardTitle>
-              <Calendar className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{classes.length}</div>
-              <p className="text-xs text-muted-foreground mt-1">
-                {scheduledClasses.length} scheduled
-              </p>
-              <Button variant="link" className="px-0 mt-2 h-auto text-xs" asChild>
-                <Link to="/admin/classes">
-                  Manage Classes <ArrowRight className="h-3 w-3 ml-1" />
-                </Link>
-              </Button>
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Pending Reviews</CardTitle>
-              <MessageSquare className="h-4 w-4 text-muted-foreground" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{pendingReviews.length}</div>
-              <p className="text-xs text-muted-foreground mt-1">
-                Awaiting approval
-              </p>
-            </CardContent>
-          </Card>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+          <StatsCard
+            title="Total Leads"
+            value={leads.length}
+            subtitle={`${newLeads.length} new this week`}
+            icon={Users}
+            gradient="primary"
+            onClick={() => navigate('/admin/crm')}
+          />
+          
+          <StatsCard
+            title="Active Students"
+            value={students.length}
+            subtitle={`${activeEnrollments.length} in progress`}
+            icon={GraduationCap}
+            gradient="accent"
+            onClick={() => navigate('/admin/students')}
+            trend={{ value: 12, isPositive: true }}
+          />
+          
+          <StatsCard
+            title="Classes"
+            value={classes.length}
+            subtitle={`${scheduledClasses.length} scheduled`}
+            icon={Calendar}
+            gradient="secondary"
+            onClick={() => navigate('/admin/classes')}
+          />
+          
+          <StatsCard
+            title="Completion Rate"
+            value={`${completedEnrollments.length}/${enrollments.length}`}
+            subtitle={`${conversionRate}% conversion`}
+            icon={CheckCircle2}
+            gradient="success"
+          />
         </div>
 
-        {/* Quick Actions */}
-        <div className="grid md:grid-cols-3 gap-6 mb-8">
-          <Card>
+        {/* Main Content Grid */}
+        <div className="grid lg:grid-cols-3 gap-6">
+          {/* Quick Actions */}
+          <Card className="lg:col-span-1 hover:shadow-md transition-shadow">
             <CardHeader>
-              <CardTitle className="text-lg">Quick Actions</CardTitle>
-              <CardDescription>Common administrative tasks</CardDescription>
+              <CardTitle className="text-lg flex items-center gap-2">
+                <Clock className="h-5 w-5 text-primary" />
+                Quick Actions
+              </CardTitle>
+              <CardDescription>Common tasks</CardDescription>
             </CardHeader>
             <CardContent className="space-y-2">
-              <Button className="w-full justify-start" variant="outline" asChild>
+              <Button 
+                className="w-full justify-start group hover:bg-primary hover:text-primary-foreground transition-all" 
+                variant="outline" 
+                asChild
+              >
                 <Link to="/admin/crm">
-                  <Users className="h-4 w-4 mr-2" />
+                  <Users className="h-4 w-4 mr-2 transition-transform group-hover:scale-110" />
                   Manage Leads
+                  <ArrowRight className="h-3 w-3 ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
                 </Link>
               </Button>
-              <Button className="w-full justify-start" variant="outline" asChild>
+              <Button 
+                className="w-full justify-start group hover:bg-primary hover:text-primary-foreground transition-all" 
+                variant="outline" 
+                asChild
+              >
                 <Link to="/admin/classes">
-                  <Calendar className="h-4 w-4 mr-2" />
+                  <Calendar className="h-4 w-4 mr-2 transition-transform group-hover:scale-110" />
                   Schedule Classes
+                  <ArrowRight className="h-3 w-3 ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
                 </Link>
               </Button>
-              <Button className="w-full justify-start" variant="outline" asChild>
+              <Button 
+                className="w-full justify-start group hover:bg-primary hover:text-primary-foreground transition-all" 
+                variant="outline" 
+                asChild
+              >
                 <Link to="/admin/students">
-                  <GraduationCap className="h-4 w-4 mr-2" />
+                  <GraduationCap className="h-4 w-4 mr-2 transition-transform group-hover:scale-110" />
                   View Students
+                  <ArrowRight className="h-3 w-3 ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
                 </Link>
               </Button>
             </CardContent>
           </Card>
 
           {/* Recent Activity */}
-          <Card className="md:col-span-2">
+          <Card className="lg:col-span-2 hover:shadow-md transition-shadow">
             <CardHeader>
-              <CardTitle className="text-lg">Recent Enrollments</CardTitle>
-              <CardDescription>Latest student enrollments</CardDescription>
+              <CardTitle className="text-lg flex items-center gap-2">
+                <TrendingUp className="h-5 w-5 text-primary" />
+                Recent Enrollments
+              </CardTitle>
+              <CardDescription>Latest student activity</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="space-y-3">
-                {enrollments.slice(0, 5).map((enrollment) => (
-                  <div key={enrollment.id} className="flex items-center justify-between p-3 bg-muted/50 rounded-lg">
-                    <div className="flex items-center gap-3">
-                      <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center">
-                        <GraduationCap className="h-5 w-5 text-primary" />
+              {enrollments.length === 0 ? (
+                <div className="text-center py-12">
+                  <GraduationCap className="h-12 w-12 text-muted-foreground mx-auto mb-4 opacity-50" />
+                  <p className="text-muted-foreground">No enrollments yet</p>
+                </div>
+              ) : (
+                <div className="space-y-2">
+                  {enrollments.slice(0, 5).map((enrollment, index) => (
+                    <div 
+                      key={enrollment.id} 
+                      className="group flex items-center justify-between p-3 rounded-lg bg-muted/30 hover:bg-muted/60 transition-all duration-200 hover:scale-[1.01] cursor-pointer"
+                      style={{ animationDelay: `${index * 50}ms` }}
+                    >
+                      <div className="flex items-center gap-3">
+                        <div className="h-11 w-11 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center transition-transform group-hover:scale-110">
+                          <GraduationCap className="h-5 w-5 text-primary" />
+                        </div>
+                        <div>
+                          <p className="font-medium text-sm">
+                            {enrollment.profiles.first_name} {enrollment.profiles.last_name}
+                          </p>
+                          <p className="text-xs text-muted-foreground capitalize">
+                            {enrollment.classes.program_type.replace('-', ' ')}
+                          </p>
+                        </div>
                       </div>
-                      <div>
-                        <p className="font-medium text-sm">
-                          {enrollment.profiles.first_name} {enrollment.profiles.last_name}
-                        </p>
-                        <p className="text-xs text-muted-foreground capitalize">
-                          {enrollment.classes.program_type.replace('-', ' ')}
+                      <div className="text-right">
+                        <span className={`text-xs font-medium px-2 py-1 rounded-full ${
+                          enrollment.status === 'completed' 
+                            ? 'bg-green-500/10 text-green-600 dark:text-green-400'
+                            : enrollment.status === 'in-progress'
+                            ? 'bg-blue-500/10 text-blue-600 dark:text-blue-400'
+                            : 'bg-muted text-muted-foreground'
+                        }`}>
+                          {enrollment.status}
+                        </span>
+                        <p className="text-xs text-muted-foreground mt-1">
+                          {new Date(enrollment.created_at).toLocaleDateString()}
                         </p>
                       </div>
                     </div>
-                    <div className="text-right">
-                      <p className="text-xs font-medium capitalize">{enrollment.status}</p>
-                      <p className="text-xs text-muted-foreground">
-                        {new Date(enrollment.created_at).toLocaleDateString()}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              )}
             </CardContent>
           </Card>
         </div>
 
         {/* Pending Reviews Section */}
         {pendingReviews.length > 0 && (
-          <Card>
+          <Card className="hover:shadow-md transition-shadow">
             <CardHeader>
-              <CardTitle>Pending Reviews</CardTitle>
+              <CardTitle className="flex items-center gap-2">
+                <MessageSquare className="h-5 w-5 text-primary" />
+                Pending Reviews
+              </CardTitle>
               <CardDescription>Reviews awaiting your approval</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="space-y-4">
-                {pendingReviews.map((review) => (
-                  <div key={review.id} className="border rounded-lg p-4">
-                    <div className="flex justify-between items-start">
+              <div className="space-y-3">
+                {pendingReviews.map((review, index) => (
+                  <div 
+                    key={review.id} 
+                    className="group border rounded-xl p-4 hover:shadow-md hover:border-primary/20 transition-all duration-200"
+                    style={{ animationDelay: `${index * 50}ms` }}
+                  >
+                    <div className="flex justify-between items-start gap-4">
                       <div className="flex-1">
-                        <div className="flex items-center gap-2 mb-2">
-                          <h3 className="font-semibold">
-                            {review.profiles.first_name} {review.profiles.last_name}
-                          </h3>
-                          <div className="flex">
-                            {[...Array(review.rating)].map((_, i) => (
-                              <span key={i} className="text-yellow-500">★</span>
-                            ))}
+                        <div className="flex items-center gap-3 mb-2">
+                          <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center">
+                            <span className="text-sm font-semibold text-primary">
+                              {review.profiles.first_name[0]}{review.profiles.last_name[0]}
+                            </span>
+                          </div>
+                          <div>
+                            <h3 className="font-semibold">
+                              {review.profiles.first_name} {review.profiles.last_name}
+                            </h3>
+                            <div className="flex gap-0.5">
+                              {[...Array(review.rating)].map((_, i) => (
+                                <span key={i} className="text-yellow-500 text-sm">★</span>
+                              ))}
+                            </div>
                           </div>
                         </div>
-                        <h4 className="font-medium">{review.title}</h4>
-                        <p className="text-sm text-muted-foreground mt-1">{review.content}</p>
+                        <h4 className="font-medium mb-1">{review.title}</h4>
+                        <p className="text-sm text-muted-foreground line-clamp-2">{review.content}</p>
                       </div>
-                      <Button size="sm" onClick={() => handleApproveReview(review.id)}>
+                      <Button 
+                        size="sm" 
+                        onClick={() => handleApproveReview(review.id)}
+                        className="shrink-0 hover:scale-105 transition-transform"
+                      >
+                        <CheckCircle2 className="h-4 w-4 mr-1" />
                         Approve
                       </Button>
                     </div>
