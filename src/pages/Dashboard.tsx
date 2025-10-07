@@ -5,9 +5,8 @@ import { User } from '@supabase/supabase-js';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, LogOut, GraduationCap, Calendar, FileText, Star } from 'lucide-react';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+import { Loader2, GraduationCap, Calendar, FileText, Star } from 'lucide-react';
+import PortalHeader from '@/components/PortalHeader';
 
 export default function Dashboard() {
   const navigate = useNavigate();
@@ -79,11 +78,6 @@ export default function Dashboard() {
     }
   };
 
-  const handleSignOut = async () => {
-    await supabase.auth.signOut();
-    navigate('/');
-  };
-
   if (loading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -93,18 +87,18 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
+    <div className="min-h-screen flex flex-col bg-muted/30">
+      <PortalHeader 
+        userRole="student"
+        userName={profile ? `${profile.first_name} ${profile.last_name}` : undefined}
+        userEmail={user?.email}
+      />
       <main className="flex-1 container mx-auto px-4 py-8">
-        <div className="flex justify-between items-center mb-8">
-          <div>
-            <h1 className="text-3xl font-bold">Welcome, {profile?.first_name}!</h1>
-            <p className="text-muted-foreground">Manage your CDL training journey</p>
-          </div>
-          <Button onClick={handleSignOut} variant="outline">
-            <LogOut className="h-4 w-4 mr-2" />
-            Sign Out
-          </Button>
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold">
+            Welcome back, {profile?.first_name || 'Student'}!
+          </h1>
+          <p className="text-muted-foreground">Track your progress and manage your enrollments</p>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
@@ -174,7 +168,7 @@ export default function Dashboard() {
                   <div key={enrollment.id} className="border rounded-lg p-4">
                     <div className="flex justify-between items-start">
                       <div>
-                        <h3 className="font-semibold">{enrollment.classes.program_type}</h3>
+                        <h3 className="font-semibold capitalize">{enrollment.classes.program_type.replace('-', ' ')}</h3>
                         <p className="text-sm text-muted-foreground">
                           Start Date: {new Date(enrollment.classes.start_date).toLocaleDateString()}
                         </p>
@@ -193,7 +187,6 @@ export default function Dashboard() {
           </CardContent>
         </Card>
       </main>
-      <Footer />
     </div>
   );
 }

@@ -5,11 +5,11 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useToast } from '@/hooks/use-toast';
-import { Loader2, LogOut, Users, GraduationCap, MessageSquare, Calendar, LayoutDashboard } from 'lucide-react';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+import { Loader2, Users, GraduationCap, MessageSquare, Calendar, LayoutDashboard } from 'lucide-react';
+import PortalHeader from '@/components/PortalHeader';
 import { LeadCRM } from '@/components/admin/LeadCRM';
 import { ClassManagement } from '@/components/admin/ClassManagement';
+import { User } from '@supabase/supabase-js';
 
 export default function Admin() {
   const navigate = useNavigate();
@@ -21,6 +21,8 @@ export default function Admin() {
   const [classes, setClasses] = useState<any[]>([]);
   const [enrollments, setEnrollments] = useState<any[]>([]);
   const [reviews, setReviews] = useState<any[]>([]);
+  const [user, setUser] = useState<User | null>(null);
+  const [profile, setProfile] = useState<any>(null);
 
   useEffect(() => {
     checkAdminAndLoadData();
@@ -54,6 +56,16 @@ export default function Admin() {
       }
 
       setIsAdmin(true);
+      setUser(session.user);
+
+      // Fetch admin profile
+      const { data: profileData } = await supabase
+        .from('profiles')
+        .select('*')
+        .eq('id', session.user.id)
+        .single();
+
+      setProfile(profileData);
 
       // Load all admin data
       const [leadsData, studentsData, classesData, enrollmentsData, reviewsData] = await Promise.all([
@@ -81,10 +93,6 @@ export default function Admin() {
     }
   };
 
-  const handleSignOut = async () => {
-    await supabase.auth.signOut();
-    navigate('/');
-  };
 
   const handleApproveReview = async (reviewId: string) => {
     try {
@@ -125,18 +133,16 @@ export default function Admin() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
+    <div className="min-h-screen flex flex-col bg-muted/30">
+      <PortalHeader 
+        userRole="admin"
+        userName={profile ? `${profile.first_name} ${profile.last_name}` : undefined}
+        userEmail={user?.email}
+      />
       <main className="flex-1 container mx-auto px-4 py-8">
-        <div className="flex justify-between items-center mb-8">
-          <div>
-            <h1 className="text-3xl font-bold">Admin Portal</h1>
-            <p className="text-muted-foreground">Manage students, classes, and operations</p>
-          </div>
-          <Button onClick={handleSignOut} variant="outline">
-            <LogOut className="h-4 w-4 mr-2" />
-            Sign Out
-          </Button>
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold">Welcome back, {profile?.first_name || 'Admin'}!</h1>
+          <p className="text-muted-foreground">Manage your trucking school operations</p>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
@@ -347,7 +353,6 @@ export default function Admin() {
           </TabsContent>
         </Tabs>
       </main>
-      <Footer />
     </div>
   );
 }
