@@ -40,6 +40,7 @@ export default function Students() {
   const [moduleFilter, setModuleFilter] = useState('all');
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [bulkUpdateOpen, setBulkUpdateOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState('class-a');
 
   useEffect(() => {
     checkAdminAndLoadData();
@@ -308,7 +309,6 @@ export default function Students() {
     );
   }
 
-  const [activeTab, setActiveTab] = useState('class-a');
   const filteredStudents = activeTab === 'class-a' ? classAEnrollments : classBEnrollments;
 
   return (
