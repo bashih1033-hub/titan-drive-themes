@@ -94,22 +94,22 @@ export default function Dashboard() {
         userName={profile ? `${profile.first_name} ${profile.last_name}` : undefined}
         userEmail={user?.email}
       />
-      <main className="flex-1 container mx-auto px-4 py-8">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold">
+      <main className="flex-1 container mx-auto px-3 sm:px-4 md:px-6 py-4 sm:py-6 md:py-8">
+        <div className="mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl font-bold">
             Welcome back, {profile?.first_name || 'Student'}!
           </h1>
-          <p className="text-muted-foreground">Track your progress and manage your enrollments</p>
+          <p className="text-sm sm:text-base text-muted-foreground">Track your progress and manage your enrollments</p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6 mb-6 sm:mb-8">
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Active Enrollments</CardTitle>
-              <GraduationCap className="h-4 w-4 text-muted-foreground" />
+              <CardTitle className="text-xs sm:text-sm font-medium">Active Enrollments</CardTitle>
+              <GraduationCap className="h-3 w-3 sm:h-4 sm:w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">
+              <div className="text-xl sm:text-2xl font-bold">
                 {enrollments.filter(e => ['pending', 'confirmed', 'in-progress'].includes(e.status)).length}
               </div>
             </CardContent>
@@ -117,11 +117,11 @@ export default function Dashboard() {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Completed Classes</CardTitle>
-              <Calendar className="h-4 w-4 text-muted-foreground" />
+              <CardTitle className="text-xs sm:text-sm font-medium">Completed Classes</CardTitle>
+              <Calendar className="h-3 w-3 sm:h-4 sm:w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">
+              <div className="text-xl sm:text-2xl font-bold">
                 {enrollments.filter(e => e.status === 'completed').length}
               </div>
             </CardContent>
@@ -129,21 +129,21 @@ export default function Dashboard() {
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Documents</CardTitle>
-              <FileText className="h-4 w-4 text-muted-foreground" />
+              <CardTitle className="text-xs sm:text-sm font-medium">Documents</CardTitle>
+              <FileText className="h-3 w-3 sm:h-4 sm:w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">0</div>
+              <div className="text-xl sm:text-2xl font-bold">0</div>
             </CardContent>
           </Card>
 
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Progress</CardTitle>
-              <Star className="h-4 w-4 text-muted-foreground" />
+              <CardTitle className="text-xs sm:text-sm font-medium">Progress</CardTitle>
+              <Star className="h-3 w-3 sm:h-4 sm:w-4 text-muted-foreground" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">
+              <div className="text-xl sm:text-2xl font-bold">
                 {enrollments.length > 0 
                   ? Math.round(enrollments.reduce((acc, e) => acc + (e.progress_percentage || 0), 0) / enrollments.length)
                   : 0}%
@@ -154,57 +154,57 @@ export default function Dashboard() {
 
         <Card>
           <CardHeader>
-            <CardTitle>My Enrollments</CardTitle>
-            <CardDescription>Track your CDL training programs</CardDescription>
+            <CardTitle className="text-lg sm:text-xl">My Enrollments</CardTitle>
+            <CardDescription className="text-xs sm:text-sm">Track your CDL training programs</CardDescription>
           </CardHeader>
           <CardContent>
             {enrollments.length === 0 ? (
               <div className="text-center py-8">
-                <p className="text-muted-foreground mb-4">You haven't enrolled in any programs yet.</p>
-                <Button onClick={() => navigate('/programs')}>Browse Programs</Button>
+                <p className="text-sm sm:text-base text-muted-foreground mb-4">You haven't enrolled in any programs yet.</p>
+                <Button onClick={() => navigate('/programs')} className="text-sm sm:text-base">Browse Programs</Button>
               </div>
             ) : (
-              <div className="space-y-4">
+              <div className="space-y-3 sm:space-y-4">
                 {enrollments.map((enrollment) => (
-                  <div key={enrollment.id} className="border rounded-lg p-4">
-                    <div className="flex justify-between items-start mb-3">
-                      <div className="flex-1">
-                        <h3 className="font-semibold capitalize">{enrollment.classes.program_type.replace('-', ' ')}</h3>
-                        <p className="text-sm text-muted-foreground">
+                  <div key={enrollment.id} className="border rounded-lg p-3 sm:p-4">
+                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start mb-3 gap-2">
+                      <div className="flex-1 min-w-0">
+                        <h3 className="font-semibold capitalize text-sm sm:text-base truncate">{enrollment.classes.program_type.replace('-', ' ')}</h3>
+                        <p className="text-xs sm:text-sm text-muted-foreground">
                           Start Date: {new Date(enrollment.classes.start_date).toLocaleDateString()}
                         </p>
                       </div>
-                      <div className="text-right">
-                        <div className="text-2xl font-bold">{enrollment.progress_percentage}%</div>
-                        <p className="text-sm text-muted-foreground">Complete</p>
+                      <div className="text-left sm:text-right">
+                        <div className="text-xl sm:text-2xl font-bold">{enrollment.progress_percentage}%</div>
+                        <p className="text-xs sm:text-sm text-muted-foreground">Complete</p>
                       </div>
                     </div>
                     
                     {/* Current Module Display */}
                     {enrollment.current_module && (
-                      <div className="mb-3 p-3 bg-primary/5 rounded-md border">
+                      <div className="mb-3 p-2 sm:p-3 bg-primary/5 rounded-md border">
                         <p className="text-xs font-medium text-muted-foreground mb-1">Current Module:</p>
-                        <p className="text-sm font-semibold capitalize">
+                        <p className="text-xs sm:text-sm font-semibold capitalize">
                           {enrollment.current_module.replace(/_/g, ' ').replace('dmv', 'DMV')}
                         </p>
                         {enrollment.dmv_test_attempts > 0 && (
-                          <Badge variant="destructive" className="mt-2">
+                          <Badge variant="destructive" className="mt-2 text-xs">
                             DMV Test Attempts: {enrollment.dmv_test_attempts}
                           </Badge>
                         )}
                       </div>
                     )}
                     
-                    <div className="flex gap-4 text-sm">
+                    <div className="flex flex-wrap gap-3 sm:gap-4 text-xs sm:text-sm">
                       <div className="flex items-center gap-2">
                         <span className="text-muted-foreground">Status:</span>
-                        <Badge variant={enrollment.status === 'completed' ? 'default' : 'secondary'}>
+                        <Badge variant={enrollment.status === 'completed' ? 'default' : 'secondary'} className="text-xs">
                           {enrollment.status}
                         </Badge>
                       </div>
                       <div className="flex items-center gap-2">
                         <span className="text-muted-foreground">Payment:</span>
-                        <Badge variant={enrollment.payment_status === 'paid' ? 'default' : enrollment.payment_status === 'partial' ? 'secondary' : 'destructive'}>
+                        <Badge variant={enrollment.payment_status === 'paid' ? 'default' : enrollment.payment_status === 'partial' ? 'secondary' : 'destructive'} className="text-xs">
                           {enrollment.payment_status}
                         </Badge>
                       </div>

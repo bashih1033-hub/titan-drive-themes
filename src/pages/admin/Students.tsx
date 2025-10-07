@@ -162,11 +162,11 @@ export default function Students() {
     const someSelected = enrollmentsList.some(e => selectedIds.has(e.id)) && !allSelected;
 
     return (
-      <div className="space-y-4">
-        <div className="flex items-center justify-between gap-4 flex-wrap">
-          <div className="flex items-center gap-3">
+      <div className="space-y-3 sm:space-y-4">
+        <div className="flex flex-col xs:flex-row items-start xs:items-center justify-between gap-2 sm:gap-4 flex-wrap">
+          <div className="flex items-center gap-2 sm:gap-3">
             {selectedIds.size > 0 && (
-              <Badge variant="secondary" className="px-3 py-1 text-sm font-semibold">
+              <Badge variant="secondary" className="px-2 sm:px-3 py-1 text-xs sm:text-sm font-semibold">
                 {getSelectedEnrollments().length} selected
               </Badge>
             )}
@@ -175,15 +175,16 @@ export default function Students() {
           {selectedIds.size > 0 && (
             <Button 
               onClick={() => setBulkUpdateOpen(true)}
-              className="hover:scale-105 transition-transform shadow-md"
+              className="hover:scale-105 transition-transform shadow-md text-xs sm:text-sm h-8 sm:h-10 w-full xs:w-auto"
             >
-              <CheckSquare className="h-4 w-4 mr-2" />
+              <CheckSquare className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
               Update {selectedIds.size} Selected
             </Button>
           )}
         </div>
 
-        <div className="border rounded-xl overflow-hidden shadow-sm">
+        {/* Mobile: Card Layout, Desktop: Table Layout */}
+        <div className="hidden md:block border rounded-xl overflow-hidden shadow-sm">
           <Table>
             <TableHeader>
               <TableRow>
@@ -297,6 +298,103 @@ export default function Students() {
             </TableBody>
           </Table>
         </div>
+
+        {/* Mobile Card Layout */}
+        <div className="md:hidden space-y-3">
+          {enrollmentsList.length === 0 ? (
+            <div className="text-center py-12 px-4">
+              <Users className="h-12 w-12 text-muted-foreground opacity-50 mx-auto mb-3" />
+              <p className="text-sm text-muted-foreground">No students found matching filters</p>
+            </div>
+          ) : (
+            enrollmentsList.map((enrollment, index) => (
+              <Card 
+                key={enrollment.id}
+                className="hover:shadow-md transition-all"
+                style={{ animationDelay: `${index * 30}ms` }}
+              >
+                <CardContent className="p-4 space-y-3">
+                  {/* Student Header */}
+                  <div className="flex items-start justify-between gap-2">
+                    <div className="flex items-center gap-2 flex-1 min-w-0">
+                      <Checkbox
+                        checked={selectedIds.has(enrollment.id)}
+                        onCheckedChange={() => toggleSelection(enrollment.id)}
+                        className="mt-1"
+                      />
+                      <div className="min-w-0 flex-1">
+                        <p className="font-semibold text-sm truncate">
+                          {enrollment.profiles.first_name} {enrollment.profiles.last_name}
+                        </p>
+                        <p className="text-xs text-muted-foreground truncate">{enrollment.profiles.email}</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Module & Progress */}
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between text-xs">
+                      <span className="text-muted-foreground">Module:</span>
+                      <Badge variant="outline" className="capitalize text-xs font-medium">
+                        {MODULE_LABELS[enrollment.current_module] || 'Not Set'}
+                      </Badge>
+                    </div>
+                    
+                    <div className="space-y-1">
+                      <div className="flex items-center justify-between text-xs">
+                        <span className="text-muted-foreground">Progress:</span>
+                        <span className="font-semibold">{enrollment.progress_percentage}%</span>
+                      </div>
+                      <div className="w-full bg-muted rounded-full h-2 overflow-hidden">
+                        <div 
+                          className="bg-gradient-to-r from-primary to-primary/80 h-2 rounded-full transition-all duration-500"
+                          style={{ width: `${enrollment.progress_percentage}%` }}
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Status Badges */}
+                  <div className="flex flex-wrap gap-2 text-xs">
+                    <div className="flex items-center gap-1">
+                      <span className="text-muted-foreground">Status:</span>
+                      <Badge variant={enrollment.status === 'completed' ? 'default' : 'secondary'} className="text-xs">
+                        {enrollment.status}
+                      </Badge>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <span className="text-muted-foreground">Payment:</span>
+                      <Badge 
+                        variant={
+                          enrollment.payment_status === 'paid' ? 'default' : 
+                          enrollment.payment_status === 'partial' ? 'secondary' : 
+                          'destructive'
+                        }
+                        className="text-xs"
+                      >
+                        {enrollment.payment_status}
+                      </Badge>
+                    </div>
+                    {enrollment.dmv_test_attempts > 0 && (
+                      <div className="flex items-center gap-1">
+                        <span className="text-muted-foreground">DMV:</span>
+                        <Badge variant="destructive" className="text-xs">
+                          {enrollment.dmv_test_attempts}× Failed
+                        </Badge>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Action Button */}
+                  <StudentModuleProgress
+                    enrollment={enrollment}
+                    onUpdate={checkAdminAndLoadData}
+                  />
+                </CardContent>
+              </Card>
+            ))
+          )}
+        </div>
       </div>
     );
   };
@@ -318,40 +416,40 @@ export default function Students() {
         userName={profile ? `${profile.first_name} ${profile.last_name}` : undefined}
         userEmail={user?.email}
       />
-      <main className="flex-1 container mx-auto px-4 py-8 space-y-6">
-        <div className="space-y-2 animate-fade-in">
-          <h1 className="text-4xl font-bold tracking-tight">Student Management 🎓</h1>
-          <p className="text-lg text-muted-foreground">Track progress and manage student enrollments</p>
+      <main className="flex-1 container mx-auto px-3 sm:px-4 md:px-6 py-4 sm:py-6 md:py-8 space-y-4 sm:space-y-6">
+        <div className="space-y-1 sm:space-y-2 animate-fade-in">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">Student Management 🎓</h1>
+          <p className="text-sm sm:text-base md:text-lg text-muted-foreground">Track progress and manage student enrollments</p>
         </div>
 
-        {/* Filters */}
+        {/* Filters - Mobile Optimized */}
         <Card className="shadow-lg border-border/50 hover:shadow-xl transition-shadow">
-          <CardHeader className="pb-4">
-            <CardTitle className="text-lg flex items-center gap-2">
-              <Filter className="h-5 w-5 text-primary" />
+          <CardHeader className="pb-3 sm:pb-4">
+            <CardTitle className="text-base sm:text-lg flex items-center gap-2">
+              <Filter className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
               Filters & Search
             </CardTitle>
-            <CardDescription>Narrow down your student list</CardDescription>
+            <CardDescription className="text-xs sm:text-sm">Narrow down your student list</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="grid md:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
               <div className="space-y-2">
-                <label className="text-sm font-medium">Search</label>
+                <label className="text-xs sm:text-sm font-medium">Search</label>
                 <div className="relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-3 w-3 sm:h-4 sm:w-4 text-muted-foreground" />
                   <Input
                     placeholder="Search by name or email..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="pl-9"
+                    className="pl-8 sm:pl-9 h-9 sm:h-10 text-sm"
                   />
                 </div>
               </div>
               
               <div className="space-y-2">
-                <label className="text-sm font-medium">Status</label>
+                <label className="text-xs sm:text-sm font-medium">Status</label>
                 <Select value={statusFilter} onValueChange={setStatusFilter}>
-                  <SelectTrigger>
+                  <SelectTrigger className="h-9 sm:h-10 text-sm">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -364,9 +462,9 @@ export default function Students() {
               </div>
               
               <div className="space-y-2">
-                <label className="text-sm font-medium">Current Module</label>
+                <label className="text-xs sm:text-sm font-medium">Current Module</label>
                 <Select value={moduleFilter} onValueChange={setModuleFilter}>
-                  <SelectTrigger>
+                  <SelectTrigger className="h-9 sm:h-10 text-sm">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -381,43 +479,47 @@ export default function Students() {
           </CardContent>
         </Card>
 
-        {/* Tabs for Class A and Class B */}
+        {/* Tabs for Class A and Class B - Mobile Optimized */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full max-w-md grid-cols-2 bg-muted/50 p-1">
+          <TabsList className="grid w-full grid-cols-2 bg-muted/50 p-1 h-auto">
             <TabsTrigger 
               value="class-a" 
-              className="data-[state=active]:bg-background data-[state=active]:shadow-sm transition-all flex items-center gap-2"
+              className="data-[state=active]:bg-background data-[state=active]:shadow-sm transition-all flex items-center gap-1 sm:gap-2 text-xs sm:text-sm h-9 sm:h-10"
             >
-              <Users className="h-4 w-4" />
-              Class A ({classAEnrollments.length})
+              <Users className="h-3 w-3 sm:h-4 sm:w-4" />
+              <span className="hidden xs:inline">Class A</span>
+              <span className="xs:hidden">A</span>
+              <span className="ml-1">({classAEnrollments.length})</span>
             </TabsTrigger>
             <TabsTrigger 
               value="class-b"
-              className="data-[state=active]:bg-background data-[state=active]:shadow-sm transition-all flex items-center gap-2"
+              className="data-[state=active]:bg-background data-[state=active]:shadow-sm transition-all flex items-center gap-1 sm:gap-2 text-xs sm:text-sm h-9 sm:h-10"
             >
-              <Users className="h-4 w-4" />
-              Class B ({classBEnrollments.length})
+              <Users className="h-3 w-3 sm:h-4 sm:w-4" />
+              <span className="hidden xs:inline">Class B</span>
+              <span className="xs:hidden">B</span>
+              <span className="ml-1">({classBEnrollments.length})</span>
             </TabsTrigger>
           </TabsList>
           
-          <TabsContent value={activeTab} className="mt-6 animate-fade-in">
+          <TabsContent value={activeTab} className="mt-4 sm:mt-6 animate-fade-in">
             <Card className="shadow-lg border-border/50">
-              <CardHeader className="pb-4">
-                <div className="flex items-center justify-between">
+              <CardHeader className="pb-3 sm:pb-4">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
                   <div>
-                    <CardTitle className="text-2xl">
+                    <CardTitle className="text-lg sm:text-xl md:text-2xl">
                       {activeTab === 'class-a' ? 'Class A' : 'Class B'} Students
                     </CardTitle>
-                    <CardDescription className="mt-1">
+                    <CardDescription className="text-xs sm:text-sm mt-1">
                       Manage and track progress for {activeTab === 'class-a' ? 'Class A' : 'Class B'} students
                     </CardDescription>
                   </div>
-                  <div className="px-3 py-1 bg-primary/10 text-primary rounded-full text-sm font-semibold">
+                  <div className="px-3 py-1.5 bg-primary/10 text-primary rounded-full text-xs sm:text-sm font-semibold whitespace-nowrap self-start sm:self-center">
                     {filteredStudents.length} students
                   </div>
                 </div>
               </CardHeader>
-              <CardContent>
+              <CardContent className="px-0 sm:px-6">
                 <EnrollmentTable enrollmentsList={filteredStudents} programType={activeTab} />
               </CardContent>
             </Card>

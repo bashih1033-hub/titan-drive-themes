@@ -145,13 +145,13 @@ export default function Admin() {
         userName={profile ? `${profile.first_name} ${profile.last_name}` : undefined}
         userEmail={user?.email}
       />
-      <main className="flex-1 container mx-auto px-4 py-8 space-y-8">
+      <main className="flex-1 container mx-auto px-3 sm:px-4 md:px-6 py-4 sm:py-6 md:py-8 space-y-4 sm:space-y-6 md:space-y-8">
         {/* Hero Section */}
-        <div className="space-y-2 animate-fade-in">
-          <h1 className="text-4xl font-bold tracking-tight">
+        <div className="space-y-1 sm:space-y-2 animate-fade-in">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-tight">
             Welcome back, {profile?.first_name || 'Admin'}! 👋
           </h1>
-          <p className="text-lg text-muted-foreground">
+          <p className="text-sm sm:text-base md:text-lg text-muted-foreground">
             Here's what's happening with your trucking school today
           </p>
         </div>
@@ -159,8 +159,8 @@ export default function Admin() {
         {/* Dashboard Reminders */}
         <DashboardReminders enrollments={enrollments} />
 
-        {/* Summary Cards */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6">
+        {/* Summary Cards - Responsive Grid */}
+        <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 lg:gap-6">
           <StatsCard
             title="Total Leads"
             value={leads.length}
@@ -198,49 +198,49 @@ export default function Admin() {
           />
         </div>
 
-        {/* Main Content Grid */}
-        <div className="grid lg:grid-cols-3 gap-6">
+        {/* Main Content Grid - Mobile Optimized */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
           {/* Quick Actions */}
           <Card className="lg:col-span-1 hover:shadow-md transition-shadow">
-            <CardHeader>
-              <CardTitle className="text-lg flex items-center gap-2">
-                <Clock className="h-5 w-5 text-primary" />
+            <CardHeader className="pb-3 sm:pb-4">
+              <CardTitle className="text-base sm:text-lg flex items-center gap-2">
+                <Clock className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
                 Quick Actions
               </CardTitle>
-              <CardDescription>Common tasks</CardDescription>
+              <CardDescription className="text-xs sm:text-sm">Common tasks</CardDescription>
             </CardHeader>
             <CardContent className="space-y-2">
               <Button 
-                className="w-full justify-start group hover:bg-primary hover:text-primary-foreground transition-all" 
+                className="w-full justify-start group hover:bg-primary hover:text-primary-foreground transition-all text-sm sm:text-base h-9 sm:h-10" 
                 variant="outline" 
                 asChild
               >
                 <Link to="/admin/crm">
-                  <Users className="h-4 w-4 mr-2 transition-transform group-hover:scale-110" />
+                  <Users className="h-3 w-3 sm:h-4 sm:w-4 mr-2 transition-transform group-hover:scale-110" />
                   Manage Leads
-                  <ArrowRight className="h-3 w-3 ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <ArrowRight className="h-2 w-2 sm:h-3 sm:w-3 ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
                 </Link>
               </Button>
               <Button 
-                className="w-full justify-start group hover:bg-primary hover:text-primary-foreground transition-all" 
+                className="w-full justify-start group hover:bg-primary hover:text-primary-foreground transition-all text-sm sm:text-base h-9 sm:h-10" 
                 variant="outline" 
                 asChild
               >
                 <Link to="/admin/classes">
-                  <Calendar className="h-4 w-4 mr-2 transition-transform group-hover:scale-110" />
+                  <Calendar className="h-3 w-3 sm:h-4 sm:w-4 mr-2 transition-transform group-hover:scale-110" />
                   Schedule Classes
-                  <ArrowRight className="h-3 w-3 ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <ArrowRight className="h-2 w-2 sm:h-3 sm:w-3 ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
                 </Link>
               </Button>
               <Button 
-                className="w-full justify-start group hover:bg-primary hover:text-primary-foreground transition-all" 
+                className="w-full justify-start group hover:bg-primary hover:text-primary-foreground transition-all text-sm sm:text-base h-9 sm:h-10" 
                 variant="outline" 
                 asChild
               >
                 <Link to="/admin/students">
-                  <GraduationCap className="h-4 w-4 mr-2 transition-transform group-hover:scale-110" />
+                  <GraduationCap className="h-3 w-3 sm:h-4 sm:w-4 mr-2 transition-transform group-hover:scale-110" />
                   View Students
-                  <ArrowRight className="h-3 w-3 ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
+                  <ArrowRight className="h-2 w-2 sm:h-3 sm:w-3 ml-auto opacity-0 group-hover:opacity-100 transition-opacity" />
                 </Link>
               </Button>
             </CardContent>
@@ -248,42 +248,42 @@ export default function Admin() {
 
           {/* Recent Activity */}
           <Card className="lg:col-span-2 hover:shadow-md transition-shadow">
-            <CardHeader>
-              <CardTitle className="text-lg flex items-center gap-2">
-                <TrendingUp className="h-5 w-5 text-primary" />
+            <CardHeader className="pb-3 sm:pb-4">
+              <CardTitle className="text-base sm:text-lg flex items-center gap-2">
+                <TrendingUp className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
                 Recent Enrollments
               </CardTitle>
-              <CardDescription>Latest student activity</CardDescription>
+              <CardDescription className="text-xs sm:text-sm">Latest student activity</CardDescription>
             </CardHeader>
             <CardContent>
               {enrollments.length === 0 ? (
-                <div className="text-center py-12">
-                  <GraduationCap className="h-12 w-12 text-muted-foreground mx-auto mb-4 opacity-50" />
-                  <p className="text-muted-foreground">No enrollments yet</p>
+                <div className="text-center py-8 sm:py-12">
+                  <GraduationCap className="h-10 w-10 sm:h-12 sm:w-12 text-muted-foreground mx-auto mb-3 sm:mb-4 opacity-50" />
+                  <p className="text-sm sm:text-base text-muted-foreground">No enrollments yet</p>
                 </div>
               ) : (
                 <div className="space-y-2">
                   {enrollments.slice(0, 5).map((enrollment, index) => (
                     <div 
                       key={enrollment.id} 
-                      className="group flex items-center justify-between p-3 rounded-lg bg-muted/30 hover:bg-muted/60 transition-all duration-200 hover:scale-[1.01] cursor-pointer"
+                      className="group flex items-center justify-between p-2 sm:p-3 rounded-lg bg-muted/30 hover:bg-muted/60 transition-all duration-200 hover:scale-[1.01] cursor-pointer"
                       style={{ animationDelay: `${index * 50}ms` }}
                     >
-                      <div className="flex items-center gap-3">
-                        <div className="h-11 w-11 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center transition-transform group-hover:scale-110">
-                          <GraduationCap className="h-5 w-5 text-primary" />
+                      <div className="flex items-center gap-2 sm:gap-3 flex-1 min-w-0">
+                        <div className="h-9 w-9 sm:h-11 sm:w-11 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 flex items-center justify-center transition-transform group-hover:scale-110 shrink-0">
+                          <GraduationCap className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
                         </div>
-                        <div>
-                          <p className="font-medium text-sm">
+                        <div className="min-w-0 flex-1">
+                          <p className="font-medium text-xs sm:text-sm truncate">
                             {enrollment.profiles.first_name} {enrollment.profiles.last_name}
                           </p>
-                          <p className="text-xs text-muted-foreground capitalize">
+                          <p className="text-xs text-muted-foreground capitalize truncate">
                             {enrollment.classes.program_type.replace('-', ' ')}
                           </p>
                         </div>
                       </div>
-                      <div className="text-right">
-                        <span className={`text-xs font-medium px-2 py-1 rounded-full ${
+                      <div className="text-right shrink-0 ml-2">
+                        <span className={`text-xs font-medium px-2 py-1 rounded-full whitespace-nowrap ${
                           enrollment.status === 'completed' 
                             ? 'bg-green-500/10 text-green-600 dark:text-green-400'
                             : enrollment.status === 'in-progress'
@@ -292,7 +292,7 @@ export default function Admin() {
                         }`}>
                           {enrollment.status}
                         </span>
-                        <p className="text-xs text-muted-foreground mt-1">
+                        <p className="text-xs text-muted-foreground mt-1 hidden sm:block">
                           {new Date(enrollment.created_at).toLocaleDateString()}
                         </p>
                       </div>
@@ -304,52 +304,52 @@ export default function Admin() {
           </Card>
         </div>
 
-        {/* Pending Reviews Section */}
+        {/* Pending Reviews Section - Mobile Optimized */}
         {pendingReviews.length > 0 && (
           <Card className="hover:shadow-md transition-shadow">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <MessageSquare className="h-5 w-5 text-primary" />
+            <CardHeader className="pb-3 sm:pb-4">
+              <CardTitle className="text-base sm:text-lg flex items-center gap-2">
+                <MessageSquare className="h-4 w-4 sm:h-5 sm:w-5 text-primary" />
                 Pending Reviews
               </CardTitle>
-              <CardDescription>Reviews awaiting your approval</CardDescription>
+              <CardDescription className="text-xs sm:text-sm">Reviews awaiting your approval</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
                 {pendingReviews.map((review, index) => (
                   <div 
                     key={review.id} 
-                    className="group border rounded-xl p-4 hover:shadow-md hover:border-primary/20 transition-all duration-200"
+                    className="group border rounded-xl p-3 sm:p-4 hover:shadow-md hover:border-primary/20 transition-all duration-200"
                     style={{ animationDelay: `${index * 50}ms` }}
                   >
-                    <div className="flex justify-between items-start gap-4">
-                      <div className="flex-1">
-                        <div className="flex items-center gap-3 mb-2">
-                          <div className="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center">
-                            <span className="text-sm font-semibold text-primary">
+                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-3 sm:gap-4">
+                      <div className="flex-1 min-w-0">
+                        <div className="flex items-center gap-2 sm:gap-3 mb-2">
+                          <div className="h-8 w-8 sm:h-10 sm:w-10 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                            <span className="text-xs sm:text-sm font-semibold text-primary">
                               {review.profiles.first_name[0]}{review.profiles.last_name[0]}
                             </span>
                           </div>
-                          <div>
-                            <h3 className="font-semibold">
+                          <div className="min-w-0 flex-1">
+                            <h3 className="font-semibold text-sm sm:text-base truncate">
                               {review.profiles.first_name} {review.profiles.last_name}
                             </h3>
                             <div className="flex gap-0.5">
                               {[...Array(review.rating)].map((_, i) => (
-                                <span key={i} className="text-yellow-500 text-sm">★</span>
+                                <span key={i} className="text-yellow-500 text-xs sm:text-sm">★</span>
                               ))}
                             </div>
                           </div>
                         </div>
-                        <h4 className="font-medium mb-1">{review.title}</h4>
-                        <p className="text-sm text-muted-foreground line-clamp-2">{review.content}</p>
+                        <h4 className="font-medium mb-1 text-sm sm:text-base">{review.title}</h4>
+                        <p className="text-xs sm:text-sm text-muted-foreground line-clamp-2">{review.content}</p>
                       </div>
                       <Button 
                         size="sm" 
                         onClick={() => handleApproveReview(review.id)}
-                        className="shrink-0 hover:scale-105 transition-transform"
+                        className="shrink-0 hover:scale-105 transition-transform w-full sm:w-auto h-9 text-sm"
                       >
-                        <CheckCircle2 className="h-4 w-4 mr-1" />
+                        <CheckCircle2 className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
                         Approve
                       </Button>
                     </div>

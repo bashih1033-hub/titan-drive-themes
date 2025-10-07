@@ -94,24 +94,24 @@ export default function Classes() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-muted/30">
+    <div className="min-h-screen flex flex-col bg-gradient-to-br from-muted/30 via-background to-muted/20">
       <PortalHeader 
         userRole="admin"
         userName={profile ? `${profile.first_name} ${profile.last_name}` : undefined}
         userEmail={user?.email}
       />
-      <main className="flex-1 container mx-auto px-4 py-8">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold">Class Management</h1>
-          <p className="text-muted-foreground">Manage class schedules and enroll students</p>
+      <main className="flex-1 container mx-auto px-3 sm:px-4 md:px-6 py-4 sm:py-6 md:py-8">
+        <div className="mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl font-bold">Class Management</h1>
+          <p className="text-sm sm:text-base text-muted-foreground">Manage class schedules and enroll students</p>
         </div>
 
-        <Card>
+        <Card className="shadow-lg">
           <CardHeader>
-            <CardTitle>Classes & Enrollments</CardTitle>
-            <CardDescription>View all classes and enroll students or convert leads</CardDescription>
+            <CardTitle className="text-lg sm:text-xl">Classes & Enrollments</CardTitle>
+            <CardDescription className="text-xs sm:text-sm">View all classes and enroll students or convert leads</CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-0 sm:p-6">
             <ClassManagement
               classes={classes}
               enrollments={enrollments}

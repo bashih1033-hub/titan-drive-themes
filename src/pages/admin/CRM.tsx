@@ -88,24 +88,24 @@ export default function CRM() {
   }
 
   return (
-    <div className="min-h-screen flex flex-col bg-muted/30">
+    <div className="min-h-screen flex flex-col bg-gradient-to-br from-muted/30 via-background to-muted/20">
       <PortalHeader 
         userRole="admin"
         userName={profile ? `${profile.first_name} ${profile.last_name}` : undefined}
         userEmail={user?.email}
       />
-      <main className="flex-1 container mx-auto px-4 py-8">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold">CRM - Lead Pipeline</h1>
-          <p className="text-muted-foreground">Drag and drop leads between stages to manage your sales pipeline</p>
+      <main className="flex-1 container mx-auto px-3 sm:px-4 md:px-6 py-4 sm:py-6 md:py-8">
+        <div className="mb-6 sm:mb-8">
+          <h1 className="text-2xl sm:text-3xl font-bold">CRM - Lead Pipeline</h1>
+          <p className="text-sm sm:text-base text-muted-foreground">Drag and drop leads between stages to manage your sales pipeline</p>
         </div>
 
-        <Card>
+        <Card className="shadow-lg">
           <CardHeader>
-            <CardTitle>Lead Management</CardTitle>
-            <CardDescription>Track leads from initial contact to enrollment</CardDescription>
+            <CardTitle className="text-lg sm:text-xl">Lead Management</CardTitle>
+            <CardDescription className="text-xs sm:text-sm">Track leads from initial contact to enrollment</CardDescription>
           </CardHeader>
-          <CardContent>
+          <CardContent className="p-0 sm:p-6">
             <LeadCRM 
               leads={leads} 
               onLeadsUpdate={checkAdminAndLoadData}
